@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chapter 8: Reasoning from data, outliers, and diagnostic analysis.">
+  <title>Chapter 8 | Reasoning from Data</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav class="book-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp7.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp9.html">Next Chapter →</a>
+  </nav>
+
+  <header class="chapter-header" id="chapter-eight">
+    <div class="header-inner">
+      <p class="eyebrow">Chapter 8</p>
+      <h1>Reasoning from Data</h1>
+      <p class="chapter-summary">Learn how analysts move beyond description to identify patterns, investigate outliers, explain results, and judge evidence with care.</p>
+    </div>
+  </header>
+
+  <main class="book-layout">
+    <article class="chapter-content">
+      <section id="chapter-introduction">
+        <h2>Reasoning, Assumptions, and Limitations</h2>
+        <p>The first part of the data workflow focused on understanding the business problem, preparing the data, exploring the dataset, and describing what happened. The next stage moves beyond description and asks deeper questions: what patterns are present, what unusual values need attention, what explains the result, and what limits the analysis? At this point, the analyst is no longer just organizing evidence; the analyst is interpreting it, testing it, and deciding how much confidence the organization should place in it. AI can support this process, but it also adds new concerns about reliability, bias, transparency, explainability, and decision risk.</p>
+        <p>This chapter continues the workflow with steps 5 through 7. Together, these stages move the work from “what happened” to “what patterns and explanations can we see,” and they prepare the analysis for the next chapter on bias, limitations, and reporting decisions.</p>
+
+        <figure>
+          <img src="images/fig-8-1.png" alt="Nine-step data analysis workflow with the later reasoning and decision steps emphasized.">
+          <figcaption><strong>Figure 8.1.</strong> Workflow steps 1 through 9, with reasoning emphasized in this chapter.</figcaption>
+        </figure>
+      </section>
+
+      <section id="trends-relationships">
+        <h2>5. Trends and Relationships</h2>
+        <p>Once the analyst has described the observed results, the next question is whether the data shows meaningful patterns. This stage looks for trends and relationships between variables. A trend might show that sales are increasing over time, while a relationship might show that higher website traffic is associated with higher sales. Tools such as correlation and regression can help measure and model these relationships, but they do not prove that one variable caused the other. A dashboard may show that website traffic and sales both increased, but that alone does not mean traffic caused the increase in sales.</p>
+        <p>This distinction matters because strong analysis depends on careful reasoning. It is easy to confuse association with cause, especially when two measures move together. An analyst must ask whether the pattern is meaningful, whether another factor may be involved, and whether the relationship is stable enough to matter to the business. Trends and relationships are valuable because they point the organization toward likely explanations, but they are only part of the story.</p>
+      </section>
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="measure">
+          <legend id="question-1-title">What do correlation and regression help the analyst do?</legend>
+          <label><input type="radio" name="q1" value="causation"> Prove causation</label>
+          <label><input type="radio" name="q1" value="measure"> Measure and model relationships</label>
+          <label><input type="radio" name="q1" value="replace"> Replace exploratory analysis</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="causation">
+          <legend id="question-2-title">What should correlation not be mistaken for?</legend>
+          <label><input type="radio" name="q2" value="trend"> A trend</label>
+          <label><input type="radio" name="q2" value="causation"> Causation</label>
+          <label><input type="radio" name="q2" value="quality"> Data quality</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+      <section id="outlier-investigation">
+        <h2>6. Outlier Investigation</h2>
+        <p>Not every unusual value is a mistake, but every unusual value deserves attention. Outlier investigation goes beyond simply noticing extreme values and asks what those values represent and how they should be handled. A salary dataset, for example, might contain 49 employees earning around $40,000 and one employee earning $3 million. That one value could distort the average and make the data misleading if it is treated like a typical salary.</p>
+        <p>Outliers can represent errors, fraud, special circumstances, unusual events, system problems, or a new business condition. That is why an outlier is an analytical question, not automatically a data-quality error. The analyst has to determine whether the value should be corrected, excluded, explained, or preserved as a meaningful exception. Sometimes an outlier reveals an important event that deserves attention. Other times it reveals a simple error that should have been fixed during preparation. Either way, the value should not be ignored.</p>
+      </section>
+      <section class="checkpoint" aria-labelledby="question-3-title">
+        <p class="checkpoint-label">Comprehension Check 3 of 5</p>
+        <fieldset data-question="q3" data-answer="question">
+          <legend id="question-3-title">How should an outlier be treated?</legend>
+          <label><input type="radio" name="q3" value="error"> As a data-quality error every time</label>
+          <label><input type="radio" name="q3" value="question"> As an analytical question</label>
+          <label><input type="radio" name="q3" value="conclusion"> As the final conclusion</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+      <section id="diagnostic-analysis">
+        <h2>7. Diagnostic Analysis</h2>
+        <p>Descriptive analysis tells what happened. Diagnostic analysis asks why it happened. At this stage, the analyst studies the patterns more closely to identify causes, root causes, and relationships that help explain the result. The goal is to move from observation to actionable insight. This may reveal an operational bottleneck, an underperforming marketing campaign, or another factor that helps explain the outcome.</p>
+        <p>This step works closely with descriptive findings from the previous chapter. For example, if call center satisfaction dropped by 20 percent, the next question might be which region was affected, which employees were involved, whether staffing changed, whether call volume changed, or whether wait time increased. Diagnostic analysis often begins with a broad result and then drills down into smaller groups, time periods, or variables until the likely explanation becomes clearer.</p>
+        <p>The important point is that diagnosis should be evidence-based. An analyst may have a hypothesis about the cause, but that hypothesis should be tested against the data rather than assumed. Good diagnostic analysis helps the organization understand where to focus attention and which changes are most likely to improve performance.</p>
+      </section>
+      <section class="checkpoint" aria-labelledby="question-4-title">
+        <p class="checkpoint-label">Comprehension Check 4 of 5</p>
+        <fieldset data-question="q4" data-answer="why">
+          <legend id="question-4-title">What does diagnostic analysis ask?</legend>
+          <label><input type="radio" name="q4" value="what"> What happened?</label>
+          <label><input type="radio" name="q4" value="why"> Why it happened</label>
+          <label><input type="radio" name="q4" value="who"> Who entered the data?</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+      <section id="why-this-workflow-matters">
+        <h2>Why This Workflow Matters</h2>
+        <p>These steps create the logic of sound analysis. They move the work from observed results, to patterns and explanations, to a thoughtful report that the organization can act on. The analyst does not just process data; the analyst interprets it, questions it, and communicates it in a way that supports decision-making. That is why the workflow matters: it keeps analysis grounded in the business problem, careful about the evidence, and honest about the limits.</p>
+      </section>
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="logic">
+          <legend id="question-5-title">Why do these steps matter?</legend>
+          <label><input type="radio" name="q5" value="report"> They replace the need for a report</label>
+          <label><input type="radio" name="q5" value="logic"> They create the logic of sound analysis</label>
+          <label><input type="radio" name="q5" value="stop"> They end the workflow immediately</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+      <section class="completion" aria-labelledby="completion-title">
+        <h2 id="completion-title">Chapter Completion</h2>
+        <p>Answer all five comprehension questions, then check your work.</p>
+        <button id="check-answers" type="button">Check My Answers</button>
+        <p id="overall-feedback" class="overall-feedback" aria-live="polite"></p>
+        <div id="access-code-panel" class="access-code-panel" hidden>
+          <p class="success-heading">Chapter complete</p>
+          <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
+          <code id="access-code">data-reasoning</code>
+        </div>
+      </section>
+    </article>
+
+    <aside class="chapter-nav" aria-label="Chapter sections">
+      <p class="nav-title">In this chapter</p>
+      <a href="#chapter-introduction">Reasoning from Data</a>
+      <a href="#trends-relationships">Trends and Relationships</a>
+      <a href="#outlier-investigation">Outlier Investigation</a>
+      <a href="#diagnostic-analysis">Diagnostic Analysis</a>
+      <a href="#why-this-workflow-matters">Why This Workflow Matters</a>
+      <div class="progress-block">
+        <span id="progress-text">0 of 5 answered</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp7.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp9.html">Next Chapter →</a>
+  </nav>
+
+  <footer>
+    <p>Chapter 8: Reasoning from Data</p>
+    <p>Brigham Young University - Idaho</p>
+  </footer>
+</body>
+</html>

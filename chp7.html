@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chapter 7: Defining and Exploring Data">
+  <title>Chapter 7 | Analyze Data Sets</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav class="book-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp6.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp8.html">Next Chapter →</a>
+  </nav>
+
+  <header class="chapter-header" id="chapter-seven">
+    <div class="header-inner">
+      <p class="eyebrow">Chapter 7</p>
+      <h1>Analyze Data Sets</h1>
+      <p class="chapter-summary">Learn how analysts define a business problem, prepare data, explore patterns, and describe what happened before moving into deeper diagnosis and decisions.</p>
+    </div>
+  </header>
+
+  <main class="book-layout">
+    <article class="chapter-content">
+      <section id="analyze-data-sets">
+        <h2>Analyze Data Sets</h2>
+        <p>Organizations rarely begin data analysis with a ready-made answer. They begin with a business need, a set of available data sources, and a question that must be understood before it can be solved. That is why analysis starts before any chart is built or any conclusion is drawn. An analyst must understand the business problem, the information system that shapes the data, and the structure and quality of the dataset itself. AI can help with this work, but it also introduces concerns about reliability, bias, transparency, explainability, and decision risk.</p>
+        <p>This chapter focuses on the first part of the data-analysis workflow: defining the business problem, acquiring and preparing the data, exploring the data, and describing what happened. Those steps form the foundation for the later stages of diagnosis, interpretation, and decision-making. The workflow continues after this chapter with trends and relationships, outlier investigation, diagnostic analysis, bias and limitations, and finally decision and report.</p>
+
+        <figure>
+          <img src="images/fig-7-1.png" alt="Nine-step data analysis workflow showing the first four steps highlighted for this chapter.">
+          <figcaption><strong>Figure 7.1.</strong> The data analysis workflow begins with the business problem, data preparation, exploration, and descriptive findings.</figcaption>
+        </figure>
+      </section>
+
+      <section id="business-problem">
+        <h2>1. The Business Problem</h2>
+        <p>A good analysis begins with a clear business problem, not with a dataset. If the problem is vague, the analysis will be vague too. The first task is to define the organizational issue as precisely as possible so the analyst knows what question needs to be answered and what data is likely to matter.</p>
+        <p>For example, “analyze customer data” is too broad to guide real work. A stronger problem statement would be, “customer sales fell during the last two quarters, and management wants to understand where the decline is occurring and what factors may be associated with it.” That version narrows the scope, points to a time frame, and suggests the kinds of variables that may need to be examined. Other business problems might include a rise in support requests, a drop in website conversions, slower inventory turnover, or uneven sales across regions.</p>
+        <p>This step matters because analysis is meant to support action. A company may need to improve a process, explain a trend, reduce costs, or identify an opportunity. A specific problem statement keeps the analyst focused on the decision the organization is trying to make instead of letting the work drift into unnecessary detail. It also helps determine which data sources should be included and which should be left out.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="problem">
+          <legend id="question-1-title">What should an analysis begin with?</legend>
+          <label><input type="radio" name="q1" value="dataset"> A dataset</label>
+          <label><input type="radio" name="q1" value="problem"> A clear business problem</label>
+          <label><input type="radio" name="q1" value="chart"> A chart</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="data-acquisition-preparation">
+        <h2>2. Data Acquisition and Preparation</h2>
+        <p>Once the problem is clear, the next step is to gather the data that can help address it. In practice, organizations rarely have one perfect dataset waiting to be analyzed. Data usually must be extracted, transformed, and loaded before analysis can begin. This ETL process is a core information systems skill because it reflects how data is moved between systems, reshaped for use, and made ready for reporting or analysis. The data may come from internal systems, external sources, APIs, spreadsheets, web scraping, sensors, or other online feeds.</p>
+        <p>This stage is often more important than it first appears. If the wrong data is collected, or if key records are missing, the analysis may be incomplete even if the calculations are correct. Preparation may involve merging datasets from multiple systems, aligning field names, converting values into a common format, removing duplicates, or selecting only the records that apply to the business problem. A sales analysis, for instance, might require combining order data, customer data, product data, and region data before a meaningful trend can be seen.</p>
+        <p>Preparation also includes attention to privacy, permissions, consent, governance, and ethics. Not every useful source is available for every purpose, so an analyst may need approval to access a system, permission to use a dataset, and clear rules for handling personal or sensitive information. Good governance also means understanding data lineage, or where the data came from and how it has changed as it moved through systems. It requires knowing who owns the data, who stewards it, and who is accountable for its quality and use. It also means staying aware of compliance requirements such as GDPR and CCPA, which place limits on how personal data is collected, stored, shared, and protected. These concerns are especially important when data comes from outside the organization or includes employee records, customer contact information, or financial details.</p>
+        <p>Data also lives in different places depending on how it will be used. During acquisition and preparation, it is helpful to know whether the source is a relational database, a data warehouse, or a data lake. Relational databases, often queried with SQL, are designed to store structured operational data in tables and are common for day-to-day transactions such as orders, customers, and inventory. Data warehouses hold structured, cleaned, and organized data that has often been prepared for reporting and analysis across the organization. Data lakes, in contrast, store large amounts of raw or semi-structured data, including files, logs, images, and other formats that may not yet be fully organized. Understanding where the data lives helps the analyst choose the right source, the right method of access, and the right level of preparation.</p>
+        <p>In short, acquisition and preparation turn data from a collection of separate pieces into a working dataset. If this step is rushed, the rest of the workflow becomes unreliable. If it is handled carefully, the later analysis is much easier to trust.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="working">
+          <legend id="question-2-title">What does preparation turn the data into?</legend>
+          <label><input type="radio" name="q2" value="report"> A finished report</label>
+          <label><input type="radio" name="q2" value="working"> A working dataset</label>
+          <label><input type="radio" name="q2" value="summary"> A summary table only</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="exploratory-analysis">
+        <h2>3. Exploratory Analysis</h2>
+        <p>After the data has been prepared, the analyst begins to explore it. This is not yet the stage for final conclusions. Instead, it is the stage for learning what the data contains and what it might be able to tell us. The analyst looks at structure, quality, patterns, relationships, and unusual cases, using summaries, visualizations, and observations to uncover clues.</p>
+        <p>Exploratory analysis can reveal a great deal. It may show that one region has unusually strong sales, that one product category has many missing values, that traffic spikes on certain days of the week, or that one customer segment behaves differently from the others. It can also reveal problems in the dataset itself, such as outliers, missing values, duplicates, or data that appears to be constrained by the underlying system in a way that affects interpretation. A large transaction amount, for example, may be a legitimate sale or it may be an error worth investigating.</p>
+        <p>This stage is also where new questions often appear. An analyst may begin by studying customer behavior and then notice that the trend differs by age group, marketing channel, or geographic location. That discovery leads to a better question. The process is not just about finding an answer; it is also about learning which follow-up questions matter.</p>
+        <p>Context is essential here. Data does not explain itself. A change in website traffic might reflect increased interest, a marketing campaign, a seasonal event, or a system issue. A decline in orders might mean lower demand, but it might also point to a broken payment process. Exploratory analysis helps reveal where the important questions are hiding.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-3-title">
+        <p class="checkpoint-label">Comprehension Check 3 of 5</p>
+        <fieldset data-question="q3" data-answer="patterns">
+          <legend id="question-3-title">What do analysts look for during exploratory analysis?</legend>
+          <label><input type="radio" name="q3" value="patterns"> Patterns, relationships, and unusual cases</label>
+          <label><input type="radio" name="q3" value="final"> Final conclusions only</label>
+          <label><input type="radio" name="q3" value="format"> File names and folder paths</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="descriptive-findings">
+        <h2>4. Descriptive Findings</h2>
+        <p>Once the data has been explored, the analyst can summarize what happened. This is the descriptive stage. The goal is to clearly report the observed result without jumping ahead to explain the cause. Descriptive findings answer the question, “What happened?” not, “Why did it happen?”</p>
+        <p>Examples of descriptive findings might include statements such as: revenue was $2.2 million, average order total was $53, or the East region generated 29% of sales. These findings are useful because they give decision-makers a clear snapshot of the situation. They may reveal that something has changed, where that change is occurring, or how large the change is.</p>
+        <p>It is important to keep this stage separate from diagnosis. If sales declined, that fact belongs in a descriptive summary. The reason for the decline belongs in a later analysis. Clear separation keeps the report honest and helps the audience understand what the data supports. It also protects the analyst from making claims that the evidence does not yet justify.</p>
+      </section>
+
+
+      <section class="checkpoint" aria-labelledby="question-4-title">
+        <p class="checkpoint-label">Comprehension Check 4 of 5</p>
+        <fieldset data-question="q4" data-answer="what-happened">
+          <legend id="question-4-title">What do descriptive findings answer?</legend>
+          <label><input type="radio" name="q4" value="why"> Why it happened</label>
+          <label><input type="radio" name="q4" value="what-happened"> What happened</label>
+          <label><input type="radio" name="q4" value="future"> What will happen next</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="why-this-workflow-matters">
+        <h2>Why This Workflow Matters</h2>
+        <p>These first four steps create the structure for sound analysis. They move the work from a business problem, to a prepared dataset, to a thoughtful exploration, and finally to a clear summary of the observed results. When each step is handled carefully, the organization is much better prepared for the later stages of interpretation and decision-making.</p>
+        <p>AI may accelerate the process, but it does not replace the need for a well-defined problem, a dependable dataset, and careful human judgment. The analyst still decides what question matters, what data belongs in the analysis, and which findings are strong enough to report.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="structure">
+          <legend id="question-5-title">Why do the first four steps of the workflow matter?</legend>
+          <label><input type="radio" name="q5" value="speed"> They make analysis happen faster only</label>
+          <label><input type="radio" name="q5" value="structure"> They create the structure for sound analysis</label>
+          <label><input type="radio" name="q5" value="report"> They replace the need to report findings</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="completion" aria-labelledby="completion-title">
+        <h2 id="completion-title">Chapter Completion</h2>
+        <p>Answer all five comprehension questions, then check your work.</p>
+        <button id="check-answers" type="button">Check My Answers</button>
+        <p id="overall-feedback" class="overall-feedback" aria-live="polite"></p>
+        <div id="access-code-panel" class="access-code-panel" hidden>
+          <p class="success-heading">Chapter complete</p>
+          <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
+          <code id="access-code">data-analysis</code>
+        </div>
+      </section>
+    </article>
+
+    <aside class="chapter-nav" aria-label="Chapter sections">
+      <p class="nav-title">In this chapter</p>
+      <a href="#analyze-data-sets">Analyze Data Sets</a>
+      <a href="#business-problem">The Business Problem</a>
+      <a href="#data-acquisition-preparation">Data Acquisition &amp; Preparation</a>
+      <a href="#exploratory-analysis">Exploratory Analysis</a>
+      <a href="#descriptive-findings">Descriptive Findings</a>
+      <a href="#why-this-workflow-matters">Why This Workflow Matters</a>
+      <div class="progress-block">
+        <span id="progress-text">0 of 5 answered</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp6.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp8.html">Next Chapter →</a>
+  </nav>
+
+  <footer>
+    <p>Chapter 7: Defining and Exploring Data</p>
+    <p>Brigham Young University - Idaho</p>
+  </footer>
+</body>
+</html>

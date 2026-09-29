@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chapter 11: Storytelling with data and audience analysis.">
+  <title>Chapter 11 | Storytelling with Data and Audience Analysis</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+  <style>
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .figure-grid figure {
+      margin: 0;
+    }
+    .figure-grid img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <nav class="book-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp10.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp12.html">Next Chapter →</a>
+  </nav>
+
+  <header class="chapter-header" id="chapter-eleven">
+    <div class="header-inner">
+      <p class="eyebrow">Chapter 11</p>
+      <h1>Storytelling with Data and Audience Analysis</h1>
+      <p class="chapter-summary">Learn how to turn analysis into a clear narrative, tailor the message to the audience, and recommend actions that the organization can actually take.</p>
+    </div>
+  </header>
+
+  <main class="book-layout">
+    <article class="chapter-content">
+      <section id="chapter-introduction">
+        <h2>Storytelling with Data</h2>
+        <p>Storytelling with data turns analysis into a narrative that supports organizational decisions and change. It bridges the gap between technical discovery and business strategy by connecting evidence to goals, human decisions, and measurable outcomes. In the previous chapter, the emphasis was on what the data shows. Here, the focus shifts to why it matters and what should happen next.</p>
+        <p>Decision-makers do not usually need raw output; they need answers. A good data story helps them understand what is happening, why it matters, who or what is affected, how serious the issue may be, what action is appropriate, and how confident they should be in the conclusion. At the same time, the story must remain honest about context and avoid exaggerating or omitting important details.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="narrative">
+          <legend id="question-1-title">What does storytelling with data turn analysis into?</legend>
+          <label><input type="radio" name="q1" value="table"> A table of raw values</label>
+          <label><input type="radio" name="q1" value="narrative"> A clear narrative that supports decisions</label>
+          <label><input type="radio" name="q1" value="filter"> A dashboard filter</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="consider-the-audience">
+        <h2>Consider the Audience</h2>
+        <p>The same evidence may need to be presented differently depending on the audience. The underlying data should remain the same, but the emphasis, language, and level of detail should match the audience’s responsibilities and ability to act. A well-told story does not weaken the evidence to make it easier to read; it makes the evidence accessible without losing accuracy.</p>
+        <p>Consider customer-service response times that increased by 35 percent over six months. To executives, the story might emphasize financial and strategic impact. To customer-service managers, the same data may highlight a bottleneck in a specific time window and suggest a staffing change. To IT analysts, the story may focus on a routing rule in the ticketing system and recommend a technical fix. The facts are the same, but each audience needs a different path from evidence to action.</p>
+
+        <figure>
+          <img src="images/fig-11-1.png" alt="Three audience-specific summaries of the same customer-service response-time data for executives, managers, and IT analysts.">
+          <figcaption><strong>Figure 11.1.</strong> The same data can support different stories when the audience changes.</figcaption>
+        </figure>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="different">
+          <legend id="question-2-title">Why may the same data need a different story for different audiences?</legend>
+          <label><input type="radio" name="q2" value="same"> Because the evidence always changes</label>
+          <label><input type="radio" name="q2" value="different"> Because each audience has different responsibilities and ability to act</label>
+          <label><input type="radio" name="q2" value="none"> Because audiences never care about details</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="audience-analysis">
+        <h2>Audience Analysis</h2>
+        <p>When planning a story, it helps to ask a few practical questions. What technical concepts does the audience already understand? What decisions does the audience make, and what processes does it control? What goals is the audience trying to accomplish? What concerns or objections might arise? What authority does the audience have to act? How much detail is needed to understand and trust the findings?</p>
+        <p>These questions help the analyst tailor the message without changing the evidence. The goal is not to oversimplify the analysis, but to remove unnecessary barriers so the audience can understand it clearly and act on it appropriately.</p>
+
+        <figure>
+          <img src="images/fig-11-3.png" alt="A matrix showing audience type, concerns, and preferred level of detail for executives, managers, analysts, IT technical staff, and frontline staff.">
+          <figcaption><strong>Figure 11.2.</strong> Audience type, concerns, and detail level help shape the message.</figcaption>
+        </figure>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-3-title">
+        <p class="checkpoint-label">Comprehension Check 3 of 5</p>
+        <fieldset data-question="q3" data-answer="responsibilities">
+          <legend id="question-3-title">Which audience factor asks what decisions the audience makes?</legend>
+          <label><input type="radio" name="q3" value="technical"> Technical knowledge</label>
+          <label><input type="radio" name="q3" value="responsibilities"> Responsibilities</label>
+          <label><input type="radio" name="q3" value="decorative"> Decorative style</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="storytelling-across-information-systems">
+        <h2>Storytelling Across Information Systems</h2>
+        <p>Storytelling appears throughout information systems because different systems support different decisions. A strong story always begins with the same evidence, but it should end with a recommendation that matches the setting in which that evidence will be used.</p>
+        <ul>
+          <li><strong>Business intelligence:</strong> explain performance trends and whether results are improving or declining.</li>
+          <li><strong>Enterprise systems:</strong> identify process bottlenecks, delays, and handoff problems.</li>
+          <li><strong>Customer relationship management:</strong> describe customer behavior and retention opportunities.</li>
+          <li><strong>Supply-chain systems:</strong> explain delays, shortages, and inventory risks.</li>
+          <li><strong>Human-resource systems:</strong> analyze turnover, scheduling, and staffing patterns.</li>
+          <li><strong>Healthcare systems:</strong> identify care patterns while remaining careful about causation.</li>
+          <li><strong>Decision-support systems:</strong> compare alternatives and recommend the one that best fits the goal.</li>
+          <li><strong>Cybersecurity systems:</strong> communicate threats, suspicious patterns, and response steps.</li>
+        </ul>
+        <p>These examples show that storytelling is not limited to reports or presentations. It is part of how information systems create value by helping the right people understand the right issue at the right time.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-4-title">
+        <p class="checkpoint-label">Comprehension Check 4 of 5</p>
+        <fieldset data-question="q4" data-answer="evidence">
+          <legend id="question-4-title">What should a strong data story connect?</legend>
+          <label><input type="radio" name="q4" value="charts"> Only charts and numbers</label>
+          <label><input type="radio" name="q4" value="evidence"> Evidence, audience, and action</label>
+          <label><input type="radio" name="q4" value="style"> Style, color, and decoration</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="building-the-right-narrative">
+        <h2>Building the Right Narrative</h2>
+        <p>A strong data story connects three things: the evidence, the audience, and the action. It explains what happened, why it matters to this audience, and what the audience should do next. That structure keeps the narrative focused and prevents it from becoming either too technical to use or too simplified to trust.</p>
+        <p>The story should also respect the limits of the data. If the evidence shows association rather than causation, the recommendation should be framed carefully. If the result depends on a system issue, workflow problem, or special context, that should be stated. Clear storytelling does not hide uncertainty; it helps the audience understand it.</p>
+
+        <figure>
+          <img src="images/fig-11-2.png" alt="A three-step flow diagram showing evidence, audience needs, and recommendation connected from left to right.">
+          <figcaption><strong>Figure 11.3.</strong> Effective storytelling moves from evidence to audience needs to recommendation.</figcaption>
+        </figure>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="respond">
+          <legend id="question-5-title">Why should recommendations go to the people with authority to act?</legend>
+          <label><input type="radio" name="q5" value="respond"> They can realistically respond to the issue</label>
+          <label><input type="radio" name="q5" value="ignore"> They can ignore the evidence</label>
+          <label><input type="radio" name="q5" value="format"> They prefer a different font</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="why-this-matters">
+        <h2>Why This Matters</h2>
+        <p>Storytelling with data is what makes analysis actionable. It transforms evidence into a message that different audiences can understand and use while still staying grounded in the data. When the narrative is tailored to the audience and tied to a realistic recommendation, data becomes more than a record of what happened; it becomes a guide for what to do next.</p>
+      </section>
+
+      <section class="completion" aria-labelledby="completion-title">
+        <h2 id="completion-title">Chapter Completion</h2>
+        <p>Answer all five comprehension questions, then check your work.</p>
+        <button id="check-answers" type="button">Check My Answers</button>
+        <p id="overall-feedback" class="overall-feedback" aria-live="polite"></p>
+        <div id="access-code-panel" class="access-code-panel" hidden>
+          <p class="success-heading">Chapter complete</p>
+          <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
+          <code id="access-code">audience-story</code>
+        </div>
+      </section>
+    </article>
+
+    <aside class="chapter-nav" aria-label="Chapter sections">
+      <p class="nav-title">In this chapter</p>
+      <a href="#chapter-introduction">Storytelling with Data</a>
+      <a href="#consider-the-audience">Consider the Audience</a>
+      <a href="#audience-analysis">Audience Analysis</a>
+      <a href="#storytelling-across-information-systems">Across Information Systems</a>
+      <a href="#building-the-right-narrative">Building the Narrative</a>
+      <a href="#why-this-matters">Why This Matters</a>
+      <div class="progress-block">
+        <span id="progress-text">0 of 5 answered</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp10.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp12.html">Next Chapter →</a>
+  </nav>
+
+  <footer>
+    <p>Chapter 11: Storytelling with Data and Audience Analysis</p>
+    <p>Brigham Young University - Idaho</p>
+  </footer>
+</body>
+</html>

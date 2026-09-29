@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chapter 2: Relational modeling and normalization.">
+  <title>Chapter 2 | Relational Modeling and Normalization</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav class="book-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp1.html">&larr; Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp3.html">Next Chapter &rarr;</a>
+  </nav>
+
+  <header class="chapter-header" id="chapter-two">
+    <div class="header-inner">
+      <p class="eyebrow">Chapter 2</p>
+      <h1>Relational Modeling and Normalization</h1>
+      <p class="chapter-summary">Learn how entity relationships, linking tables, and normalization rules shape a clean relational design.</p>
+    </div>
+  </header>
+
+  <main class="book-layout">
+    <article class="chapter-content">
+      <section id="relational-modeling">
+        <h2>Relational Modeling</h2>
+        <p>In the previous chapter, we introduced the relational model of databases. Relational databases help reduce redundancy, improve referential integrity, and make data retrieval efficient.</p>
+        <p>Data is stored in tables, where each table represents a real-world entity or a closely related group of items. Tables are made up of rows and columns. Each row, or record, stores one instance of an entity, and each column, or field, represents one attribute of that entity.</p>
+        <p>When this structure is shown in an entity-relationship diagram (ERD), the focus shifts away from actual data values and toward the design of the database. Attribute titles are listed within each entity. The diagram makes it easy to see how tables are related. The relationship between the entities is also called cardinality.</p>
+
+        <figure>
+          <img src="images/fig-2-1.png" alt="An ERD example showing how relational modeling focuses on database design rather than data values.">
+          <figcaption><strong>Figure 2.1.</strong> Relational modeling focuses on table structure and relationships.</figcaption>
+        </figure>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="cardinality">
+          <legend id="question-1-title">What is the relationship between entities in an ERD also called?</legend>
+          <label><input type="radio" name="q1" value="cardinality"> Cardinality</label>
+          <label><input type="radio" name="q1" value="attributes"> Attributes</label>
+          <label><input type="radio" name="q1" value="rows"> Rows</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="relationship-types">
+        <h2>Relationship Types</h2>
+
+        <p>In an ERD, relationships are shown as lines between entities, often using crow's foot notation to indicate the type of relationship.</p>
+
+        <figure>
+          <img src="images/fig-2-2.png" alt="Crow's foot notation examples showing the symbols used to represent cardinality.">
+          <figcaption><strong>Figure 2.2.</strong> Crow's foot notation shows how entities are related.</figcaption>
+        </figure>
+
+        <p>In our customer example, one customer can place zero or many orders, and each order belongs to one and only one customer. Each order can contain zero or many order items, and each order item belongs to one and only one order. Each order item is related to one product, while each product can appear in zero or many order items.</p>
+
+        <figure>
+          <img src="images/fig-2-3.png" alt="Customers, Orders, OrderItems, and Products tables connected by relational lines.">
+          <figcaption><strong>Figure 2.3.</strong> The customer, order, order item, and product example shows connected tables.</figcaption>
+        </figure>
+
+        <p>Why do we need the OrderItems table? Because customers do not simply order products in a single direct relationship. Instead, the many-to-many relationship between orders and products must be resolved through a linking table.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="linking">
+          <legend id="question-2-title">What does a relational database use to resolve a many-to-many relationship?</legend>
+          <label><input type="radio" name="q2" value="linking"> A linking table</label>
+          <label><input type="radio" name="q2" value="single"> A single table</label>
+          <label><input type="radio" name="q2" value="report"> A report table</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="normalization">
+        <h2>Entity Relationships</h2>
+        
+        <h3>One-to-One</h3>
+        <p>A one-to-one relationship is less common than a one-to-many relationship. One example is a customer table separated from a private customer information table for limited access.</p>
+
+        <figure>
+          <img src="images/fig-2-4.png" alt="A one-to-one relationship between Customers and CustomerPrivate tables.">
+          <figcaption><strong>Figure 2.4.</strong> A one-to-one relationship can separate sensitive customer data.</figcaption>
+        </figure>
+
+        <p>Another example is an employee assigned one company car, where each car belongs to one employee.</p>
+
+        <figure>
+          <img src="images/fig-2-5.png" alt="A one-to-one relationship between Employee and CompanyCar tables.">
+          <figcaption><strong>Figure 2.5.</strong> One employee can be matched to one company car.</figcaption>
+        </figure>
+
+        <h3>One-to-Many</h3>
+        <p>A one-to-many relationship is much more common. A customer can place many orders, but each order belongs to only one customer. Likewise, one department can have many employees, but each employee belongs to only one department.</p>
+
+        <figure>
+          <img src="images/fig-2-6.png" alt="A one-to-many relationship between Department and Employee tables.">
+          <figcaption><strong>Figure 2.6.</strong> One-to-many relationships are common in relational databases.</figcaption>
+        </figure>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-3-title">
+        <p class="checkpoint-label">Comprehension Check 3 of 5</p>
+        <fieldset data-question="q3" data-answer="many">
+          <legend id="question-3-title">Which relationship is much more common in relational databases?</legend>
+          <label><input type="radio" name="q3" value="one"> One-to-one</label>
+          <label><input type="radio" name="q3" value="many"> One-to-many</label>
+          <label><input type="radio" name="q3" value="none"> No relationship</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="many-to-many">
+        <h3>Many-to-Many</h3>
+        <p>A many-to-many relationship occurs when each record in one table can relate to many records in another table, and vice versa. In our orders and products example, one order can contain many products, and one product can appear in many orders.</p>
+
+        <figure>
+          <img src="images/fig-2-7.png" alt="Orders, OrderItems, and Products showing a many-to-many relationship resolved through a linking table.">
+          <figcaption><strong>Figure 2.7.</strong> A linking table resolves the many-to-many relationship between orders and products.</figcaption>
+        </figure>
+
+        <p>Relational databases solve this by using a third table, called a linking table. Here, that table is OrderItems.</p>
+
+        <figure>
+          <img src="images/fig-2-8.png" alt="OrderItems table showing a composite primary key made from OrderID and ProductID.">
+          <figcaption><strong>Figure 2.8.</strong> The OrderItems table stores relationship details and uses a composite primary key.</figcaption>
+        </figure>
+
+        <p>The many-to-many relationship is converted into two one-to-many relationships through the linking table. The OrderItems table also stores information about the relationship itself, such as quantity. That information does not belong in Orders or Products because it applies to the specific order-product combination.</p>
+        <p>The primary key of OrderItems is made from two foreign keys working together. This is called a composite primary key.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-4-title">
+        <p class="checkpoint-label">Comprehension Check 4 of 5</p>
+        <fieldset data-question="q4" data-answer="composite">
+          <legend id="question-4-title">What is the OrderItems primary key called when two foreign keys work together?</legend>
+          <label><input type="radio" name="q4" value="composite"> A composite primary key</label>
+          <label><input type="radio" name="q4" value="single"> A single primary key</label>
+          <label><input type="radio" name="q4" value="derived"> A derived key</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="normalization-rules">
+        <h2>Normalization Rules</h2>
+
+        <p>Normalization is a set of design rules used to organize data efficiently, reduce redundancy, eliminate anomalies, and improve maintainability. It divides data into smaller, simpler tables and applies a series of normal forms. Each normal form builds on the one before it.</p>
+
+        <h3>First Normal Form (1NF)</h3>
+        <p>A table must have a primary key and no repeating attribute values in a row.</p>
+
+        <h3>Second Normal Form (2NF)</h3>
+        <p>2NF applies to tables with a composite primary key. Every non-key attribute must depend on the entire composite key, not just part of it. This is why quantity belongs in OrderItems: it depends on both the order and the product together.</p>
+        <p>For example, in a student enrollment table, grade belongs to the relationship between a student and a section, not to the student alone or the section alone.</p>
+
+        <figure>
+          <img src="images/fig-2-9.png" alt="A student enrollment example showing that grade belongs to the student and section relationship.">
+          <figcaption><strong>Figure 2.9.</strong> Grade belongs to the student-section relationship in a 2NF example.</figcaption>
+        </figure>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="entire">
+          <legend id="question-5-title">In 2NF, what must every non-key attribute depend on?</legend>
+          <label><input type="radio" name="q5" value="entire"> The entire composite key</label>
+          <label><input type="radio" name="q5" value="part"> Only part of the key</label>
+          <label><input type="radio" name="q5" value="title"> The table title</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="third-normal-form">
+        <h3>Third Normal Form (3NF)</h3>
+        <p>3NF applies when every non-key attribute depends only on the primary key. For example, if supplier name were stored in the Products table, that would violate 3NF because supplier name does not depend directly on product ID. Instead, supplier information should be stored in a separate Suppliers table, with the supplier key referenced in Products.</p>
+
+        <figure>
+          <img src="images/fig-2-10.png" alt="A 3NF example showing supplier information stored in a separate Suppliers table.">
+          <figcaption><strong>Figure 2.10.</strong> Supplier information belongs in a separate table to preserve 3NF.</figcaption>
+        </figure>
+      </section>
+
+      <section class="completion" aria-labelledby="completion-title">
+        <h2 id="completion-title">Chapter Completion</h2>
+        <p>Answer all five comprehension questions, then check your work.</p>
+        <button id="check-answers" type="button">Check My Answers</button>
+        <p id="overall-feedback" class="overall-feedback" aria-live="polite"></p>
+        <div id="access-code-panel" class="access-code-panel" hidden>
+          <p class="success-heading">Chapter complete</p>
+          <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
+          <code id="access-code">entity-relationships</code>
+        </div>
+      </section>
+    </article>
+
+    <aside class="chapter-nav" aria-label="Chapter sections">
+      <p class="nav-title">In this chapter</p>
+      <a href="#relational-modeling">Relational Modeling</a>
+      <a href="#relationship-types">Entity Relationships</a>
+      <a href="#normalization-rules">Normalization Rules</a>
+      <div class="progress-block">
+        <span id="progress-text">0 of 5 answered</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp1.html">&larr; Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp3.html">Next Chapter &rarr;</a>
+  </nav>
+
+  <footer>
+    <p>Chapter 2: Relational Modeling and Normalization</p>
+    <p>Brigham Young University - Idaho</p>
+  </footer>
+</body>
+</html>

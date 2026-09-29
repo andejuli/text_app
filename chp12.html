@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chapter 12: Responsible AI, transparency, and explainability.">
+  <title>Chapter 12 | Responsible AI, Transparency, and Explainability</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+  <style>
+    .figure-wide {
+      margin: 1rem 0 0;
+    }
+    .figure-wide img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <nav class="book-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp11.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link disabled" aria-disabled="true">Next Chapter →</a>
+  </nav>
+
+  <header class="chapter-header" id="chapter-twelve">
+    <div class="header-inner">
+      <p class="eyebrow">Chapter 12</p>
+      <h1>Responsible AI, Transparency, and Explainability</h1>
+      <p class="chapter-summary">Learn how to evaluate AI-assisted analysis carefully, disclose how it was created, and explain results in a way that can be trusted.</p>
+    </div>
+  </header>
+
+  <main class="book-layout">
+    <article class="chapter-content">
+      <section id="chapter-introduction">
+        <h2>Responsible AI in Analysis</h2>
+        <p>AI can make data analysis, visualization, and storytelling faster and more accessible, but speed is not the same as accuracy. An AI-generated analysis may contain incorrect calculations, unsupported conclusions, biased interpretations, fabricated details, or misleading explanations. Because of that, human oversight is essential. AI should be treated as an assistant, while the human analyst remains responsible for checking whether the data, methods, conclusions, visuals, and recommendations are accurate, relevant, ethical, transparent, and appropriate for the audience.</p>
+        <p>Independent verification and clear accountability are what make the final result trustworthy. A polished output can look convincing even when it is wrong, so the analyst must be ready to evaluate the work critically and defend it with evidence.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="oversight">
+          <legend id="question-1-title">What safeguard is essential when using AI in analysis?</legend>
+          <label><input type="radio" name="q1" value="speed"> Speed alone</label>
+          <label><input type="radio" name="q1" value="oversight"> Human oversight and verification</label>
+          <label><input type="radio" name="q1" value="automation"> Full automation without review</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="ai-generated-visuals">
+        <h2>AI-Generated Visuals</h2>
+        <p>AI-generated visuals can be useful when they help explain how something works, such as a process diagram, system architecture illustration, flow chart, or conceptual model. These are explanatory visuals, and viewers use them to learn a process or idea. Data-bearing visuals are different. Charts, graphs, maps, and dashboards communicate quantitative evidence, so they require a much higher level of verification.</p>
+        <p>AI does not truly understand whether every detail is true. It generates probable content by recognizing patterns from training data. That means the visual must be supported by reliable data or documentation and checked independently before it is used in a report, dashboard, or presentation.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="data-bearing">
+          <legend id="question-2-title">Which AI-generated visuals require the highest verification?</legend>
+          <label><input type="radio" name="q2" value="explanatory"> Explanatory visuals</label>
+          <label><input type="radio" name="q2" value="data-bearing"> Data-bearing visuals</label>
+          <label><input type="radio" name="q2" value="decorative"> Decorative visuals only</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="common-mistakes">
+        <h2>Common AI Mistakes in Analysis and Visualization</h2>
+        <p>AI-generated analysis and visuals should always be reviewed against the original data and the purpose of the analysis. A polished chart can still hide major problems, such as incorrect labels, the wrong columns, misread categories, or a calculation that was applied incorrectly. AI may also omit records, change units, select a misleading scale, invent a trend, or mislabel axes. In some cases it may even present correlation as causation or generate values that were never present in the source.</p>
+        <p>Other mistakes are more subtle. AI may use the wrong time period, handle missing values incorrectly, double-count duplicates, combine incompatible data sources, cherry-pick favorable results, choose an inappropriate chart type, overinterpret a small sample, or provide an explanation that is not actually supported by the evidence. The safest habit is to compare every AI-generated chart, calculation, and conclusion with the source data and documented definitions.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-3-title">
+        <p class="checkpoint-label">Comprehension Check 3 of 5</p>
+        <fieldset data-question="q3" data-answer="verify">
+          <legend id="question-3-title">Why should AI-generated output be checked against the source data?</legend>
+          <label><input type="radio" name="q3" value="design"> To make the design look prettier</label>
+          <label><input type="radio" name="q3" value="verify"> To verify that it matches the original data and definitions</label>
+          <label><input type="radio" name="q3" value="ignore"> To avoid using documentation</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="ownership-accessibility">
+        <h2>Ownership and Accessibility</h2>
+        <p>AI-generated content also raises practical questions about recordkeeping and accessibility. The legal status of AI-generated work varies by jurisdiction, but it is always wise to keep records of the tools used, the human contribution, the source assets, the permissions involved, and the final editing decisions. That record makes it easier to explain how the result was produced and who is accountable for it.</p>
+        <p>Accessibility matters as well. AI-generated visuals can create barriers through low contrast, reliance on color alone, small or distorted text, decorative clutter, unclear visual hierarchy, or missing alternative text. A visual that looks polished but is difficult to read is not truly effective.</p>
+      </section>
+
+      <section id="transparency-disclosure">
+        <h2>Transparency and Disclosure</h2>
+        <p>Transparency helps viewers understand how the content was produced. It should reveal what system, what data, and what human review contributed to the final result. A simple label that says “AI-generated” is not enough, because it does not explain the source, the process, or the level of verification.</p>
+        <p>Better transparency includes source information, context, provenance records, human review, and clear disclosure of AI involvement so viewers can evaluate the content intelligently rather than blindly trusting or automatically rejecting it. The goal is informed evaluation.</p>
+
+        <figure class="figure-wide">
+          <img src="images/fig-12-1.png" alt="A transparency checklist showing source data, human review, provenance, and disclosure.">
+          <figcaption><strong>Figure 12.1.</strong> Transparency depends on source data, human review, provenance, and disclosure.</figcaption>
+        </figure>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-4-title">
+        <p class="checkpoint-label">Comprehension Check 4 of 5</p>
+        <fieldset data-question="q4" data-answer="howai">
+          <legend id="question-4-title">What should transparency reveal?</legend>
+          <label><input type="radio" name="q4" value="color"> Only the color palette used</label>
+          <label><input type="radio" name="q4" value="howai"> How AI contributed, plus the source and review process</label>
+          <label><input type="radio" name="q4" value="hide"> Nothing beyond the final image</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="explainability">
+        <h2>Explainability</h2>
+        <p>Explainability helps someone understand why the output was produced. It answers questions such as why a particular chart was selected, why certain variables were included, how values were calculated, why something was emphasized over another part of the data, and what assumptions affected the result.</p>
+        <p>Some AI-generated images may only need disclosure, but AI-generated dashboards, detailed charts, and recommendations that affect hiring, finance, or operations need much more explanation because people may make consequential decisions from them. The more important the decision, the more important it is to understand the logic behind the output.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="whyproduced">
+          <legend id="question-5-title">What does explainability help someone understand?</legend>
+          <label><input type="radio" name="q5" value="style"> Why the font style changed</label>
+          <label><input type="radio" name="q5" value="whyproduced"> Why the output was produced</label>
+          <label><input type="radio" name="q5" value="hide"> Why the data should be hidden</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="why-this-matters">
+        <h2>Why This Matters</h2>
+        <p>AI can be valuable in information systems, but only when it is used with care. The goal is not to reject AI, but to use it responsibly. That means verifying the results, documenting the process, explaining the output clearly, and keeping humans accountable for the final decision. When AI is transparent, explainable, and reviewed, it can strengthen analysis. When it is not, it can make a flawed result look more trustworthy than it really is.</p>
+      </section>
+
+      <section class="completion" aria-labelledby="completion-title">
+        <h2 id="completion-title">Chapter Completion</h2>
+        <p>Answer all five comprehension questions, then check your work.</p>
+        <button id="check-answers" type="button">Check My Answers</button>
+        <p id="overall-feedback" class="overall-feedback" aria-live="polite"></p>
+        <div id="access-code-panel" class="access-code-panel" hidden>
+          <p class="success-heading">Chapter complete</p>
+          <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
+          <code id="access-code">responsible-ai</code>
+        </div>
+      </section>
+    </article>
+
+    <aside class="chapter-nav" aria-label="Chapter sections">
+      <p class="nav-title">In this chapter</p>
+      <a href="#chapter-introduction">Responsible AI in Analysis</a>
+      <a href="#ai-generated-visuals">AI-Generated Visuals</a>
+      <a href="#common-mistakes">Common AI Mistakes</a>
+      <a href="#ownership-accessibility">Ownership and Accessibility</a>
+      <a href="#transparency-disclosure">Transparency and Disclosure</a>
+      <a href="#explainability">Explainability</a>
+      <a href="#why-this-matters">Why This Matters</a>
+      <div class="progress-block">
+        <span id="progress-text">0 of 5 answered</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp11.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link disabled" aria-disabled="true">Next Chapter →</a>
+  </nav>
+
+  <footer>
+    <p>Chapter 12: Responsible AI, Transparency, and Explainability</p>
+    <p>Brigham Young University - Idaho</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chapter 1: Data, data structures, and relational databases.">
+  <title>Chapter 1 | Data and Database Foundations</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav class="book-navigation" aria-label="Book navigation">
+    <a class="nav-link disabled" aria-disabled="true">
+      ← Previous Chapter
+    </a>
+
+    <a class="nav-link contents-link" href="index.html">
+      Table of Contents
+    </a>
+
+    <a class="nav-link" href="chp2.html">
+      Next Chapter →
+    </a>
+  </nav>
+  <header class="chapter-header" id="chapter-one">
+    <div class="header-inner">
+      <p class="eyebrow">Chapter 1</p>
+      <h1>Data and Database Foundations</h1>
+      <p class="chapter-summary">Learn how raw data becomes useful information and how relational databases preserve meaningful, accurate connections.</p>
+    </div>
+  </header>
+
+  <main class="book-layout">
+    <article class="chapter-content">
+      <section id="data-information">
+        <h2>Data vs. Information</h2>
+
+        <h3>Raw Data</h3>
+        <p>Raw data consists of individual facts, such as numbers, names, titles, or dates, that have little meaning on their own. For example, the number 24 could represent an employee’s age, a product quantity, or a price. Labels, units, and relationships provide the context needed to make the data meaningful.</p>
+
+        <h3>Organized Data</h3>
+        <p>Organized data has been structured, labeled, and grouped so it can be understood and connected to other data. It can then be retrieved, sorted, compared, and analyzed. For example, sales records may be stored in a table where each column has a clear label and each row represents one sale.</p>
+
+        <h3>Interpreted Information</h3>
+        <p>When organized data is analyzed, it becomes information. Patterns, trends, and relationships can reveal what the data means. For example, an analysis may show that sales are increasing among a particular group of customers.</p>
+
+        <h3>Decision or Action</h3>
+        <p>Businesses use information to make informed decisions and take effective action. For example, a company may order more of a popular product and place it where likely customers are most likely to buy it. In this way, data supports growth, efficiency, and success.</p>
+
+        <figure>
+          <img src="images/fig-1-1.png" alt="A process diagram showing raw data becoming organized data, interpreted information, and then a business decision or action.">
+          <figcaption><strong>Figure 1.1.</strong> Data gains value as it is organized, interpreted, and used to guide action.</figcaption>
+        </figure>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="context">
+          <legend id="question-1-title">What gives raw data the meaning needed to become useful?</legend>
+          <label><input type="radio" name="q1" value="volume"> A larger volume of facts</label>
+          <label><input type="radio" name="q1" value="context"> Labels, units, and relationships</label>
+          <label><input type="radio" name="q1" value="software"> A specific software application</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="data-structures">
+        <h2>Data Structures</h2>
+        <p>A data structure is a way of organizing data so a system can store, retrieve, update, and process it efficiently. Data may be arranged in lists, arrays, graphs, key-value pairs, tables, or other formats. No single structure is best for every situation; the right choice depends on the type of data and the needs of the system.</p>
+        <p>A well-designed data structure makes it practical to insert, search, sort, update, retrieve, and delete data. Structured data is often stored in tables with rows, columns, and defined relationships. Semi-structured data, such as JSON, uses labels, keys, and nested elements. Unstructured data may include documents, images, audio, and video.</p>
+        <p>Choosing a data structure is an important part of system design because it determines how reliably and efficiently data can be transformed into useful information.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="needs">
+          <legend id="question-2-title">What should determine which data structure is selected?</legend>
+          <label><input type="radio" name="q2" value="popular"> Whichever structure is most popular</label>
+          <label><input type="radio" name="q2" value="largest"> Whichever structure stores the most data</label>
+          <label><input type="radio" name="q2" value="needs"> The type of data and the needs of the system</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="databases">
+        <h2>Databases</h2>
+        <p>A database is an organized collection of data that can be searched, updated, and managed efficiently. It does more than store information—it also helps preserve the data’s structure, relationships, accuracy, and security.</p>
+        <p>Nearly every modern organization relies on databases. Business applications use them to process transactions, create reports, support decisions, and share reliable information. In this way, information systems transform stored data into useful knowledge for the organization.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-3-title">
+        <p class="checkpoint-label">Comprehension Check 3 of 5</p>
+        <fieldset data-question="q3" data-answer="manage">
+          <legend id="question-3-title">Which statement best describes a database?</legend>
+          <label><input type="radio" name="q3" value="files"> A folder that stores unrelated files</label>
+          <label><input type="radio" name="q3" value="manage"> An organized collection of data that can be searched, updated, and managed</label>
+          <label><input type="radio" name="q3" value="report"> A finished report that cannot be changed</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="relational-databases">
+        <h2>Relational Database Structure</h2>
+        <p>Relational databases are widely used in business systems. Although they are not the only way to organize data, their core ideas apply to many other data structures, making them a strong place to begin.</p>
+        <p>A relational database organizes data into connected tables made up of rows and columns. Each table represents a type of entity, such as employees, products, customers, or orders. Each row represents one individual record like one customer, while each column represents an attribute of that record, such as a customer name, email address, or order date.</p>
+
+        <figure>
+          <img src="images/fig-1-2.png" alt="Three connected database tables named Customers, Orders, and OrderItems, with primary keys, foreign keys, and table relationships identified.">
+          <figcaption><strong>Figure 1.2.</strong> Primary and foreign keys connect related records across relational database tables.</figcaption>
+        </figure>
+
+        <h3>Primary Key</h3>
+        <p>Each row in a table must be uniquely identifiable. Because two customers may share the same name, names are not reliable identifiers. Instead, each customer is assigned a unique value, such as a CustomerID. This value is the table’s primary key.</p>
+
+        <h3>Foreign Key</h3>
+        <p>A primary-key value can also appear in another table to create a relationship. For example, the CustomerID from the Customers table may be stored in the Orders table to show which customer placed each order. Because one customer can place many orders, the same CustomerID may appear several times. In the Orders table, it is called a foreign key.</p>
+
+        <h3>Composite Primary Key</h3>
+        <p>A composite key uses two or more foreign key values together to uniquely identify a row in another table. For example, in an OrderItems table, the combination of OrderID and ProductID can identify each line item, because that pair appears only once for a given order.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-4-title">
+        <p class="checkpoint-label">Comprehension Check 4 of 5</p>
+        <fieldset data-question="q4" data-answer="foreign">
+          <legend id="question-4-title">In the Orders table, what is CustomerID called when it links an order to a customer?</legend>
+          <label><input type="radio" name="q4" value="primary"> A primary key</label>
+          <label><input type="radio" name="q4" value="foreign"> A foreign key</label>
+          <label><input type="radio" name="q4" value="attribute"> An unstructured attribute</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="integrity">
+        <h2>Maintaining Reliable Data</h2>
+
+        <h3>Reduced Redundancy</h3>
+        <p>Relational databases reduce unnecessary duplication by storing each fact in one appropriate place. If a customer changes an email address, the update is made only in the Customers table rather than in every order record. Reducing redundancy improves consistency, saves storage, and makes data easier to maintain, search, and retrieve.</p>
+
+        <h3>Referential Integrity</h3>
+        <p>Referential integrity ensures that relationships between tables remain valid. A foreign-key value must match an existing primary-key value in the related table. For example, an order cannot be created for a CustomerID that does not exist.</p>
+        <p>It also prevents records from becoming disconnected. A customer with existing orders generally cannot be deleted unless those orders are first removed or handled according to a defined database rule. This helps keep the data accurate, consistent, and meaningful.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="match">
+          <legend id="question-5-title">What does referential integrity require of a foreign-key value?</legend>
+          <label><input type="radio" name="q5" value="unique"> It must be unique in every table</label>
+          <label><input type="radio" name="q5" value="match"> It must match an existing primary-key value in the related table</label>
+          <label><input type="radio" name="q5" value="text"> It must always contain text</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="completion" aria-labelledby="completion-title">
+        <h2 id="completion-title">Chapter Completion</h2>
+        <p>Answer all five comprehension questions, then check your work.</p>
+        <button id="check-answers" type="button">Check My Answers</button>
+        <p id="overall-feedback" class="overall-feedback" aria-live="polite"></p>
+        <div id="access-code-panel" class="access-code-panel" hidden>
+          <p class="success-heading">Chapter complete</p>
+          <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
+          <code id="access-code">data-with-integrity</code>
+        </div>
+      </section>
+    </article>
+
+    <aside class="chapter-nav" aria-label="Chapter sections">
+      <p class="nav-title">In this chapter</p>
+      <a href="#data-information">Data vs. Information</a>
+      <a href="#data-structures">Data Structures</a>
+      <a href="#databases">Databases</a>
+      <a href="#relational-databases">Relational Structure</a>
+      <a href="#integrity">Reliable Data</a>
+      <div class="progress-block">
+        <span id="progress-text">0 of 5 answered</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </aside>
+  </main>
+  <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
+    <a class="nav-link disabled" aria-disabled="true">
+      ← Previous Chapter
+    </a>
+
+    <a class="nav-link contents-link" href="index.html">
+      Table of Contents
+    </a>
+
+    <a class="nav-link" href="chp2.html">
+      Next Chapter →
+    </a>
+  </nav>
+  <footer>
+    <p>Chapter 1: Data and Database Foundations</p>
+    <p>Brigham Young University - Idaho</p>
+  </footer>
+</body>
+</html>

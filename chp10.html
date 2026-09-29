@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chapter 10: Effective data visualizations, dashboard design, and misleading visuals.">
+  <title>Chapter 10 | Effective Data Visualizations</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+  <style>
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .figure-grid figure {
+      margin: 0;
+    }
+    .figure-grid img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <nav class="book-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp9.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp11.html">Next Chapter →</a>
+  </nav>
+
+  <header class="chapter-header" id="chapter-ten">
+    <div class="header-inner">
+      <p class="eyebrow">Chapter 10</p>
+      <h1>Effective Data Visualizations</h1>
+      <p class="chapter-summary">Learn how to choose the right visual, design clear dashboards, and recognize chart choices that distort evidence instead of revealing it.</p>
+    </div>
+  </header>
+
+  <main class="book-layout">
+    <article class="chapter-content">
+      <section id="chapter-introduction">
+        <h2>Effective Data Visualizations</h2>
+        <p>Visual displays turn data into information people can understand and use. Patterns that are difficult to spot in a table often become obvious in a chart: trends, differences, relationships, outliers, bottlenecks, and risks that need attention. In an information systems setting, visuals also help connect technical data to organizational goals, translating system conditions into meaning that decision-makers can act on.</p>
+        <p>A good visual should do more than look polished. It should serve a clear purpose, whether decorative, explanatory, evidentiary, or analytical. The analyst should be able to explain what information shaped the visual, who verified it, what the audience should believe or do after seeing it, and how the organization can defend the way it was produced.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="information">
+          <legend id="question-1-title">What do effective visuals help turn data into?</legend>
+          <label><input type="radio" name="q1" value="decoration"> Decoration</label>
+          <label><input type="radio" name="q1" value="information"> Information people can understand and use</label>
+          <label><input type="radio" name="q1" value="storage"> Storage space</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="visualization-principles">
+        <h2>Visualization Principles</h2>
+        <p>Strong visualizations begin with a few basic principles. Clarity keeps communication straightforward. Simplicity removes clutter and nonessential detail. Purposeful intent makes every element support a specific message or insight. Consistency keeps colors, fonts, and layout rules uniform across screens and reports.</p>
+        <p>When these principles are followed, the audience can focus on the data rather than on the design. The goal is not to make the visual the most elaborate part of the page, but the most useful.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="simplicity">
+          <legend id="question-2-title">Which principle removes unnecessary clutter?</legend>
+          <label><input type="radio" name="q2" value="simplicity"> Simplicity</label>
+          <label><input type="radio" name="q2" value="consistency"> Consistency</label>
+          <label><input type="radio" name="q2" value="decoration"> Decoration</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="visual-perception">
+        <h2>Foundations of Visual Perception and Design</h2>
+        <p>Effective visuals also reflect how people naturally see and organize information. Visual hierarchy directs attention so the most important data stands out first. Gestalt principles help explain why people group nearby or similar elements together, which is why related items should be placed close to one another and enclosed together when they belong to the same data set.</p>
+        <p>Preattentive features such as position, size, and color can communicate meaning almost instantly, before the viewer consciously analyzes the chart. When these ideas are used well, the visual feels clear and intuitive because it matches the way people actually perceive information.</p>
+      </section>
+
+      <section id="choosing-visuals">
+        <h2>Choosing and Designing Effective Visuals</h2>
+        <p>The best chart is the one that fits the data and the purpose. Line charts are useful for trends over time. Bar charts compare categories. Stacked bar charts show how a total is divided. Scatterplots reveal relationships between two variables. Maps show geographic patterns. Tables are best when exact values matter. Heat maps work well for concentration, intensity, or risk. Funnel charts show stages in a process, and process diagrams illustrate how information or work moves through a system.</p>
+        <p>Color should support the message rather than distract from it. It is most effective when it highlights key metrics, categories, or exceptions. Color meanings should remain consistent across visuals, and unnecessary borders, gridlines, decorative icons, and 3D effects should be removed when they do not help the reader. Accessibility matters as well: text should be readable, contrast should be high, palettes should work for colorblind viewers, and meaning should never depend on color alone.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-3-title">
+        <p class="checkpoint-label">Comprehension Check 3 of 5</p>
+        <fieldset data-question="q3" data-answer="line">
+          <legend id="question-3-title">Which chart is best for trends over time?</legend>
+          <label><input type="radio" name="q3" value="table"> Table</label>
+          <label><input type="radio" name="q3" value="line"> Line chart</label>
+          <label><input type="radio" name="q3" value="map"> Map</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="dashboard-design">
+        <h2>Dashboard Design</h2>
+        <p>A dashboard is a visual summary of the organization’s most important data. It brings charts and other visual tools together so leaders can see performance, compare results with targets, and notice deviations before they become larger problems. Well-designed dashboards provide current, reliable, clearly defined data, and they often allow the user to drill down into supporting details when more context is needed.</p>
+        <p>Dashboards usually serve one of three purposes. Operational dashboards monitor live environments and highlight immediate exceptions, alerts, and risks. Analytical dashboards focus on historical data to reveal trends, progress, and changes over weeks, months, or years. Strategic or executive dashboards summarize key performance indicators so leaders can assess organizational health and progress toward major goals.</p>
+
+        <figure>
+          <img src="images/fig-10-1.png" alt="An information systems dashboard showing key performance indicators, a line chart, a donut chart, and summary tables in a clean layout.">
+          <figcaption><strong>Figure 10.1.</strong> A dashboard should emphasize the measures that matter most and avoid unnecessary clutter.</figcaption>
+        </figure>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-4-title">
+        <p class="checkpoint-label">Comprehension Check 4 of 5</p>
+        <fieldset data-question="q4" data-answer="operational">
+          <legend id="question-4-title">Which dashboard type monitors live environments?</legend>
+          <label><input type="radio" name="q4" value="analytical"> Analytical dashboard</label>
+          <label><input type="radio" name="q4" value="operational"> Operational dashboard</label>
+          <label><input type="radio" name="q4" value="strategic"> Strategic dashboard</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="misleading-visuals">
+        <h2>Misleading Visuals</h2>
+        <p>A visual is part of a decision-support system, not just a picture on a screen. If the chart distorts the evidence, it can lead to poor decisions even when the underlying data is accurate. Good design cannot rescue bad data, and a polished chart can give unreliable data an appearance of authority. For that reason, visual quality must always be paired with data quality.</p>
+        <p>Common misleading visuals include truncated axes, unequal or distorted intervals, inappropriate chart types, misleading colors, selective time periods, misleading averages and totals, percentages without a baseline, correlation presented as causation, and cherry-picked data. Each of these can make ordinary differences look dramatic, hide variation inside a summary measure, or support a conclusion that the evidence does not truly justify.</p>
+
+        <div class="figure-grid" aria-label="Examples of misleading visuals">
+          <figure>
+            <img src="images/fig-10-2.png" alt="Side-by-side chart showing a proper axis starting at zero and a truncated axis starting above zero.">
+            <figcaption><strong>Truncated axes.</strong> Starting the baseline above zero can make a small difference look dramatic.</figcaption>
+          </figure>
+
+          <figure>
+            <img src="images/fig-10-3.png" alt="A bar chart showing unevenly spaced months that create a misleading trend.">
+            <figcaption><strong>Unequal or distorted intervals.</strong> Inconsistent spacing can suggest a trend the data does not support.</figcaption>
+          </figure>
+
+          <figure>
+            <img src="images/fig-10-4.png" alt="A comparison of dual axes and properly separated axes for unrelated trends.">
+            <figcaption><strong>Dual axes.</strong> Unrelated measures can appear connected when two scales are combined.</figcaption>
+          </figure>
+
+          <figure>
+            <img src="images/fig-10-5.png" alt="A selective time period chart that shows only recent growth compared with a chart that shows the complete time period.">
+            <figcaption><strong>Selective time periods.</strong> Showing only a favorable slice of time can hide the larger pattern.</figcaption>
+          </figure>
+
+          <figure>
+            <img src="images/fig-10-6.png" alt="A chart showing a percentage increase without the baseline values beside a proper chart with the values included.">
+            <figcaption><strong>Percentages without a baseline.</strong> Include the actual values so the audience can judge the scale of change.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="distort">
+          <legend id="question-5-title">Why are misleading visuals dangerous?</legend>
+          <label><input type="radio" name="q5" value="decorative"> They look too decorative</label>
+          <label><input type="radio" name="q5" value="distort"> They distort the evidence and can lead to poor decisions</label>
+          <label><input type="radio" name="q5" value="faster"> They always load faster</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="misleading-dashboards">
+        <h2>Misleading Dashboards</h2>
+        <p>Dashboards can also mislead when they give too much attention to low-priority measures or hide important ones. A weak dashboard may include too many metrics, give equal emphasis to items of very different importance, rely on outdated data without labeling it, bury unfavorable results behind filters, or make critical information difficult to reach. Dashboards should also avoid combining measures that use different definitions, because users may assume they are comparing like with like when they are not.</p>
+        <p>A strong dashboard makes priorities visible at a glance and supports quick, informed action.</p>
+      </section>
+
+      <section id="why-this-matters">
+        <h2>Why This Matters</h2>
+        <p>Effective visualization helps people see what matters quickly and clearly. When charts and dashboards are designed with purpose, clarity, and honesty, they turn technical data into organizational insight. When they are not, they can mislead the audience even if the numbers themselves are correct. The skill is not simply making visuals; it is making visuals that the organization can trust.</p>
+      </section>
+
+      <section class="completion" aria-labelledby="completion-title">
+        <h2 id="completion-title">Chapter Completion</h2>
+        <p>Answer all five comprehension questions, then check your work.</p>
+        <button id="check-answers" type="button">Check My Answers</button>
+        <p id="overall-feedback" class="overall-feedback" aria-live="polite"></p>
+        <div id="access-code-panel" class="access-code-panel" hidden>
+          <p class="success-heading">Chapter complete</p>
+          <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
+          <code id="access-code">visual-trust</code>
+        </div>
+      </section>
+    </article>
+
+    <aside class="chapter-nav" aria-label="Chapter sections">
+      <p class="nav-title">In this chapter</p>
+      <a href="#chapter-introduction">Effective Data Visualizations</a>
+      <a href="#visualization-principles">Visualization Principles</a>
+      <a href="#visual-perception">Visual Perception</a>
+      <a href="#choosing-visuals">Choosing Visuals</a>
+      <a href="#dashboard-design">Dashboard Design</a>
+      <a href="#misleading-visuals">Misleading Visuals</a>
+      <a href="#misleading-dashboards">Misleading Dashboards</a>
+      <a href="#why-this-matters">Why This Matters</a>
+      <div class="progress-block">
+        <span id="progress-text">0 of 5 answered</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp9.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp11.html">Next Chapter →</a>
+  </nav>
+
+  <footer>
+    <p>Chapter 10: Effective Data Visualizations</p>
+    <p>Brigham Young University - Idaho</p>
+  </footer>
+</body>
+</html>

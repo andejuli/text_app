@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chapter 4: SQL fundamentals and single-table queries.">
+  <title>Chapter 4 | SQL Fundamentals</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav class="book-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp3.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp5.html">Next Chapter →</a>
+  </nav>
+
+  <header class="chapter-header" id="chapter-four">
+    <div class="header-inner">
+      <p class="eyebrow">Chapter 4</p>
+      <h1>SQL Fundamentals</h1>
+      <p class="chapter-summary">Learn how single-table SQL queries retrieve, filter, sort, and present data clearly so it can support analysis and decision-making.</p>
+    </div>
+  </header>
+
+  <main class="book-layout">
+    <article class="chapter-content">
+      <section id="sql-introduction">
+        <h2>SQL Fundamentals</h2>
+        <p>SQL is the language used to ask a database for information. In single-table queries, the goal is to retrieve only the rows and columns you need, then present them clearly and efficiently. For information systems work, this is the starting point for turning stored data into useful results.</p>
+      </section>
+
+      <section id="select-statement">
+        <h2>The SELECT Statement</h2>
+        <p>A basic query begins with <code>SELECT</code> and <code>FROM</code>. <code>SELECT</code> chooses the columns that will appear in the result set, while <code>FROM</code> identifies the table that holds the data. During development, <code>SELECT *</code> can be a quick way to view every column, but in production it is better to list only the fields you need so the query is easier to read and more efficient.</p>
+
+        <pre><code>SELECT prod_name, prod_price
+FROM products;</code></pre>
+        <p class="sql-result-label">Result</p>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
+            <tr><td>notebook</td><td class="num">2.49</td></tr>
+            <tr><td>desk lamp</td><td class="num">18.00</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+          </tbody>
+        </table>
+
+        <p>SQL also allows calculated columns. You can add a markup directly in the query, and you can rename the result with <code>AS</code> to make the output easier to understand.</p>
+
+        <pre><code>SELECT prod_name, prod_price + 2.00 AS markup_price
+FROM products;</code></pre>
+        <p class="sql-result-label">Result</p>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">markup_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>coffee mug</td><td class="num">10.99</td></tr>
+            <tr><td>notebook</td><td class="num">4.49</td></tr>
+            <tr><td>desk lamp</td><td class="num">20.00</td></tr>
+            <tr><td>water bottle</td><td class="num">14.50</td></tr>
+          </tbody>
+        </table>
+
+        <p>The <code>DISTINCT</code> keyword removes duplicate values from a result set. This is useful when you want unique values instead of repeated ones.</p>
+
+        <pre><code>SELECT DISTINCT(prod_price)
+FROM products;</code></pre>
+        <p class="sql-result-label">Result</p>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="num">2.49</td></tr>
+            <tr><td class="num">8.99</td></tr>
+            <tr><td class="num">12.50</td></tr>
+            <tr><td class="num">18.00</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="columns">
+          <legend id="question-1-title">What does the SELECT clause choose?</legend>
+          <label><input type="radio" name="q1" value="table"> The table to use</label>
+          <label><input type="radio" name="q1" value="columns"> The columns to display</label>
+          <label><input type="radio" name="q1" value="sort"> The sort order</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="filtering">
+        <h2>Filtering with WHERE</h2>
+        <p>The <code>WHERE</code> clause narrows a query to only the rows that meet a condition. SQL supports comparison operators such as <code>=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, and <code>&lt;&gt;</code> or <code>!=</code>. This lets you ask focused questions such as which products cost more than a certain amount or which products fall within a specific range.</p>
+
+        <pre><code>SELECT prod_name, prod_price
+FROM products
+WHERE prod_price &gt; 5.00;</code></pre>
+        <p class="sql-result-label">Result</p>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
+            <tr><td>desk lamp</td><td class="num">18.00</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+          </tbody>
+        </table>
+
+        <pre><code>SELECT prod_name, prod_price
+FROM products
+WHERE prod_price BETWEEN 1.99 AND 3.99;</code></pre>
+        <p class="sql-result-label">Result</p>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>notebook</td><td class="num">2.49</td></tr>
+          </tbody>
+        </table>
+
+        <p>You can combine conditions with <code>AND</code>, <code>OR</code>, and <code>NOT</code>. <code>AND</code> requires both conditions to be true, <code>OR</code> allows either condition to be true, and <code>NOT</code> reverses the condition. Parentheses help control how compound conditions are evaluated.</p>
+
+        <pre><code>SELECT prod_name, prod_price
+FROM products
+WHERE prod_price = 5.99 AND prod_name = 'doll';</code></pre>
+        <p class="sql-result-label">Result</p>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>doll</td><td class="num">5.99</td></tr>
+          </tbody>
+        </table>
+
+        <p>SQL also supports <code>IN</code>, <code>LIKE</code>, and <code>REGEXP</code> for common search patterns. <code>IN</code> checks a list of values. <code>LIKE</code> matches string patterns with wildcards such as <code>%</code> and <code>_</code>. <code>REGEXP</code> allows more advanced pattern matching when a simple wildcard is not enough.</p>
+
+        <pre><code>SELECT prod_name, prod_price
+FROM products
+WHERE prod_price IN (2.49, 8.99, 12.50);</code></pre>
+        <p class="sql-result-label">Result</p>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>notebook</td><td class="num">2.49</td></tr>
+            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+          </tbody>
+        </table>
+
+        <pre><code>SELECT prod_name, prod_price
+FROM products
+WHERE prod_name LIKE 'b%';</code></pre>
+        <p class="sql-result-label">Result</p>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>book bag</td><td class="num">24.95</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="rows">
+          <legend id="question-2-title">What does the WHERE clause do?</legend>
+          <label><input type="radio" name="q2" value="rows"> Filters the rows that qualify</label>
+          <label><input type="radio" name="q2" value="columns"> Chooses the output columns</label>
+          <label><input type="radio" name="q2" value="alias"> Creates a table alias</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="null-values">
+        <h2>NULL Values</h2>
+        <p>A <code>NULL</code> value means the data was left blank or was not provided. It is not the same as zero, empty text, or a space. Because <code>NULL</code> is not a normal value, it must be tested with <code>IS NULL</code> or <code>IS NOT NULL</code> rather than with comparison operators. This matters because missing values can change the meaning of a query and affect analysis.</p>
+
+        <pre><code>SELECT prod_name, prod_price
+FROM products
+WHERE prod_category IS NULL;</code></pre>
+        <p class="sql-result-label">Result</p>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>notebook</td><td class="num">2.49</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-3-title">
+        <p class="checkpoint-label">Comprehension Check 3 of 5</p>
+        <fieldset data-question="q3" data-answer="isnull">
+          <legend id="question-3-title">How do you test for a missing value in SQL?</legend>
+          <label><input type="radio" name="q3" value="equals"> = NULL</label>
+          <label><input type="radio" name="q3" value="blank"> BLANK()</label>
+          <label><input type="radio" name="q3" value="isnull"> IS NULL</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="sorting-limiting">
+        <h2>Sorting and Limiting Results</h2>
+        <p>The <code>ORDER BY</code> clause sorts the result set by one or more columns. By default, sorting is ascending, but <code>DESC</code> reverses the order. This is useful when you want results in alphabetical order, numerical order, or a more specific sequence.</p>
+
+        <pre><code>SELECT prod_name, prod_price
+FROM products
+ORDER BY prod_price DESC;</code></pre>
+        <p class="sql-result-label">Result</p>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>desk lamp</td><td class="num">18.00</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
+            <tr><td>notebook</td><td class="num">2.49</td></tr>
+          </tbody>
+        </table>
+
+        <p>The <code>LIMIT</code> clause controls how many rows are returned. It is helpful when you only need a sample, a top set of results, or a short list for review.</p>
+
+        <pre><code>SELECT prod_name, prod_price
+FROM products
+LIMIT 4;</code></pre>
+        <p class="sql-result-label">Result</p>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
+            <tr><td>notebook</td><td class="num">2.49</td></tr>
+            <tr><td>desk lamp</td><td class="num">18.00</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-4-title">
+        <p class="checkpoint-label">Comprehension Check 4 of 5</p>
+        <fieldset data-question="q4" data-answer="sort">
+          <legend id="question-4-title">What does ORDER BY do?</legend>
+          <label><input type="radio" name="q4" value="sort"> Sorts the results</label>
+          <label><input type="radio" name="q4" value="limit"> Limits the number of columns</label>
+          <label><input type="radio" name="q4" value="join"> Combines tables</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="order-of-execution">
+        <h2>Order of Writing and Order of Execution</h2>
+        <p>SQL clauses are written in one order, but the database processes them in another. The usual writing order is <code>SELECT</code>, <code>FROM</code>, <code>WHERE</code>, <code>ORDER BY</code>, then <code>LIMIT</code>. The execution order is <code>FROM</code>, <code>WHERE</code>, <code>SELECT</code>, <code>ORDER BY</code>, then <code>LIMIT</code>. Understanding that difference helps explain why an alias created in <code>SELECT</code> can be used in <code>ORDER BY</code> but not in <code>WHERE</code>.</p>
+
+        <pre><code>SELECT prod_name, prod_price + 2.00 AS mark_up
+FROM products
+WHERE prod_price &gt; 1.99
+ORDER BY mark_up;</code></pre>
+        <p class="sql-result-label">Result</p>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+              <th class="num">mark_up</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>notebook</td><td class="num">2.49</td><td class="num">4.49</td></tr>
+            <tr><td>coffee mug</td><td class="num">8.99</td><td class="num">10.99</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td><td class="num">14.50</td></tr>
+            <tr><td>desk lamp</td><td class="num">18.00</td><td class="num">20.00</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="after-select">
+          <legend id="question-5-title">Why can an alias created in SELECT be used in ORDER BY but not WHERE?</legend>
+          <label><input type="radio" name="q5" value="same-time"> Both clauses are processed at the same time</label>
+          <label><input type="radio" name="q5" value="after-select"> ORDER BY is processed after SELECT</label>
+          <label><input type="radio" name="q5" value="never"> Aliases can never be used in SQL</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="why-this-matters">
+        <h2>Why This Matters</h2>
+        <p>Single-table SQL is one of the most important skills in database work. It teaches you how to retrieve data accurately, filter it carefully, sort it meaningfully, and return results that support real decisions. Once these basics are clear, more advanced topics such as joins, grouping, and analysis become much easier to understand.</p>
+      </section>
+
+      <section class="completion" aria-labelledby="completion-title">
+        <h2 id="completion-title">Chapter Completion</h2>
+        <p>Answer all five comprehension questions, then check your work.</p>
+        <button id="check-answers" type="button">Check My Answers</button>
+        <p id="overall-feedback" class="overall-feedback" aria-live="polite"></p>
+        <div id="access-code-panel" class="access-code-panel" hidden>
+          <p class="success-heading">Chapter complete</p>
+          <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
+          <code id="access-code">fundamental-sql</code>
+        </div>
+      </section>
+    </article>
+
+    <aside class="chapter-nav" aria-label="Chapter sections">
+      <p class="nav-title">In this chapter</p>
+      <a href="#sql-introduction">SQL Fundamentals</a>
+      <a href="#select-statement">The SELECT Statement</a>
+      <a href="#filtering">Filtering with WHERE</a>
+      <a href="#null-values">NULL Values</a>
+      <a href="#sorting-limiting">Sorting and Limiting</a>
+      <a href="#order-of-execution">Order of Execution</a>
+      <a href="#why-this-matters">Why This Matters</a>
+      <div class="progress-block">
+        <span id="progress-text">0 of 5 answered</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp3.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp5.html">Next Chapter →</a>
+  </nav>
+
+  <footer>
+    <p>Chapter 4: SQL Fundamentals</p>
+    <p>Brigham Young University - Idaho</p>
+  </footer>
+</body>
+</html>

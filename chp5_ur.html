@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chapter 5: SQL functions, joins, and summary queries.">
+  <title>Chapter 5 | SQL Querying Tools</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav class="book-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp4.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp6.html">Next Chapter →</a>
+  </nav>
+
+  <header class="chapter-header" id="chapter-five">
+    <div class="header-inner">
+      <p class="eyebrow">Chapter 5</p>
+      <h1>SQL Querying Tools</h1>
+      <p class="chapter-summary">Learn how SQL functions, joins, and summary queries help turn stored data into clear, useful information for analysis and decision-making.</p>
+    </div>
+  </header>
+
+  <main class="book-layout">
+    <article class="chapter-content">
+      <section id="sql-tools-intro">
+        <h2>Why SQL Becomes More Powerful</h2>
+        <p>In the last chapter, we focused on the core syntax of single-table queries. Those basics remain important, but SQL becomes far more useful when we can reshape values, combine related tables, and summarize large sets of rows. For information systems work, these tools are essential because they help turn raw database content into information that people can actually use.</p>
+      </section>
+
+      <section id="functions">
+        <h2>Functions That Shape Data</h2>
+        <p>SQL functions let you work with values before they are displayed or stored. <strong>Scalar functions</strong> operate on one row at a time, which makes them useful for cleaning text, adjusting numbers, and extracting parts of dates. This is especially helpful when data needs to be standardized for reports or analysis.</p>
+
+        <h3>Text Functions</h3>
+        <p>Text functions combine or transform strings. They can build readable labels, change letter case, or pull part of a word from a column value.</p>
+
+        <pre><code>SELECT CONCAT('The primary key of ', keyword, ' is ', keyword_id) AS new_string
+FROM keyword
+WHERE keyword_id = 1;</code></pre>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>new_string</th></tr></thead>
+  <tbody>
+    <tr><td>The primary key of sky is 1</td></tr>
+  </tbody>
+</table>
+
+        <pre><code>SELECT LEFT(keyword, 4) AS left_part, LENGTH(keyword) AS char_count, UPPER(keyword) AS upper_keyword
+FROM keyword
+WHERE keyword_id = 2;</code></pre>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>left_part</th><th>char_count</th><th>upper_keyword</th></tr></thead>
+  <tbody>
+    <tr><td>land</td><td>9</td><td>LANDSCAPE</td></tr>
+  </tbody>
+</table>
+
+        <h3>Numeric and Date Functions</h3>
+        <p>Numeric functions are useful when values need to be rounded, compared, or formatted for display. Date and time functions help pull out parts of a date, calculate time differences, or present dates in a friendlier format.</p>
+
+        <pre><code>SELECT ROUND(magPrice) AS rounded_price, FLOOR(magPrice) AS lower_whole, CEILING(magPrice) AS upper_whole
+FROM magazine;</code></pre>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th class="num">rounded_price</th><th class="num">lower_whole</th><th class="num">upper_whole</th></tr></thead>
+  <tbody>
+    <tr><td class="num">14</td><td class="num">13</td><td class="num">14</td></tr><tr><td class="num">15</td><td class="num">15</td><td class="num">16</td></tr><tr><td class="num">18</td><td class="num">17</td><td class="num">18</td></tr><tr><td class="num">18</td><td class="num">18</td><td class="num">18</td></tr><tr><td class="num">25</td><td class="num">25</td><td class="num">25</td></tr>
+  </tbody>
+</table>
+
+        <pre><code>SELECT hire_date, YEAR(hire_date) AS hire_year, MONTH(hire_date) AS hire_month
+FROM employee;</code></pre>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>hire_date</th><th>hire_year</th><th>hire_month</th></tr></thead>
+  <tbody>
+    <tr><td>2013-06-15</td><td>2013</td><td>6</td></tr><tr><td>2013-08-23</td><td>2013</td><td>8</td></tr><tr><td>2014-01-03</td><td>2014</td><td>1</td></tr><tr><td>2015-07-12</td><td>2015</td><td>7</td></tr><tr><td>2015-10-20</td><td>2015</td><td>10</td></tr>
+  </tbody>
+</table>
+
+        <p>Functions such as <code>NOW()</code>, <code>DATE_ADD()</code>, and <code>DATE_FORMAT()</code> are also valuable when dates must be compared, extended, or presented in a clean business format.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="one-row">
+          <legend id="question-1-title">What do scalar functions do?</legend>
+          <label><input type="radio" name="q1" value="group"> Work on groups of rows</label>
+          <label><input type="radio" name="q1" value="one-row"> Work on one row or value at a time</label>
+          <label><input type="radio" name="q1" value="join"> Combine two tables</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="joins">
+        <h2>Joining Related Tables</h2>
+        <p>Relational databases are split into related tables during normalization, so the information often has to be joined back together for reporting. A <code>JOIN</code> combines rows from tables that share a related key. In most cases, that means matching a primary key in one table to a foreign key in another. Using explicit join syntax keeps the relationship clear and readable.</p>
+
+        <p><strong>INNER JOIN</strong> is the most common join. It returns only rows that have matching values in both tables.</p>
+
+        <pre><code>SELECT lastName, firstName, subStartDate
+FROM subscriber
+    INNER JOIN subscription
+        ON subscriber.subKey = subscription.subKey
+ORDER BY lastName;</code></pre>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>lastName</th><th>firstName</th><th>subStartDate</th></tr></thead>
+  <tbody>
+    <tr><td>Anderson</td><td>Albert</td><td>2011-03-01</td></tr><tr><td>Jimenez</td><td>Jose</td><td>2012-08-01</td></tr><tr><td>Jimenez</td><td>Jose</td><td>2011-09-01</td></tr><tr><td>Johnston</td><td>Julie</td><td>2011-03-01</td></tr><tr><td>Lamont</td><td>Lucy</td><td>2012-07-01</td></tr><tr><td>Lamont</td><td>Lucy</td><td>2012-02-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-05-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-12-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2012-02-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-05-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-09-01</td></tr>
+  </tbody>
+</table>
+
+        <p>When a query needs data from three related tables, aliases keep the SQL manageable. The example below finds subscribers to a specific magazine by joining the subscriber, subscription, and magazine tables.</p>
+
+        <pre><code>SELECT lastName AS Last_Name, firstName AS First_Name
+FROM subscriber sr
+    JOIN subscription sn
+        ON sr.subKey = sn.subKey
+    JOIN magazine m
+        ON sn.magKey = m.magKey
+WHERE magName = 'Beautiful Birds'
+ORDER BY Last_Name;</code></pre>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>Last_Name</th><th>First_Name</th></tr></thead>
+  <tbody>
+    <tr><td>Lamont</td><td>Lucy</td></tr><tr><td>Sanders</td><td>Samantha</td></tr>
+  </tbody>
+</table>
+
+        <p>An <strong>OUTER JOIN</strong> matters when completeness is more important than matching rows alone. A <code>LEFT JOIN</code> keeps every row from the left table even when there is no match on the right, which is useful when missing related data should still be visible.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="matching-keys">
+          <legend id="question-2-title">What do joins usually match?</legend>
+          <label><input type="radio" name="q2" value="matching-keys"> Related key columns such as a primary key and foreign key</label>
+          <label><input type="radio" name="q2" value="prices"> Product prices</label>
+          <label><input type="radio" name="q2" value="dates"> Two date columns only</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-3-title">
+        <p class="checkpoint-label">Comprehension Check 3 of 5</p>
+        <fieldset data-question="q3" data-answer="matching-rows">
+          <legend id="question-3-title">What does an INNER JOIN return?</legend>
+          <label><input type="radio" name="q3" value="matching-rows"> Only rows that match in both tables</label>
+          <label><input type="radio" name="q3" value="all-left"> All rows from the left table only</label>
+          <label><input type="radio" name="q3" value="summary"> One summary row for each table</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="summary-queries">
+        <h2>Summary Queries</h2>
+        <p>When a business question asks for a total, an average, a highest value, or a count, SQL uses aggregate functions. These functions operate on a set of rows and return a single result, which makes them ideal for dashboards, reports, and decision support.</p>
+
+        <pre><code>SELECT AVG(salary) AS Average_Salary
+FROM salaries;</code></pre>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>Average_Salary</th></tr></thead>
+  <tbody>
+    <tr><td>64238.8072</td></tr>
+  </tbody>
+</table>
+
+        <pre><code>SELECT COUNT(*) AS Number_of_Employees
+FROM employees;</code></pre>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>Number_of_Employees</th></tr></thead>
+  <tbody>
+    <tr><td>9488</td></tr>
+  </tbody>
+</table>
+
+        <p>The <code>DISTINCT</code> keyword can reduce duplicate values before an aggregate is calculated. The <code>GROUP BY</code> clause then creates groups so each subset can be summarized separately.</p>
+
+        <pre><code>SELECT vendor_id, COUNT(*) AS Number_of_Products
+FROM products
+GROUP BY vendor_id;</code></pre>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>vendor_id</th><th>Number_of_Products</th></tr></thead>
+  <tbody>
+    <tr><td>021</td><td>15</td></tr><tr><td>044</td><td>23</td></tr><tr><td>121</td><td>31</td></tr>
+  </tbody>
+</table>
+
+        <pre><code>SELECT vendor_id, COUNT(*) AS Number_of_Products
+FROM products
+GROUP BY vendor_id
+HAVING COUNT(*) > 20;</code></pre>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>vendor_id</th><th>Number_of_Products</th></tr></thead>
+  <tbody>
+    <tr><td>044</td><td>23</td></tr><tr><td>121</td><td>31</td></tr>
+  </tbody>
+</table>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-4-title">
+        <p class="checkpoint-label">Comprehension Check 4 of 5</p>
+        <fieldset data-question="q4" data-answer="single-value">
+          <legend id="question-4-title">What do aggregate functions return?</legend>
+          <label><input type="radio" name="q4" value="single-value"> A single value for a set of rows</label>
+          <label><input type="radio" name="q4" value="text"> Only text values</label>
+          <label><input type="radio" name="q4" value="multiple"> One result per column name</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="groups">
+          <legend id="question-5-title">What does GROUP BY do?</legend>
+          <label><input type="radio" name="q5" value="rows"> Filters individual rows only</label>
+          <label><input type="radio" name="q5" value="groups"> Creates groups for aggregate functions</label>
+          <label><input type="radio" name="q5" value="sort"> Sorts results without grouping them</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="why-this-matters">
+        <h2>Why This Matters</h2>
+        <p>Functions, joins, and summary queries are some of the most practical tools in SQL. Functions clean and format values, joins reconnect related tables, and aggregates convert rows of data into information that is easier to interpret. For information systems students, these are the skills that make database data useful in real applications.</p>
+      </section>
+
+      <section class="completion" aria-labelledby="completion-title">
+        <h2 id="completion-title">Chapter Completion</h2>
+        <p>Answer all five comprehension questions, then check your work.</p>
+        <button id="check-answers" type="button">Check My Answers</button>
+        <p id="overall-feedback" class="overall-feedback" aria-live="polite"></p>
+        <div id="access-code-panel" class="access-code-panel" hidden>
+          <p class="success-heading">Chapter complete</p>
+          <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
+          <code id="access-code">query-data</code>
+        </div>
+      </section>
+    </article>
+
+    <aside class="chapter-nav" aria-label="Chapter sections">
+      <p class="nav-title">In this chapter</p>
+      <a href="#sql-tools-intro">SQL Tools</a>
+      <a href="#functions">Functions</a>
+      <a href="#joins">Joining Tables</a>
+      <a href="#summary-queries">Summary Queries</a>
+      <a href="#why-this-matters">Why This Matters</a>
+      <div class="progress-block">
+        <span id="progress-text">0 of 5 answered</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp4.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp6.html">Next Chapter →</a>
+  </nav>
+
+  <footer>
+    <p>Chapter 5: SQL Querying Tools</p>
+    <p>Brigham Young University - Idaho</p>
+  </footer>
+</body>
+</html>

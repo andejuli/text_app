@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chapter 3: Data foundations, quality, life cycle, and governance.">
+  <title>Chapter 3 | Data Foundations</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav class="book-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp2.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp4.html">Next Chapter →</a>
+  </nav>
+
+  <header class="chapter-header" id="chapter-three">
+    <div class="header-inner">
+      <p class="eyebrow">Chapter 3</p>
+      <h1>Data Foundations</h1>
+      <p class="chapter-summary">Learn how data quality, the data life cycle, and data governance work together to support trustworthy information.</p>
+    </div>
+  </header>
+
+  <main class="book-layout">
+    <article class="chapter-content">
+      <section id="data-foundations">
+        <h2>Data Foundations</h2>
+        <p>In the previous chapter, we focused on database modeling and design. However, a strong design alone is not enough. A database also depends on good-quality data, a reliable system environment, and the people and processes that keep everything working properly. This chapter begins by looking at those foundations.</p>
+      </section>
+
+      <section id="system-environment">
+        <h2>Database System Environment</h2>
+        <p>A database does not operate in isolation. It exists within a database system environment made up of hardware, software, data, people, and procedures. Together, these components provide the foundation for storing, protecting, and delivering information when it is needed.</p>
+        <p><strong>Hardware</strong> includes the physical devices that store and process the data, such as servers, storage systems, and user machines. <strong>Software</strong> includes the database management system (DBMS), which controls how data is stored, retrieved, and updated. <strong>Data</strong> is the information being managed, including the database itself and the metadata that describes its structure. <strong>People</strong> are essential to the system as well. Database administrators manage the system, application developers build the tools that use the data, and end users access the information for daily work and decision-making. <strong>Procedures</strong> are the rules and methods that guide how the system is used. These include access rules, user roles, security controls, transaction control, and concurrency management.</p>
+        <p>When these components work together, the database environment remains organized, secure, and reliable.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="software">
+          <legend id="question-1-title">Which component controls how data is stored, retrieved, and updated?</legend>
+          <label><input type="radio" name="q1" value="hardware"> Hardware</label>
+          <label><input type="radio" name="q1" value="software"> Software</label>
+          <label><input type="radio" name="q1" value="people"> People</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="data-quality">
+        <h2>Data Quality Dimensions</h2>
+        <p>Even in a well-managed system, data must still be dependable. Data quality describes how trustworthy, useful, and accurate the data is. High-quality data supports better decisions because it is not only present, but also ready to be used with confidence.</p>
+        <p><strong>Accuracy</strong> means the data reflects reality correctly. <strong>Completeness</strong> means the needed values are present and nothing important is missing. <strong>Consistency</strong> means the same fact appears the same way wherever it is stored. <strong>Validity</strong> means the data follows the correct rules, format, or allowed values. <strong>Uniqueness</strong> means each real-world item appears only once and is not duplicated unnecessarily. <strong>Timeliness</strong> means the data is current enough to be useful. <strong>Integrity</strong> means the data remains reliable through correct relationships and protection from errors.</p>
+        <p>Together, these dimensions help determine whether data can be trusted. When they are strong, the data is ready to support accurate analysis and sound decisions.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="accuracy">
+          <legend id="question-2-title">Which data quality dimension means the data reflects reality correctly?</legend>
+          <label><input type="radio" name="q2" value="consistency"> Consistency</label>
+          <label><input type="radio" name="q2" value="accuracy"> Accuracy</label>
+          <label><input type="radio" name="q2" value="timeliness"> Timeliness</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="data-life-cycle">
+        <h2>Data Life Cycle</h2>
+        <p>Once data is trusted, it still continues to move through the organization. The data life cycle traces that journey from creation to final disposal. It begins when data is created or collected, whether from a form, a transaction, a sensor, or another source. It is then stored so it can be accessed later.</p>
+        <p>Before data is ready to use, it often goes through processing, where it is cleaned, validated, organized, or transformed into a more useful form. After that, it enters use and analysis, where it supports operations, reports, decision-making, and even machine learning. Data is also shared with employees, systems, customers, or business partners, but always under security and privacy rules. Over time, it requires maintenance so it can be updated, monitored, backed up, and checked for quality. When data is no longer actively needed, it may be archived for long-term reference. Eventually, it is deleted or destroyed according to policy, legal requirements, and organizational needs.</p>
+
+        <figure>
+          <img src="images/fig-3-1.png" alt="An eight-stage data life cycle showing collection, storage, processing, use and analysis, sharing, maintenance, archiving, and deletion.">
+          <figcaption><strong>Figure 3.1.</strong> Data moves through a life cycle from creation to deletion.</figcaption>
+        </figure>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-3-title">
+        <p class="checkpoint-label">Comprehension Check 3 of 5</p>
+        <fieldset data-question="q3" data-answer="processing">
+          <legend id="question-3-title">What stage of the data life cycle cleans, validates, organizes, or transforms data?</legend>
+          <label><input type="radio" name="q3" value="storage"> Storage</label>
+          <label><input type="radio" name="q3" value="processing"> Processing</label>
+          <label><input type="radio" name="q3" value="archiving"> Archiving</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="data-governance">
+        <h2>Data Governance</h2>
+        <p>Because data moves through so many stages, organizations need clear oversight. Data governance is the framework that guides how data is managed responsibly from creation through archiving and deletion. It helps ensure that data is secure, compliant, high quality, and used effectively throughout its life cycle. Good governance also makes data easier to discover, understand, trust, and use.</p>
+      </section>
+
+      <section id="data-ownership">
+        <h2>Data Ownership</h2>
+        <p>Within that governance framework, someone must be accountable for the data. Data ownership defines who is responsible for a set of data and who makes the policy decisions about it. A data owner is often a senior business leader or department responsible for the data’s use and protection. Owners decide who may access the data, how it may be used, what quality standards it must meet, how long it should be kept, and which privacy and security rules apply. For example, Human Resources is often the owner of employee data.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-4-title">
+        <p class="checkpoint-label">Comprehension Check 4 of 5</p>
+        <fieldset data-question="q4" data-answer="owner">
+          <legend id="question-4-title">Who is accountable for a set of data and makes the policy decisions about it?</legend>
+          <label><input type="radio" name="q4" value="steward"> Data steward</label>
+          <label><input type="radio" name="q4" value="owner"> Data owner</label>
+          <label><input type="radio" name="q4" value="enduser"> End user</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="data-stewardship">
+        <h2>Data Stewardship</h2>
+        <p>If data ownership sets the direction, data stewardship carries it out in practice. Data stewardship focuses on the day-to-day handling of data quality and protection. A data steward helps ensure that the data remains accurate, complete, consistent, and well documented. Stewards may monitor quality, define data terms and standards, correct or coordinate corrections, resolve duplicates or inconsistencies, maintain metadata, and help enforce policy. They are the practical caretakers of trustworthy data.</p>
+      </section>
+
+      <section id="latter-day-saint-stewardship">
+        <h2>Quality Data and Latter-day Saint Stewardship</h2>
+        <p>Quality data is more than a technical goal; it is part of responsible stewardship. President Dallin H. Oaks taught that “available information wisely used is far more valuable than multiplied information allowed to lie fallow” (Oaks, 2001). He also reminded us that we are accountable for how we use what we receive.</p>
+        <p>That counsel fits well with data work. In a world where information is abundant but not always reliable, President Oaks warned that not all information is true and that we must choose our sources carefully (Oaks, 2018). He taught that we should use qualified, honest sources and not confuse popularity or visibility with truth.</p>
+        <p>Applied to data, this means that accurate, complete, and well-managed information helps people make wise decisions in wisdom and order. Data that is careless, inconsistent, or misleading can weaken trust, but data that is faithful to reality can support good judgment, sound administration, and service to others.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="stewardship">
+          <legend id="question-5-title">From a Latter-day Saint perspective, quality data is part of what?</legend>
+          <label><input type="radio" name="q5" value="stewardship"> Responsible stewardship</label>
+          <label><input type="radio" name="q5" value="marketing"> Marketing strategy</label>
+          <label><input type="radio" name="q5" value="automation"> Automation</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="completion" aria-labelledby="completion-title">
+        <h2 id="completion-title">Chapter Completion</h2>
+        <p>Answer all five comprehension questions, then check your work.</p>
+        <button id="check-answers" type="button">Check My Answers</button>
+        <p id="overall-feedback" class="overall-feedback" aria-live="polite"></p>
+        <div id="access-code-panel" class="access-code-panel" hidden>
+          <p class="success-heading">Chapter complete</p>
+          <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
+          <code id="access-code">quality-data</code>
+        </div>
+      </section>
+
+      <section id="references">
+        <h2>References</h2>
+        <p>Oaks, D. H. (2001, April). <em>Focus and priorities</em>. In <em>General Conference (April 2001)</em>. The Church of Jesus Christ of Latter-day Saints.</p>
+        <p>Oaks, D. H. (2018, November). <em>Truth and the plan</em>. In <em>General Conference (November 2018)</em>. The Church of Jesus Christ of Latter-day Saints.</p>
+      </section>
+    </article>
+
+    <aside class="chapter-nav" aria-label="Chapter sections">
+      <p class="nav-title">In this chapter</p>
+      <a href="#data-foundations">Data Foundations</a>
+      <a href="#system-environment">System Environment</a>
+      <a href="#data-quality">Data Quality</a>
+      <a href="#data-life-cycle">Data Life Cycle</a>
+      <a href="#data-governance">Governance</a>
+      <a href="#latter-day-saint-stewardship">LDS Stewardship</a>
+      <div class="progress-block">
+        <span id="progress-text">0 of 5 answered</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp2.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp4.html">Next Chapter →</a>
+  </nav>
+
+  <footer>
+    <p>Chapter 3: Data Foundations</p>
+    <p>Brigham Young University - Idaho</p>
+  </footer>
+</body>
+</html>

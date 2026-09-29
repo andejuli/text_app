@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chapter 9: Evaluating evidence, bias, limitations, and decision reporting.">
+  <title>Chapter 9 | Evaluating Evidence and Communicating Decisions</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav class="book-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp8.html">&larr; Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp10.html">Next Chapter &rarr;</a>
+  </nav>
+
+  <header class="chapter-header" id="chapter-nine">
+    <div class="header-inner">
+      <p class="eyebrow">Chapter 9</p>
+      <h1>Evaluating Evidence and Communicating Decisions</h1>
+      <p class="chapter-summary">Learn how analysts judge confidence, recognize bias, disclose limitations, and turn findings into useful decisions and reports.</p>
+    </div>
+  </header>
+
+  <main class="book-layout">
+    <article class="chapter-content">
+      <section id="chapter-introduction">
+        <h2>Evaluating Evidence and Communicating Decisions</h2>
+        <p>The earlier steps in the workflow produced evidence: patterns, outliers, and possible explanations. This chapter asks what that evidence is worth. Not every result deserves the same level of confidence, and not every dataset supports the same kind of conclusion. An analyst must judge how much confidence to place in the findings, identify what the data can and cannot show, and communicate the results in a way the organization can use.</p>
+        <p>This final stage also requires care with AI-assisted analysis. AI may help summarize, classify, or recommend, but the analyst remains responsible for reviewing the output, checking the evidence, and documenting how the analysis was produced.</p>
+
+        <figure>
+          <img src="images/fig-9-1.png" alt="Nine-step data analysis workflow with the later decision steps emphasized.">
+          <figcaption><strong>Figure 9.1.</strong> Workflow steps 1 through 9, with limitations and decisions emphasized in this chapter.</figcaption>
+        </figure>
+      </section>
+
+      <section id="bias-limitations">
+        <h2>8. Recognizing Bias and Limitations</h2>
+        <p>Every analysis has limits, and those limits should be stated clearly. Bias can enter before the analyst even sees the dataset. Data is not neutral simply because it is numerical. For example, if a company collects customer feedback only through its mobile app, it may exclude customers who do not use the app. That missing group creates a biased view of the customer experience and lowers confidence in the findings.</p>
+        <p>Bias can appear in sampling, measurement, system design, or data collection. A dataset may overrepresent one region, one channel, or one customer group while leaving out others. That does not always make the data useless, but it does affect how far the results can be generalized. The analyst should ask whether the sample is representative, whether important groups are missing, and whether the data reflects the full business problem or only part of it.</p>
+        <p>AI can introduce additional bias, especially if the training data is incomplete, poorly balanced, or not representative of the real-world problem. Trustworthy AI requires attention to validity and reliability, safety and security, accountability and transparency, explainability and interpretability, privacy, fairness, and harmful-bias management. Those concerns belong in the analysis because AI is part of the information system, not separate from it.</p>
+        <p>Other limitations can include inaccurate data, duplicate records, data-entry errors, missing information, privacy restrictions, and poor data quality. If these problems were not handled earlier in the workflow, they can lead to weak analysis and weak managerial decisions. Limitations should be presented as part of the evidence because they help the organization understand how much confidence to place in the findings.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="confidence">
+          <legend id="question-1-title">What do bias and limitations help the audience judge?</legend>
+          <label><input type="radio" name="q1" value="confidence"> How much confidence to place in the findings</label>
+          <label><input type="radio" name="q1" value="speed"> How fast the analysis was done</label>
+          <label><input type="radio" name="q1" value="decor"> How the report should be decorated</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="exclude">
+          <legend id="question-2-title">How can bias enter a dataset?</legend>
+          <label><input type="radio" name="q2" value="exclude"> By excluding part of the population</label>
+          <label><input type="radio" name="q2" value="perfect"> By making the data too complete</label>
+          <label><input type="radio" name="q2" value="sort"> By sorting the rows alphabetically</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-3-title">
+        <p class="checkpoint-label">Comprehension Check 3 of 5</p>
+        <fieldset data-question="q3" data-answer="document">
+          <legend id="question-3-title">What should be documented about limitations?</legend>
+          <label><input type="radio" name="q3" value="hide"> Hide them from the audience</label>
+          <label><input type="radio" name="q3" value="document"> The assumptions and limits of the analysis</label>
+          <label><input type="radio" name="q3" value="ignore"> Ignore them if the numbers look good</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="decision-report">
+        <h2>9. Making Decisions and Reporting Findings</h2>
+        <p>The final step is to turn the analysis into something the organization can actually use. This stage is often associated with prescriptive analytics, because it moves beyond describing, exploring, and diagnosing data to recommending what should happen next. At this point, the analyst interprets the findings in the context of the business problem and eventually communicate the results through charts, visualizations, and a written report. The report should be tailored to the audience: executives may need a concise summary of the key findings and recommendations, while technical reviewers may need more detail about the methods, sources, and assumptions used.</p>
+        <p>A strong report usually explains the business problem, the data sources, the methods used, the findings, the limitations, the recommendations, and any follow-up work that may be needed. The goal is not simply to describe the analysis, but to help the audience decide what to do next. Strategic decisions, process improvements, and operational changes are often the end result of good analysis.</p>
+        <p>AI can support this final stage as well, but it should still be evaluated carefully. It may help with visualization, summarization, or recommendation, yet it should never be trusted blindly. The analyst remains responsible for judging whether the findings are strong enough to report and whether the evidence supports the conclusion. When AI is used, the workflow should be documented so the organization can see what was automated, what was reviewed, and what was approved by a human.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-4-title">
+        <p class="checkpoint-label">Comprehension Check 4 of 5</p>
+        <fieldset data-question="q4" data-answer="audience">
+          <legend id="question-4-title">Why should a report be adapted to the audience?</legend>
+          <label><input type="radio" name="q4" value="audience"> Different audiences need different levels of detail</label>
+          <label><input type="radio" name="q4" value="same"> Every audience wants the same report</label>
+          <label><input type="radio" name="q4" value="hide"> So important details can be hidden</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="review">
+          <legend id="question-5-title">What should be done with AI-assisted analysis?</legend>
+          <label><input type="radio" name="q5" value="trust"> Trust it without checking</label>
+          <label><input type="radio" name="q5" value="review"> Review and document it</label>
+          <label><input type="radio" name="q5" value="ignore"> Ignore the AI results entirely</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="why-this-workflow-matters">
+        <h2>Why This Workflow Matters</h2>
+        <p>These steps bring the analysis to a responsible conclusion. They remind the analyst to judge the evidence, disclose the limits, and communicate findings in a way the organization can use. Good analysis is not only about finding a result; it is about explaining how much trust that result deserves and what action it supports. It keeps analysis grounded in the business problem, careful about the evidence, honest about the limits, and clear about what should happen next.</p>
+      </section>
+
+      <section class="completion" aria-labelledby="completion-title">
+        <h2 id="completion-title">Chapter Completion</h2>
+        <p>Answer all five comprehension questions, then check your work.</p>
+        <button id="check-answers" type="button">Check My Answers</button>
+        <p id="overall-feedback" class="overall-feedback" aria-live="polite"></p>
+        <div id="access-code-panel" class="access-code-panel" hidden>
+          <p class="success-heading">Chapter complete</p>
+          <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
+          <code id="access-code">evidence-decisions</code>
+        </div>
+      </section>
+    </article>
+
+    <aside class="chapter-nav" aria-label="Chapter sections">
+      <p class="nav-title">In this chapter</p>
+      <a href="#chapter-introduction">Evaluating Evidence</a>
+      <a href="#bias-limitations">Recognizing Bias and Limitations</a>
+      <a href="#decision-report">Making Decisions and Reporting</a>
+      <a href="#why-this-workflow-matters">Why This Workflow Matters</a>
+      <div class="progress-block">
+        <span id="progress-text">0 of 5 answered</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp8.html">&larr; Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp10.html">Next Chapter &rarr;</a>
+  </nav>
+
+  <footer>
+    <p>Chapter 9: Evaluating Evidence and Communicating Decisions</p>
+    <p>Brigham Young University - Idaho</p>
+  </footer>
+</body>
+</html>

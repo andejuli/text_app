@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chapter 9: Evaluating evidence and communicating decisions in data analysis.">
+  <title>Chapter 9 | Evaluating Evidence and Communicating Decisions</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav class="book-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp8.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp10.html">Next Chapter →</a>
+  </nav>
+
+  <header class="chapter-header" id="chapter-nine">
+    <div class="header-inner">
+      <p class="eyebrow">Chapter 9</p>
+      <h1>Evaluating Evidence and Communicating Decisions</h1>
+      <p class="chapter-summary">Learn how analysts recognize bias, weigh limitations, and turn evidence into recommendations that fit the audience.</p>
+    </div>
+  </header>
+
+  <main class="book-layout">
+    <article class="chapter-content">
+      <section id="chapter-introduction">
+        <h2>Evaluating Evidence and Communicating Decisions</h2>
+        <p>This chapter completes the analysis workflow by focusing on the final two steps: recognizing bias and limitations, then turning the findings into a decision and a report. At this point, the analyst must judge how much confidence to place in the evidence, explain what assumptions were made, and communicate the result in a way the audience can use.</p>
+        <p>AI may still assist with this stage, but its output should be reviewed, documented, and checked against the data before it is trusted. The goal is not only to produce a conclusion, but to present evidence that is clear, fair, and useful.</p>
+      </section>
+
+      <section id="bias-limitations">
+        <h2>8. Recognizing Bias and Limitations</h2>
+        <p>Every analysis has limits, and those limits should be stated clearly. Bias can enter the process before the analyst even sees the dataset. Data is not neutral simply because it is numerical. For example, if a company collects customer feedback only through its mobile app, it may exclude customers who do not use the app. That missing group creates a biased view of the customer experience.</p>
+        <p>AI can introduce additional bias, especially if the training data is incomplete, poorly balanced, or not representative of the real-world problem. Trustworthy AI requires attention to validity and reliability, safety and security, accountability and transparency, explainability and interpretability, privacy, fairness, and harmful-bias management. Those concerns belong in the analysis because AI is part of the information system, not separate from it.</p>
+        <p>Other limitations can include inaccurate data, duplicate records, data-entry errors, missing information, privacy restrictions, and poor data quality. If these problems were not handled earlier in the workflow, they can lead to weak analysis and weak managerial decisions. Limitations should not be written as an apology. They are part of the evidence, because they explain how much confidence the organization should place in the findings.</p>
+      </section>
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="biased">
+          <legend id="question-1-title">What can bias create when feedback comes only from one source?</legend>
+          <label><input type="radio" name="q1" value="complete"> A complete picture</label>
+          <label><input type="radio" name="q1" value="biased"> A biased view of the customer experience</label>
+          <label><input type="radio" name="q1" value="random"> A random sample</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="additional">
+          <legend id="question-2-title">What can AI introduce if training data is incomplete or poorly balanced?</legend>
+          <label><input type="radio" name="q2" value="none"> No limitations at all</label>
+          <label><input type="radio" name="q2" value="additional"> Additional bias</label>
+          <label><input type="radio" name="q2" value="accuracy"> Perfect accuracy</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+      <section class="checkpoint" aria-labelledby="question-3-title">
+        <p class="checkpoint-label">Comprehension Check 3 of 5</p>
+        <fieldset data-question="q3" data-answer="evidence">
+          <legend id="question-3-title">Why should limitations be stated clearly?</legend>
+          <label><input type="radio" name="q3" value="apology"> To apologize for the data</label>
+          <label><input type="radio" name="q3" value="evidence"> Because they are part of the evidence</label>
+          <label><input type="radio" name="q3" value="hide"> To hide uncertainty from the audience</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+      <section id="decision-report">
+        <h2>9. Making Decisions and Reporting Findings</h2>
+        <p>The final step is to turn the analysis into something the organization can actually use. This stage is often associated with prescriptive analytics, because it moves beyond describing, exploring, and diagnosing data to recommending what should happen next. At this point, the analyst interprets the findings in the context of the business problem and communicates the results through charts, visualizations, and a written report.</p>
+        <p>The report should be tailored to the audience. Executives may need a concise summary of the key findings and recommendations, while technical reviewers may need more detail about the methods, sources, and assumptions used. A strong report usually explains the business problem, the data sources, the methods used, the findings, the limitations, the recommendations, and any follow-up work that may be needed. The goal is not simply to describe the analysis, but to help the audience decide what to do next.</p>
+        <p>AI can support this final stage as well, but it should still be evaluated carefully. It may help with visualization, summarization, or recommendation, yet it should never be trusted blindly. Any AI-assisted output should be reviewed against the evidence and documented as part of the process. The analyst remains responsible for judging whether the findings are strong enough to report and whether the evidence supports the conclusion.</p>
+      </section>
+      <section class="checkpoint" aria-labelledby="question-4-title">
+        <p class="checkpoint-label">Comprehension Check 4 of 5</p>
+        <fieldset data-question="q4" data-answer="technical">
+          <legend id="question-4-title">Who may need more detail about methods and assumptions?</legend>
+          <label><input type="radio" name="q4" value="executives"> Executives</label>
+          <label><input type="radio" name="q4" value="technical"> Technical reviewers</label>
+          <label><input type="radio" name="q4" value="none"> No one</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="reviewed">
+          <legend id="question-5-title">How should AI-assisted analysis be handled?</legend>
+          <label><input type="radio" name="q5" value="blindly"> Trusted blindly</label>
+          <label><input type="radio" name="q5" value="ignored"> Ignored completely</label>
+          <label><input type="radio" name="q5" value="reviewed"> Reviewed carefully</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+      <section id="why-this-workflow-matters">
+        <h2>Why This Workflow Matters</h2>
+        <p>These steps create the logic of sound analysis. They move the work from observed results, to patterns and explanations, to a thoughtful report that the organization can act on. The analyst does not just process data; the analyst interprets it, questions it, and communicates it in a way that supports decision-making.</p>
+        <p>That is why the workflow matters: it keeps analysis grounded in the business problem, careful about the evidence, honest about the limits, and clear about what should happen next.</p>
+      </section>
+
+      <section class="completion" aria-labelledby="completion-title">
+        <h2 id="completion-title">Chapter Completion</h2>
+        <p>Answer all five comprehension questions, then check your work.</p>
+        <button id="check-answers" type="button">Check My Answers</button>
+        <p id="overall-feedback" class="overall-feedback" aria-live="polite"></p>
+        <div id="access-code-panel" class="access-code-panel" hidden>
+          <p class="success-heading">Chapter complete</p>
+          <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
+          <code id="access-code">evidence-decisions</code>
+        </div>
+      </section>
+    </article>
+
+    <aside class="chapter-nav" aria-label="Chapter sections">
+      <p class="nav-title">In this chapter</p>
+      <a href="#chapter-introduction">Evaluating Evidence</a>
+      <a href="#bias-limitations">Recognizing Bias and Limitations</a>
+      <a href="#decision-report">Making Decisions and Reporting</a>
+      <a href="#why-this-workflow-matters">Why This Workflow Matters</a>
+      <div class="progress-block">
+        <span id="progress-text">0 of 5 answered</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp8.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp10.html">Next Chapter →</a>
+  </nav>
+
+  <footer>
+    <p>Chapter 9: Evaluating Evidence and Communicating Decisions</p>
+    <p>Brigham Young University - Idaho</p>
+  </footer>
+</body>
+</html>

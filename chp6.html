@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chapter 6: Data quality, cleaning, standardization, transformation, and validation.">
+  <title>Chapter 6 | Data Quality</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav class="book-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp5.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp7.html">Next Chapter →</a>
+  </nav>
+
+  <header class="chapter-header" id="chapter-six">
+    <div class="header-inner">
+      <p class="eyebrow">Chapter 6</p>
+      <h1>Data Quality</h1>
+      <p class="chapter-summary">Learn how cleaning, standardization, transformation, and validation help data remain trustworthy for reports, decisions, and AI.</p>
+    </div>
+  </header>
+
+  <main class="book-layout">
+    <article class="chapter-content">
+      <section id="data-quality-intro">
+        <h2>Data Quality</h2>
+        <p>Good decisions depend on good data. A database may be well designed and carefully organized yet still produce weak reports or misleading results if the data itself is incomplete, inconsistent, outdated, or incorrect. Poor data can lead to faulty analysis, wasted time, customer frustration, and lost trust. For that reason, data quality is one of the foundations of useful information.</p>
+        <p>Quality data is <strong>complete</strong>, <strong>valid</strong>, <strong>unique</strong>, <strong>consistent</strong>, and <strong>timely</strong>. Complete data has no important missing values; for example, an order record should include a customer, a date, and a total. Valid data fits what is expected in the field, such as a quantity that is numeric or a state code that matches the approved list. Unique data avoids duplicates, such as the same customer appearing twice in the system. Consistent data uses the same format throughout the database, like storing dates in one standard style or using the same abbreviation for each state. Timely data is current enough to be useful, such as an inventory count that still reflects what is actually on the shelf. Together, these qualities help determine whether data can be trusted for analysis and decision-making.</p>
+        <p>A helpful way to think about data quality is to ask whether the data is trustworthy enough for its purpose. A sales report, for example, may look polished on the surface, but if duplicate customers, missing prices, or inconsistent product codes are buried inside, the results will be unreliable. The same is true for AI: a model can only produce dependable output when the data it receives is dependable.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="timely">
+          <legend id="question-1-title">What quality means data is current enough to be useful?</legend>
+          <label><input type="radio" name="q1" value="unique"> Unique</label>
+          <label><input type="radio" name="q1" value="consistent"> Consistent</label>
+          <label><input type="radio" name="q1" value="timely"> Timely</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="data-cleaning">
+        <h2>Data Cleaning</h2>
+        <p>Data cleaning is the process of finding and correcting problems in the data. Real-world data rarely arrives in perfect condition. It may contain duplicate records, spelling differences, inconsistent capitalization, extra spaces, invalid values, or entries that simply do not match the rest of the table. Cleaning is the work of turning that messy input into something dependable enough to store, analyze, and share.</p>
+        <p>For example, a customer table might contain Jon Smith, John Smith, and J. Smith even though all three refer to the same person. A product list might include 12, 12.0, and $12.00 for the same price. An address field might hold 123 Main St., 123 Main Street, and 123 Main Str. in different rows. Cleaning helps identify these issues and bring the data into a usable form.</p>
+
+        <figure>
+          <img src="images/fig-6-1.png" alt="A before-and-after data cleaning diagram showing messy customer data being standardized into a clean table.">
+          <figcaption><strong>Figure 6.1.</strong> Cleaning turns messy records into dependable data.</figcaption>
+        </figure>
+
+        <p>AI can help by scanning large datasets quickly, flagging suspicious values, and suggesting corrections. It is especially useful when the data is too large for manual review. Even so, important changes should not be applied silently. In business settings, AI should recommend fixes, not make unreviewed edits to the data. Sometimes the person working with the data can make the correction directly. Other times, the issue must be returned to the source system or to a data steward so the underlying problem can be fixed.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="scan">
+          <legend id="question-2-title">How can AI help with data cleaning?</legend>
+          <label><input type="radio" name="q2" value="scan"> Scan large datasets and flag suspicious values</label>
+          <label><input type="radio" name="q2" value="replace"> Replace business rules</label>
+          <label><input type="radio" name="q2" value="ignore"> Ignore duplicates automatically</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="missing-values">
+        <h2>Missing Values</h2>
+        <p>Missing data is not automatically bad data. A blank value may mean the information was not collected yet, was not applicable, or is still unknown. The important question is not simply whether a value is missing, but whether the missing value affects the decision being made. A middle name may be harmless if absent. A missing salary, product category, or shipping address may be much more serious.</p>
+        <p>Sometimes the best choice is to leave the value missing and document it clearly. That is often better than guessing. In other situations, missing data can be estimated from similar records. For example, if a salary value is missing, an AI tool may compare employees with similar titles, departments, duties, and experience levels and suggest a likely estimate. That may help with analysis when the missing value is only one part of a larger pattern.</p>
+        <p>Still, estimation must be used carefully. In some situations, such as budgeting, forecasting, or broad reporting, filling gaps may improve the usefulness of the data. In other situations, such as legal, medical, or financial records, the safer choice is to preserve the missing value and treat it as unknown. Information systems work often requires choosing between completeness and honesty. A full table is not always a trustworthy table.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-3-title">
+        <p class="checkpoint-label">Comprehension Check 3 of 5</p>
+        <fieldset data-question="q3" data-answer="estimate">
+          <legend id="question-3-title">When may AI be helpful with missing values?</legend>
+          <label><input type="radio" name="q3" value="hide"> To hide the missing values</label>
+          <label><input type="radio" name="q3" value="estimate"> To estimate likely values from similar records</label>
+          <label><input type="radio" name="q3" value="delete"> To delete the entire row immediately</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="standardization">
+        <h2>Standardization</h2>
+        <p>Standardization makes data consistent so it can be compared, combined, and interpreted more easily. When the same kind of information appears in different formats, it becomes harder to sort, search, and match records. A system may hold dates as 03/15/2025, 2025-03-15, and March 15, 2025, or store state names as UT, Utah, and utah. Those differences may seem small, but they create friction when data from different sources must be merged.</p>
+        <p>A standardized format removes that friction. Dates can be stored one way across the system. Names can follow one capitalization pattern. Codes and categories can use one approved spelling. This improves matching between tables and makes reporting more dependable. Standardization also makes the data easier to read and less likely to be misinterpreted by users or software.</p>
+        <p>AI can help identify inconsistent formats and suggest common standards. It may detect that one data source uses full state names while another uses abbreviations, or that one system records product categories with mixed case while another uses uppercase codes. It can even help map records from different systems into one common structure. However, the final standard should come from the business rules of the organization, not from the tool itself.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-4-title">
+        <p class="checkpoint-label">Comprehension Check 4 of 5</p>
+        <fieldset data-question="q4" data-answer="compare">
+          <legend id="question-4-title">Why is standardization important?</legend>
+          <label><input type="radio" name="q4" value="compare"> It makes data easier to compare, combine, and interpret</label>
+          <label><input type="radio" name="q4" value="hide"> It hides data quality problems</label>
+          <label><input type="radio" name="q4" value="duplicate"> It creates duplicate records</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="data-transformation">
+        <h2>Data Transformation</h2>
+        <p>Data transformation changes data into a form that is more useful for a specific task. Sometimes the raw data is present, but it is not arranged in the way the analysis needs. Transformation may split fields, combine fields, convert data types, summarize rows, reshape tables, or enrich records with external information. This is often the step that turns raw operational data into analysis-ready data.</p>
+        <p>One common example is splitting a single name field into first, middle, and last name columns. That makes the data easier to sort alphabetically, address personally in messages, or search more precisely. Another example is combining quantity and unit price to calculate total sales. A student or analyst might also transform dates into month, quarter, or year fields so trends are easier to see. A table of individual orders can be summarized into monthly sales totals, which is far more useful for some reports than a list of every transaction.</p>
+
+        <figure>
+          <img src="images/fig-6-2.png" alt="A data transformation diagram showing a single field being split into multiple columns and summarized into reporting fields.">
+          <figcaption><strong>Figure 6.2.</strong> Transformation reshapes data for analysis and reporting.</figcaption>
+        </figure>
+
+        <p>Transformation is also used when external data is added. A company may compare its own sales to an industry average, or merge customer records with geographic data to study regional patterns. AI is especially useful here when data must be extracted from text, categorized, or mapped from one format into another. It can pull structured details from emails, forms, or documents and help convert them into a clean table structure.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="before">
+          <legend id="question-5-title">What should happen before data is stored or used?</legend>
+          <label><input type="radio" name="q5" value="before"> It should be validated first</label>
+          <label><input type="radio" name="q5" value="after"> It should be validated only after reports are built</label>
+          <label><input type="radio" name="q5" value="never"> It should never be checked</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="data-validation">
+        <h2>Data Validation</h2>
+        <p>Data validation checks whether data follows the rules before it is stored or used. It protects the database by catching problems at the point of entry or import instead of allowing them to spread through the system. Validation can check for required fields, acceptable ranges, correct formats, and valid relationships between records.</p>
+        <p>For example, a quantity field should not accept negative numbers unless the business rule allows returns or adjustments. A date field should be entered in the proper format. A foreign key should point to an existing record in the related table. An email address should follow the expected pattern. These checks help keep the database dependable before reporting or analysis begins.</p>
+        <p>Validation is more than a technical filter; it is a business safeguard. A payroll system may reject an hourly rate that is far outside the allowed range. A registration form may require that a student ID is present before submission. A sales system may prevent an order from being entered for a customer that does not exist. These are examples of rules that help maintain accuracy and referential integrity.</p>
+        <p>AI can support validation by spotting unusual entries, comparing values against expected patterns, and flagging records that look suspicious. It can notice that a transaction amount is far larger than similar transactions or that a date falls outside the expected timeline. Even so, AI should not replace business rules. It can help identify likely errors, but the organization still needs clear rules that define what valid data is.</p>
+      </section>
+
+      <section id="ai-data-quality">
+        <h2>AI and Data Quality</h2>
+        <p>AI is most useful in data quality work when it acts as an assistant. It can process large volumes of records quickly, identify duplicates, suggest corrections, detect outliers, classify records, and extract structure from unstructured text. These strengths make it valuable for large databases, messy source systems, and repetitive quality checks.</p>
+        <p>But AI should be used with caution. It can make mistakes, overgeneralize patterns, or reflect the flaws in its training data. If the source data is biased or incomplete, the recommendations may also be weak. That is why AI should support human judgment rather than replace it. The best results come when AI speeds up the work and people provide the business context, review the exceptions, and approve the final changes.</p>
+      </section>
+
+      <section id="why-data-quality-matters">
+        <h2>Why Data Quality Matters</h2>
+        <p>Data quality is really about trust. Reports, dashboards, transactions, and AI outputs all depend on the reliability of the data behind them. When data is cleaned, standardized, validated, and transformed carefully, it becomes far more useful and far less risky. When it is neglected, even a powerful system can produce confusion instead of insight. High-quality data is what allows an organization to act with confidence.</p>
+      </section>
+
+      <section class="completion" aria-labelledby="completion-title">
+        <h2 id="completion-title">Chapter Completion</h2>
+        <p>Answer all five comprehension questions, then check your work.</p>
+        <button id="check-answers" type="button">Check My Answers</button>
+        <p id="overall-feedback" class="overall-feedback" aria-live="polite"></p>
+        <div id="access-code-panel" class="access-code-panel" hidden>
+          <p class="success-heading">Chapter complete</p>
+          <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
+          <code id="access-code">valid-data</code>
+        </div>
+      </section>
+    </article>
+
+    <aside class="chapter-nav" aria-label="Chapter sections">
+      <p class="nav-title">In this chapter</p>
+      <a href="#data-quality-intro">Data Quality</a>
+      <a href="#data-cleaning">Data Cleaning</a>
+      <a href="#missing-values">Missing Values</a>
+      <a href="#standardization">Standardization</a>
+      <a href="#data-transformation">Data Transformation</a>
+      <a href="#data-validation">Data Validation</a>
+      <a href="#ai-data-quality">AI and Data Quality</a>
+      <a href="#why-data-quality-matters">Why Data Quality Matters</a>
+      <div class="progress-block">
+        <span id="progress-text">0 of 5 answered</span>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
+    <a class="nav-link" href="chp5.html">← Previous Chapter</a>
+    <a class="nav-link contents-link" href="index.html">Table of Contents</a>
+    <a class="nav-link" href="chp7.html">Next Chapter →</a>
+  </nav>
+
+  <footer>
+    <p>Chapter 6: Data Quality</p>
+    <p>Brigham Young University - Idaho</p>
+  </footer>
+</body>
+</html>
