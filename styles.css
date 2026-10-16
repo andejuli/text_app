@@ -12,6 +12,7 @@
   --error: #b42318;
   --error-bg: #fff1f0;
   --shadow: 0 12px 34px rgba(31, 41, 55, 0.09);
+  --accent-bright: #f2c14e;
 }
 * {
   box-sizing: border-box;
@@ -574,6 +575,20 @@ table, th, td {
 }
 th, td {
   padding: 10px;
+}
+
+.ai_aside {
+  padding: 26px;
+  background: var(--soft-accent);
+  border: 1px solid #c6daf5;
+  border: 5px solid var(--accent-bright);
+  border-radius: 10px;
+}
+
+video {
+  width: 90%;
+  margin: 0 auto;
+  display: block;
 }
 
 footer {
