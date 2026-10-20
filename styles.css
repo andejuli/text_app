@@ -577,7 +577,7 @@ th, td {
   padding: 10px;
 }
 
-.ai_aside {
+#ai_aside {
   padding: 26px;
   background: var(--soft-accent);
   border: 1px solid #c6daf5;
