@@ -30,6 +30,55 @@
         <p>SQL is the language used to ask a database for information. In single-table queries, the goal is to retrieve only the rows and columns you need, then present them clearly and efficiently. For information systems work, this is the starting point for turning stored data into useful results.</p>
       </section>
 
+      <section>
+        <h3>Creating Tables with SQL</h3>
+        <p>
+        SQL is used not only to retrieve data but also to define the structure of a database. The
+        <code>CREATE TABLE</code> statement creates a table and specifies its columns, data types,
+        and rules. These rules, called constraints, help protect the accuracy and consistency of
+        the data.
+        </p>
+
+        <p>
+        A primary key uniquely identifies each row. The <code>NOT NULL</code> constraint requires a
+        value, <code>UNIQUE</code> prevents duplicate values, <code>CHECK</code> limits acceptable
+        values, and <code>DEFAULT</code> supplies a value when one is not provided.
+        </p>
+
+        <pre><code>
+CREATE TABLE Suppliers (
+    supplier_id INT AUTO_INCREMENT PRIMARY KEY,
+    supplier_name VARCHAR(100) NOT NULL,
+    supplier_email VARCHAR(255) UNIQUE
+);
+
+CREATE TABLE Products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    prod_price DECIMAL(10, 2) NOT NULL
+        CHECK (prod_price &gt;= 0),
+    supplier_id INT,
+
+    CONSTRAINT fk_products_supplier
+        FOREIGN KEY (supplier_id)
+        REFERENCES Suppliers(supplier_id)
+);
+        </code></pre>
+
+        <p>
+        The <code>Suppliers</code> table must be created first because the
+        <code>Products</code> table refers to it through a foreign key. The foreign key requires
+        each supplier ID stored in <code>Products</code> to correspond to an existing supplier.
+        This helps preserve referential integrity between the two tables.
+        </p>
+
+        <p>Database designers use table definitions and constraints to express the rules of a
+        business system directly in the database. These definitions provide the foundation for
+        inserting, updating, and querying reliable data.
+        </p>
+      </section>
+      
+
       <section id="select-statement">
         <h2>The SELECT Statement</h2>
         <p>A basic query begins with <code>SELECT</code> and <code>FROM</code>. <code>SELECT</code> chooses the columns that will appear in the result set, while <code>FROM</code> identifies the table that holds the data. During development, <code>SELECT *</code> can be a quick way to view every column, but in production it is better to list only the fields you need so the query is easier to read and more efficient.</p>
@@ -83,7 +132,7 @@ FROM products;</code></pre>
         <p>The <code>DISTINCT</code> keyword removes duplicate values from a result set. This is useful when you want unique values instead of repeated ones.</p>
 
         <div class="scroll-x">
-          <pre><code>SELECT DISTINCT(prod_price)
+          <pre><code>SELECT DISTINCT prod_price
 FROM products;</code></pre>
         </div>
         <p class="sql-result-label">Result</p>
@@ -263,6 +312,25 @@ WHERE prod_category IS NULL;</code></pre>
           </tbody>
         </table>
         </div>
+        <h3>SQL Injection and Parameterized Queries</h3>
+
+        <p>Applications often use SQL with values entered by users. If a program places that input directly into a SQL statement, the input may be interpreted as SQL code. This attack is called SQL injection and can expose or change data.</p>
+
+        <p>A parameterized query keeps the SQL statement separate from the values supplied to it. In MySQL, a prepared statement uses a <code>?</code> placeholder:</p>
+
+        <div class="scroll-x">
+          <pre><code>PREPARE product_search FROM
+'SELECT prod_name, prod_price
+ FROM products
+ WHERE prod_name = ?';
+
+SET @search_name = 'mug';
+EXECUTE product_search USING @search_name;
+
+DEALLOCATE PREPARE product_search;</code></pre>
+        </div>
+
+        <p>The <code>?</code> marks the value supplied separately through <code>@search_name</code>. The database treats that value as data rather than executable SQL. Applications use the same principle through database drivers, although the exact syntax may vary.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-3-title">
@@ -303,7 +371,7 @@ ORDER BY prod_price DESC;</code></pre>
         </table>
         </div>
 
-        <p>The <code>LIMIT</code> clause controls how many rows are returned. It is helpful when you only need a sample, a top set of results, or a short list for review.</p>
+        <p>The <code>LIMIT</code> clause controls how many rows are returned. It is helpful when you only need a sample, a top set of results, or a short list for review. (Note that LIMIT is a MySQL-specific extension and may not be available in all database systems.)</p>
 
         <div class="scroll-x">
           <pre><code>SELECT prod_name, prod_price

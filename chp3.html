@@ -33,7 +33,7 @@
       <section id="system-environment">
         <h2>Database System Environment</h2>
         <p>A database does not operate in isolation. It exists within a database system environment made up of hardware, software, data, people, and procedures. Together, these components provide the foundation for storing, protecting, and delivering information when it is needed.</p>
-        <p><strong>Hardware</strong> includes the physical devices that store and process the data, such as servers, storage systems, and user machines. <strong>Software</strong> includes the database management system (DBMS), which controls how data is stored, retrieved, and updated. <strong>Data</strong> is the information being managed, including the database itself and the metadata that describes its structure. <strong>People</strong> are essential to the system as well. Database administrators manage the system, application developers build the tools that use the data, and end users access the information for daily work and decision-making. <strong>Procedures</strong> are the rules and methods that guide how the system is used. These include access rules, user roles, security controls, transaction control, and concurrency management.</p>
+        <p><strong>Hardware</strong> includes the physical devices that store and process the data, such as servers, storage systems, and user machines. <strong>Software</strong> includes the database management system (DBMS), which controls how data is stored, retrieved, and updated. <strong>Data</strong> is the information being managed, including the database itself and the metadata that describes its structure. <strong>People</strong> are essential to the system as well. Database administrators manage the system, application developers build the tools that use the data, and end users access the information for daily work and decision-making. <strong>Procedures</strong> are the rules and methods that guide how the system is used. These include access rules, user roles, security controls, transaction control, and concurrency management. </p>
         <p>When these components work together, the database environment remains organized, secure, and reliable.</p>
       </section>
 
@@ -46,6 +46,14 @@
           <label><input type="radio" name="q1" value="people"> People</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="access-and-transaction-control">
+        <h2>Access and Transaction Control</h2>
+
+        <p>Authorization determines what a user or application is allowed to do. Access control applies those permissions through accounts, roles, and security rules. A user may be allowed to read certain data but not change or delete it. Good access control follows the principle of least privilege: each person receives only the access needed for their responsibilities.</p>
+
+        <p>A transaction is a group of database operations treated as one unit. It should either complete fully or be rolled back so partial changes do not leave unreliable data. Concurrency occurs when multiple users or processes access data at the same time. Concurrency control helps prevent lost updates, conflicting changes, and inconsistent results.</p>
       </section>
 
       <section id="data-quality">
@@ -90,7 +98,7 @@
 
       <section id="data-governance">
         <h2>Data Governance</h2>
-        <p>Because data moves through so many stages, organizations need clear oversight. Data governance is the framework that guides how data is managed responsibly from creation through archiving and deletion. It helps ensure that data is secure, compliant, high quality, and used effectively throughout its life cycle. Good governance also makes data easier to discover, understand, trust, and use.</p>
+        <p>Because data moves through so many stages, organizations need clear oversight. Data governance is the framework that guides how data is managed responsibly from creation through archiving and deletion. It establishes expectations for data quality, access, authorization, security, privacy, retention, and accountability. Good governance helps ensure that data is secure, compliant, high quality, and used effectively throughout its life cycle. It also makes data easier to discover, understand, trust, and use.</p>
       </section>
 
       <section id="data-ownership">

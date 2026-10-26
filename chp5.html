@@ -290,6 +290,45 @@ HAVING COUNT(*) > 20;</code></pre>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
+      <section id="database-objects">
+        <h2>Reusable Database Objects</h2>
+
+        <p>SQL can also save logic for reuse. A <strong>view</strong> is a saved query that acts like a virtual table. Views can simplify repeated queries, hide unnecessary columns, and provide a consistent way to access information.</p>
+
+        <div class="scroll-x">
+          <pre><code>CREATE VIEW expensive_products AS
+      SELECT prod_name, prod_price
+      FROM products
+      WHERE prod_price &gt; 10;
+
+      SELECT *
+      FROM expensive_products;</code></pre>
+        </div>
+
+        <p>A <strong>stored function</strong> is a named routine saved in the database. It accepts inputs and returns one value, allowing an organization to reuse a calculation or business rule.</p>
+
+        <div class="scroll-x">
+          <pre><code>CREATE FUNCTION add_markup(price DECIMAL(10,2))
+      RETURNS DECIMAL(10,2)
+      DETERMINISTIC
+      RETURN price * 1.10;
+
+      SELECT prod_name, add_markup(prod_price) AS marked_price
+      FROM products;</code></pre>
+        </div>
+
+        <p>A <strong>trigger</strong> is a routine that runs automatically when an <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code> occurs. For example, if the table has an <code>updated_at</code> column, a trigger can update it automatically.</p>
+
+        <div class="scroll-x">
+          <pre><code>CREATE TRIGGER set_update_time
+      BEFORE UPDATE ON products
+      FOR EACH ROW
+      SET NEW.updated_at = CURRENT_TIMESTAMP;</code></pre>
+        </div>
+
+        <p>Views simplify access, stored functions reuse calculations, and triggers respond to data changes. Each adds useful capability but also creates logic that must be documented and maintained.</p>
+      </section>
+
       <section id="why-this-matters">
         <h2>Why This Matters</h2>
         <p>Functions, joins, and summary queries are some of the most practical tools in SQL. Functions clean and format values, joins reconnect related tables, and aggregates convert rows of data into information that is easier to interpret. For information systems students, these are the skills that make database data useful in real applications.</p>
@@ -324,6 +363,7 @@ HAVING COUNT(*) > 20;</code></pre>
       <a href="#functions">Functions</a>
       <a href="#joins">Joining Tables</a>
       <a href="#summary-queries">Summary Queries</a>
+      <a href="#database-objects">Reusable Database Objects</a>
       <a href="#why-this-matters">Why This Matters</a>
       <div class="progress-block">
         <span id="progress-text">0 of 5 answered</span>

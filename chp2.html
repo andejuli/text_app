@@ -35,6 +35,11 @@
           <img src="images/fig-2-1.png" alt="An ERD example showing how relational modeling focuses on database design rather than data values.">
           <figcaption><strong>Figure 2.1.</strong> Relational modeling focuses on table structure and relationships.</figcaption>
         </figure>
+        <h3>Comparing Database Designs</h3>
+
+        <p>Relational modeling organizes data into tables connected by primary and foreign keys. Other database models organize data differently. Document databases store related information in flexible, JSON-like documents. Key-value databases pair a unique key with a value for fast retrieval. Graph databases represent entities as nodes and their connections as edges.</p>
+
+        <p>Relational models emphasize defined structure, keys, and relationships. Nonrelational models may emphasize flexible records, direct lookup, or connected networks. No model is best for every situation; the choice depends on the data, how it will be accessed, and the questions the system must answer.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-1-title">
@@ -152,6 +157,9 @@
         <h2>Normalization Rules</h2>
 
         <p>Normalization is a set of design rules used to organize data efficiently, reduce redundancy, eliminate anomalies, and improve maintainability. It divides data into smaller, simpler tables and applies a series of normal forms. Each normal form builds on the one before it.</p>
+        <p>
+        Normalization is based on identifying functional dependencies: a relationship in which one attribute, or set of attributes, determines another. For example, a product ID determines the product name and price because each product ID identifies one specific product. In an order-items table, the combination of order ID and product ID determines the quantity ordered. Understanding these dependencies helps designers decide which attributes belong together and which should be moved to separate tables.
+        </p>
 
         <h3>First Normal Form (1NF)</h3>
         <p>A table must have a primary key and no repeating attribute values in a row.</p>
@@ -179,7 +187,9 @@
 
       <section id="third-normal-form">
         <h3>Third Normal Form (3NF)</h3>
-        <p>3NF applies when every non-key attribute depends only on the primary key. For example, if supplier name were stored in the Products table, that would violate 3NF because supplier name does not depend directly on product ID. Instead, supplier information should be stored in a separate Suppliers table, with the supplier key referenced in Products.</p>
+        <p>
+        3NF applies when every non-key attribute depends only on the primary key and not on another non-key attribute. For example, if supplier name were stored in the Products table, it would create a transitive dependency: product ID determines supplier ID, and supplier ID determines supplier name. Instead, supplier information should be stored in a separate Suppliers table, with the supplier ID referenced in Products.
+        </p>
 
         <figure>
           <img src="images/fig-2-10.png" alt="A 3NF example showing supplier information stored in a separate Suppliers table.">
