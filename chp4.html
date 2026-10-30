@@ -312,25 +312,7 @@ WHERE prod_category IS NULL;</code></pre>
           </tbody>
         </table>
         </div>
-        <h3>SQL Injection and Parameterized Queries</h3>
-
-        <p>Applications often use SQL with values entered by users. If a program places that input directly into a SQL statement, the input may be interpreted as SQL code. This attack is called SQL injection and can expose or change data.</p>
-
-        <p>A parameterized query keeps the SQL statement separate from the values supplied to it. In MySQL, a prepared statement uses a <code>?</code> placeholder:</p>
-
-        <div class="scroll-x">
-          <pre><code>PREPARE product_search FROM
-'SELECT prod_name, prod_price
- FROM products
- WHERE prod_name = ?';
-
-SET @search_name = 'mug';
-EXECUTE product_search USING @search_name;
-
-DEALLOCATE PREPARE product_search;</code></pre>
-        </div>
-
-        <p>The <code>?</code> marks the value supplied separately through <code>@search_name</code>. The database treats that value as data rather than executable SQL. Applications use the same principle through database drivers, although the exact syntax may vary.</p>
+        
       </section>
 
       <section class="checkpoint" aria-labelledby="question-3-title">
