@@ -3,449 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Chapter 4: SQL fundamentals and single-table queries.">
-  <title>Chapter 4 | SQL Fundamentals</title>
+  <meta name="description" content="Chapter 4: Database normalization, functional dependencies, and the first three normal forms.">
+  <title>Chapter 4 | Normalization</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
 <body>
   <nav class="book-navigation" aria-label="Book navigation">
-    <a class="nav-link" href="chp3.html">← Previous Chapter</a>
+    <a class="nav-link" href="chp3.html">&larr; Previous Chapter</a>
     <a class="nav-link contents-link" href="index.html">Table of Contents</a>
-    <a class="nav-link" href="chp5.html">Next Chapter →</a>
+    <a class="nav-link" href="chp5.html">Next Chapter &rarr;</a>
   </nav>
-
-  <header class="chapter-header" id="chapter-four">
+  <header class="chapter-header" id="chapter-4">
     <div class="header-inner">
       <p class="eyebrow">Chapter 4</p>
-      <h1>SQL Fundamentals</h1>
-      <p class="chapter-summary">Learn how single-table SQL queries retrieve, filter, sort, and present data clearly so it can support analysis and decision-making.</p>
+      <h1>Normalization</h1>
+      <p class="chapter-summary">Learn how functional dependencies and the first three normal forms reduce redundancy and keep database facts in the right tables.</p>
     </div>
   </header>
-
   <main class="book-layout">
     <article class="chapter-content">
-      <section id="sql-introduction">
-        <h2>SQL Fundamentals</h2>
-        <p>SQL is the language used to ask a database for information. In single-table queries, the goal is to retrieve only the rows and columns you need, then present them clearly and efficiently. For information systems work, this is the starting point for turning stored data into useful results.</p>
+      <section id="normalization-introduction">
+        <h2>Normalization</h2>
+        <p>Once the entities and relationships have been modeled, the next question is whether the attributes are organized appropriately within the tables. Normalization is a set of database design rules used to reduce unnecessary redundancy, prevent data anomalies, and make a database easier to maintain. It organizes data into smaller, well-structured tables, with each table representing facts that belong together.</p>
+        <p>Normalization is not simply about making tables smaller. It is about storing each fact in the appropriate place so that the database can be updated without creating contradictions or losing important information. The normal forms build on one another: a table must meet the requirements of the earlier normal forms before it can satisfy a later one.</p>
       </section>
-
-      <section>
-        <h3>Creating Tables with SQL</h3>
-        <p>
-        SQL is used not only to retrieve data but also to define the structure of a database. The
-        <code>CREATE TABLE</code> statement creates a table and specifies its columns, data types,
-        and rules. These rules, called constraints, help protect the accuracy and consistency of
-        the data.
-        </p>
-
-        <p>
-        A primary key uniquely identifies each row. The <code>NOT NULL</code> constraint requires a
-        value, <code>UNIQUE</code> prevents duplicate values, <code>CHECK</code> limits acceptable
-        values, and <code>DEFAULT</code> supplies a value when one is not provided.
-        </p>
-
-        <pre><code>
-CREATE TABLE Suppliers (
-    supplier_id INT AUTO_INCREMENT PRIMARY KEY,
-    supplier_name VARCHAR(100) NOT NULL,
-    supplier_email VARCHAR(255) UNIQUE
-);
-
-CREATE TABLE Products (
-    product_id INT AUTO_INCREMENT PRIMARY KEY,
-    product_name VARCHAR(100) NOT NULL,
-    prod_price DECIMAL(10, 2) NOT NULL
-        CHECK (prod_price &gt;= 0),
-    supplier_id INT,
-
-    CONSTRAINT fk_products_supplier
-        FOREIGN KEY (supplier_id)
-        REFERENCES Suppliers(supplier_id)
-);
-        </code></pre>
-
-        <p>
-        The <code>Suppliers</code> table must be created first because the
-        <code>Products</code> table refers to it through a foreign key. The foreign key requires
-        each supplier ID stored in <code>Products</code> to correspond to an existing supplier.
-        This helps preserve referential integrity between the two tables.
-        </p>
-
-        <p>Database designers use table definitions and constraints to express the rules of a
-        business system directly in the database. These definitions provide the foundation for
-        inserting, updating, and querying reliable data.
-        </p>
-      </section>
-      
-
-      <section id="select-statement">
-        <h2>The SELECT Statement</h2>
-        <p>A basic query begins with <code>SELECT</code> and <code>FROM</code>. <code>SELECT</code> chooses the columns that will appear in the result set, while <code>FROM</code> identifies the table that holds the data. During development, <code>SELECT *</code> can be a quick way to view every column, but in production it is better to list only the fields you need so the query is easier to read and more efficient.</p>
-
-        <div class="scroll-x">
-          <pre><code>SELECT prod_name, prod_price
-FROM products;</code></pre>
-        </div>
-        <p class="sql-result-label">Result</p>
-        <div class="scroll-x">
-<table class="result-table">
-          <thead>
-            <tr>
-              <th>prod_name</th>
-              <th class="num">prod_price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
-            <tr><td>notebook</td><td class="num">2.49</td></tr>
-            <tr><td>desk lamp</td><td class="num">18.00</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td></tr>
-          </tbody>
-        </table>
-        </div>
-
-        <p>SQL also allows calculated columns. You can add a markup directly in the query, and you can rename the result with <code>AS</code> to make the output easier to understand.</p>
-
-        <div class="scroll-x">
-          <pre><code>SELECT prod_name, prod_price + 2.00 AS markup_price
-FROM products;</code></pre>
-        </div>
-        <p class="sql-result-label">Result</p>
-        <div class="scroll-x">
-<table class="result-table">
-          <thead>
-            <tr>
-              <th>prod_name</th>
-              <th class="num">markup_price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>coffee mug</td><td class="num">10.99</td></tr>
-            <tr><td>notebook</td><td class="num">4.49</td></tr>
-            <tr><td>desk lamp</td><td class="num">20.00</td></tr>
-            <tr><td>water bottle</td><td class="num">14.50</td></tr>
-          </tbody>
-        </table>
-        </div>
-
-        <p>The <code>DISTINCT</code> keyword removes duplicate values from a result set. This is useful when you want unique values instead of repeated ones.</p>
-
-        <div class="scroll-x">
-          <pre><code>SELECT DISTINCT prod_price
-FROM products;</code></pre>
-        </div>
-        <p class="sql-result-label">Result</p>
-        <div class="scroll-x">
-<table class="result-table">
-          <thead>
-            <tr>
-              <th class="num">prod_price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td class="num">2.49</td></tr>
-            <tr><td class="num">8.99</td></tr>
-            <tr><td class="num">12.50</td></tr>
-            <tr><td class="num">18.00</td></tr>
-          </tbody>
-        </table>
-        </div>
-      </section>
-
       <section class="checkpoint" aria-labelledby="question-1-title">
         <p class="checkpoint-label">Comprehension Check 1 of 5</p>
-        <fieldset data-question="q1" data-answer="columns">
-          <legend id="question-1-title">What does the SELECT clause choose?</legend>
-          <label><input type="radio" name="q1" value="table"> The table to use</label>
-          <label><input type="radio" name="q1" value="columns"> The columns to display</label>
-          <label><input type="radio" name="q1" value="sort"> The sort order</label>
+        <fieldset data-question="q1" data-answer="redundancy">
+          <legend id="question-1-title">What is a primary purpose of normalization?</legend>
+          <label><input type="radio" name="q1" value="speed"> To make every table contain as many columns as possible</label>
+          <label><input type="radio" name="q1" value="redundancy"> To reduce unnecessary duplication and prevent data anomalies</label>
+          <label><input type="radio" name="q1" value="visuals"> To improve the appearance of database diagrams</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
-
-      <section id="filtering">
-        <h2>Filtering with WHERE</h2>
-        <p>The <code>WHERE</code> clause narrows a query to only the rows that meet a condition. SQL supports comparison operators such as <code>=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, and <code>&lt;&gt;</code> or <code>!=</code>. This lets you ask focused questions such as which products cost more than a certain amount or which products fall within a specific range.</p>
-
-        <div class="scroll-x">
-          <pre><code>SELECT prod_name, prod_price
-FROM products
-WHERE prod_price &gt; 5.00;</code></pre>
-        </div>
-        <p class="sql-result-label">Result</p>
-        <div class="scroll-x">
-<table class="result-table">
-          <thead>
-            <tr>
-              <th>prod_name</th>
-              <th class="num">prod_price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
-            <tr><td>desk lamp</td><td class="num">18.00</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td></tr>
-          </tbody>
-        </table>
-        </div>
-
-        <div class="scroll-x">
-          <pre><code>SELECT prod_name, prod_price
-FROM products
-WHERE prod_price BETWEEN 1.99 AND 3.99;</code></pre>
-        </div>
-        <p class="sql-result-label">Result</p>
-        <div class="scroll-x">
-<table class="result-table">
-          <thead>
-            <tr>
-              <th>prod_name</th>
-              <th class="num">prod_price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>notebook</td><td class="num">2.49</td></tr>
-          </tbody>
-        </table>
-        </div>
-
-        <p>You can combine conditions with <code>AND</code>, <code>OR</code>, and <code>NOT</code>. <code>AND</code> requires both conditions to be true, <code>OR</code> allows either condition to be true, and <code>NOT</code> reverses the condition. Parentheses help control how compound conditions are evaluated.</p>
-
-        <div class="scroll-x">
-          <pre><code>SELECT prod_name, prod_price
-FROM products
-WHERE prod_price = 5.99 AND prod_name = 'doll';</code></pre>
-        </div>
-        <p class="sql-result-label">Result</p>
-        <div class="scroll-x">
-<table class="result-table">
-          <thead>
-            <tr>
-              <th>prod_name</th>
-              <th class="num">prod_price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>doll</td><td class="num">5.99</td></tr>
-          </tbody>
-        </table>
-        </div>
-
-        <p>SQL also supports <code>IN</code>, <code>LIKE</code>, and <code>REGEXP</code> for common search patterns. <code>IN</code> checks a list of values. <code>LIKE</code> matches string patterns with wildcards such as <code>%</code> and <code>_</code>. <code>REGEXP</code> allows more advanced pattern matching when a simple wildcard is not enough.</p>
-
-        <div class="scroll-x">
-          <pre><code>SELECT prod_name, prod_price
-FROM products
-WHERE prod_price IN (2.49, 8.99, 12.50);</code></pre>
-        </div>
-        <p class="sql-result-label">Result</p>
-        <div class="scroll-x">
-<table class="result-table">
-          <thead>
-            <tr>
-              <th>prod_name</th>
-              <th class="num">prod_price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>notebook</td><td class="num">2.49</td></tr>
-            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td></tr>
-          </tbody>
-        </table>
-        </div>
-
-        <div class="scroll-x">
-          <pre><code>SELECT prod_name, prod_price
-FROM products
-WHERE prod_name LIKE 'b%';</code></pre>
-        </div>
-        <p class="sql-result-label">Result</p>
-        <div class="scroll-x">
-<table class="result-table">
-          <thead>
-            <tr>
-              <th>prod_name</th>
-              <th class="num">prod_price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>book bag</td><td class="num">24.95</td></tr>
-          </tbody>
-        </table>
-        </div>
+      <section id="functional-dependencies">
+        <h2>Functional Dependencies</h2>
+        <p>Normalization begins by understanding functional dependencies. A functional dependency exists when one attribute, or a combination of attributes, determines the value of another attribute. In other words, knowing the determinant tells us which value belongs to the dependent attribute.</p>
+        <p>For example, a ProductID determines the product name and price because each ProductID identifies one specific product. In an OrderItems table, the combination of OrderID and ProductID determines the quantity ordered. Identifying these dependencies helps decide which attributes belong in each table and whether a table should be divided.</p>
       </section>
-
       <section class="checkpoint" aria-labelledby="question-2-title">
         <p class="checkpoint-label">Comprehension Check 2 of 5</p>
-        <fieldset data-question="q2" data-answer="rows">
-          <legend id="question-2-title">What does the WHERE clause do?</legend>
-          <label><input type="radio" name="q2" value="rows"> Filters the rows that qualify</label>
-          <label><input type="radio" name="q2" value="columns"> Chooses the output columns</label>
-          <label><input type="radio" name="q2" value="alias"> Creates a table alias</label>
+        <fieldset data-question="q2" data-answer="determines">
+          <legend id="question-2-title">What does a functional dependency describe?</legend>
+          <label><input type="radio" name="q2" value="determines"> When one attribute or set of attributes determines another attribute</label>
+          <label><input type="radio" name="q2" value="duplicates"> When two tables contain identical rows</label>
+          <label><input type="radio" name="q2" value="sorting"> When rows are arranged alphabetically</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
-
-      <section id="null-values">
-        <h2>NULL Values</h2>
-        <p>A <code>NULL</code> value means the data was left blank or was not provided. It is not the same as zero, empty text, or a space. Because <code>NULL</code> is not a normal value, it must be tested with <code>IS NULL</code> or <code>IS NOT NULL</code> rather than with comparison operators. This matters because missing values can change the meaning of a query and affect analysis.</p>
-
-        <div class="scroll-x">
-          <pre><code>SELECT prod_name, prod_price
-FROM products
-WHERE prod_category IS NULL;</code></pre>
-        </div>
-        <p class="sql-result-label">Result</p>
-        <div class="scroll-x">
-<table class="result-table">
-          <thead>
-            <tr>
-              <th>prod_name</th>
-              <th class="num">prod_price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>notebook</td><td class="num">2.49</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td></tr>
-          </tbody>
-        </table>
-        </div>
-        
+      <section id="first-normal-form">
+        <h2>First Normal Form (1NF)</h2>
+        <p>First Normal Form requires a table to have a primary key and to store a single, atomic value in each cell rather than a list of values or repeating groups. Each row should represent one instance of the table’s subject, and each column should hold one kind of attribute.</p>
+        <p>Imagine a customer record with a PhoneNumbers field containing “208-555-0123, 208-555-0188.” The field contains multiple phone numbers in one cell, which makes searching, sorting, and updating individual numbers difficult. A better design stores each phone number as a separate value in its own row in a related CustomerPhone table, or uses another structure appropriate to the business rules. The important idea is that a cell should not contain a list of separate values.</p>
       </section>
-
       <section class="checkpoint" aria-labelledby="question-3-title">
         <p class="checkpoint-label">Comprehension Check 3 of 5</p>
-        <fieldset data-question="q3" data-answer="isnull">
-          <legend id="question-3-title">How do you test for a missing value in SQL?</legend>
-          <label><input type="radio" name="q3" value="equals"> = NULL</label>
-          <label><input type="radio" name="q3" value="blank"> BLANK()</label>
-          <label><input type="radio" name="q3" value="isnull"> IS NULL</label>
+        <fieldset data-question="q3" data-answer="atomic">
+          <legend id="question-3-title">What does First Normal Form require for each cell?</legend>
+          <label><input type="radio" name="q3" value="list"> A list of repeating values</label>
+          <label><input type="radio" name="q3" value="atomic"> A single atomic value</label>
+          <label><input type="radio" name="q3" value="formula"> A calculated formula</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
-
-      <section id="sorting-limiting">
-        <h2>Sorting and Limiting Results</h2>
-        <p>The <code>ORDER BY</code> clause sorts the result set by one or more columns. By default, sorting is ascending, but <code>DESC</code> reverses the order. This is useful when you want results in alphabetical order, numerical order, or a more specific sequence.</p>
-
-        <div class="scroll-x">
-          <pre><code>SELECT prod_name, prod_price
-FROM products
-ORDER BY prod_price DESC;</code></pre>
-        </div>
-        <p class="sql-result-label">Result</p>
-        <div class="scroll-x">
-<table class="result-table">
-          <thead>
-            <tr>
-              <th>prod_name</th>
-              <th class="num">prod_price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>desk lamp</td><td class="num">18.00</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td></tr>
-            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
-            <tr><td>notebook</td><td class="num">2.49</td></tr>
-          </tbody>
-        </table>
-        </div>
-
-        <p>The <code>LIMIT</code> clause controls how many rows are returned. It is helpful when you only need a sample, a top set of results, or a short list for review. (Note that LIMIT is a MySQL-specific extension and may not be available in all database systems.)</p>
-
-        <div class="scroll-x">
-          <pre><code>SELECT prod_name, prod_price
-FROM products
-LIMIT 4;</code></pre>
-        </div>
-        <p class="sql-result-label">Result</p>
-        <div class="scroll-x">
-<table class="result-table">
-          <thead>
-            <tr>
-              <th>prod_name</th>
-              <th class="num">prod_price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
-            <tr><td>notebook</td><td class="num">2.49</td></tr>
-            <tr><td>desk lamp</td><td class="num">18.00</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td></tr>
-          </tbody>
-        </table>
-        </div>
+      <section id="second-normal-form">
+        <h2>Second Normal Form (2NF)</h2>
+        <p>Second Normal Form addresses tables that use a composite primary key. A table must first satisfy 1NF, and every non-key attribute must depend on the entire composite key—not just one part of it. This is called full functional dependency. If a table has a single-column primary key and already satisfies 1NF, it is automatically in 2NF because there is no partial dependency on part of a composite key.</p>
+        <p>Consider an OrderItems table with a composite key made from OrderID and ProductID. Quantity depends on both values because it describes how many units of a particular product appear on a particular order. ProductName, however, depends only on ProductID. Storing ProductName in OrderItems would repeat the same product name across many orders. Product details belong in the Products table, while the OrderItems table stores facts about the specific order-product relationship.</p>
+        <p>The same principle applies to student enrollment. A student can enroll in many sections, and each section can contain many students. The grade belongs to the specific student-section enrollment, not to the student alone or the section alone. Each student will have a grade for a section of that course. The combination of StudentID and SectionID identifies the enrollment and determines the grade.</p>
+        <figure>
+          <img src="images/fig-2-9.png" alt="Student enrollment ERD showing Students and Sections each related one-to-many to Enrollment, with Grade stored in Enrollment">
+          <figcaption><strong>Figure 4.1.</strong> Grade depends on the combination of StudentID and SectionID, so it belongs in Enrollment.</figcaption>
+        </figure>
       </section>
-
       <section class="checkpoint" aria-labelledby="question-4-title">
         <p class="checkpoint-label">Comprehension Check 4 of 5</p>
-        <fieldset data-question="q4" data-answer="sort">
-          <legend id="question-4-title">What does ORDER BY do?</legend>
-          <label><input type="radio" name="q4" value="sort"> Sorts the results</label>
-          <label><input type="radio" name="q4" value="limit"> Limits the number of columns</label>
-          <label><input type="radio" name="q4" value="join"> Combines tables</label>
+        <fieldset data-question="q4" data-answer="entire">
+          <legend id="question-4-title">In a table with a composite primary key, what must each non-key attribute depend on to satisfy 2NF?</legend>
+          <label><input type="radio" name="q4" value="entire"> The entire composite key</label>
+          <label><input type="radio" name="q4" value="part"> Only one part of the key</label>
+          <label><input type="radio" name="q4" value="unrelated"> An unrelated non-key attribute</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
-
-      <section id="order-of-execution">
-        <h2>Order of Writing and Order of Execution</h2>
-        <p>SQL clauses are written in one order, but the database processes them in another. The usual writing order is <code>SELECT</code>, <code>FROM</code>, <code>WHERE</code>, <code>ORDER BY</code>, then <code>LIMIT</code>. The execution order is <code>FROM</code>, <code>WHERE</code>, <code>SELECT</code>, <code>ORDER BY</code>, then <code>LIMIT</code>. Understanding that difference helps explain why an alias created in <code>SELECT</code> can be used in <code>ORDER BY</code> but not in <code>WHERE</code>.</p>
-
-        <div class="scroll-x">
-          <pre><code>SELECT prod_name, prod_price + 2.00 AS mark_up
-FROM products
-WHERE prod_price &gt; 1.99
-ORDER BY mark_up;</code></pre>
-        </div>
-        <p class="sql-result-label">Result</p>
-        <div class="scroll-x">
-<table class="result-table">
-          <thead>
-            <tr>
-              <th>prod_name</th>
-              <th class="num">prod_price</th>
-              <th class="num">mark_up</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>notebook</td><td class="num">2.49</td><td class="num">4.49</td></tr>
-            <tr><td>coffee mug</td><td class="num">8.99</td><td class="num">10.99</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td><td class="num">14.50</td></tr>
-            <tr><td>desk lamp</td><td class="num">18.00</td><td class="num">20.00</td></tr>
-          </tbody>
-        </table>
-        </div>
+      <section id="third-normal-form">
+        <h2>Third Normal Form (3NF)</h2>
+        <p>Third Normal Form builds on 1NF and 2NF. A table is in 3NF when its non-key attributes depend on the key, the whole key, and nothing but the key. In practical terms, a non-key attribute should depend on the primary key rather than on another non-key attribute. This prevents transitive dependencies, where one non-key attribute determines another.</p>
+        <p>For example, suppose a Products table contains ProductID, ProductName, SupplierID, and SupplierName. ProductID determines SupplierID, and SupplierID determines SupplierName. That means SupplierName depends on SupplierID rather than directly on ProductID. If a supplier provides many products, the supplier name would be repeated in many product rows. Instead, store supplier details in a separate Suppliers table and keep SupplierID as a foreign key in Products. Each supplier can provide many products, while each product is associated with one supplier under this business rule.</p>
+        <figure>
+          <img src="images/fig-2-10.png" alt="A comparison showing supplier name removed from Products and supplier details stored in a separate Suppliers table with SupplierID referenced by Products">
+          <figcaption><strong>Figure 4.2.</strong> Separating supplier details removes the transitive dependency and supports 3NF.</figcaption>
+        </figure>
       </section>
-
       <section class="checkpoint" aria-labelledby="question-5-title">
         <p class="checkpoint-label">Comprehension Check 5 of 5</p>
-        <fieldset data-question="q5" data-answer="after-select">
-          <legend id="question-5-title">Why can an alias created in SELECT be used in ORDER BY but not WHERE?</legend>
-          <label><input type="radio" name="q5" value="same-time"> Both clauses are processed at the same time</label>
-          <label><input type="radio" name="q5" value="after-select"> ORDER BY is processed after SELECT</label>
-          <label><input type="radio" name="q5" value="never"> Aliases can never be used in SQL</label>
+        <fieldset data-question="q5" data-answer="supplier">
+          <legend id="question-5-title">In the product-supplier example, why should SupplierName be stored in a separate Suppliers table?</legend>
+          <label><input type="radio" name="q5" value="duplicate"> Because it should be repeated in every product row</label>
+          <label><input type="radio" name="q5" value="supplier"> Because SupplierName depends on SupplierID, not directly on ProductID</label>
+          <label><input type="radio" name="q5" value="price"> Because supplier names are numeric values</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
-
-      <section id="why-this-matters">
-        <h2>Why This Matters</h2>
-        <p>Single-table SQL is one of the most important skills in database work. It teaches you how to retrieve data accurately, filter it carefully, sort it meaningfully, and return results that support real decisions. Once these basics are clear, more advanced topics such as joins, grouping, and analysis become much easier to understand.</p>
+      <section id="normalization-summary">
+        <h2>Why Normalization Matters</h2>
+        <p>Normalization helps prevent common database problems. Without it, changing one fact may require updates in many places, a new record may be difficult to insert without unrelated information, or deleting one record may accidentally remove another fact the organization needs. These are known as update, insertion, and deletion anomalies.</p>
+        <p>Applying 1NF, 2NF, and 3NF helps place facts in the correct tables and reduces those risks. The result is a database that is easier to maintain and more dependable as information is added, changed, and retrieved. Normalization is a design discipline, not a one-time cleanup task: the model should be reviewed against the real business rules as the system evolves.</p>
       </section>
-
       <section id="ai_aside" aria-labelledby="ai-topic">
-        <h2>AI and Privacy, Security, and Responsible Data Use</h2>
-        <p>Data often contains information about individuals, organizations, transactions, locations, or behavior. Some data may be public, while other data may be internal, confidential, personally identifiable, or legally protected. Responsible data use begins with identifying the sensitivity of the information and determining who is authorized to access it. Professionals should collect only the data needed for a legitimate purpose, protect it during storage and transmission, and avoid exposing it to systems that have not been approved by the organization. Good data practices are not separate from technical work; they are part of designing trustworthy information systems.</p>
-        <p>AI introduces additional privacy and security considerations because users may be tempted to paste data directly into an external AI service. Sensitive information may be stored, processed, or unintentionally revealed through prompts, files, or generated responses. AI systems can also be manipulated through malicious instructions, unauthorized access, or prompt injection. IS professionals should understand organizational policies, access controls, data-minimization practices, and approved AI environments. They should be able to recognize when a task requires anonymized, synthetic, or restricted data. </p> 
-        <!-- <video controls>
-          <source src="videos/#.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video> -->
+        <h2>Using AI to Support Relational Modeling and Normalization</h2>
+        <p>AI can help turn written business requirements into a preliminary list of entities, attributes, primary keys, foreign keys, and relationships. A useful prompt describes the system, identifies the business rules, requests cardinality or relationships, checks normalization, and asks for an ERD or a structured explanation of the design. For example, an analyst might ask AI to model customers, orders, products, and order items based on a set of purchasing requirements.</p>
+        <p>AI-generated models should be treated as proposals, not finished designs. The analyst must check whether every entity represents a meaningful concept, whether attributes belong to the correct entity, whether relationships reflect the business rules, and whether many-to-many relationships have been resolved appropriately. A model that looks plausible can still omit an important business rule or assign the wrong cardinality.</p>
+        <p>Prompt design is most useful when it supports a repeatable workflow. Provide context, the available requirements, the expected output, and evaluation criteria. Then compare the result with the original requirements and revise it before implementation. AI can accelerate the first draft, but the designer remains accountable for the final model.</p>
       </section>
-
       <section class="completion" aria-labelledby="completion-title">
         <h2 id="completion-title">Chapter Completion</h2>
         <p>Answer all five comprehension questions, then check your work.</p>
@@ -454,36 +126,29 @@ ORDER BY mark_up;</code></pre>
         <div id="access-code-panel" class="access-code-panel" hidden>
           <p class="success-heading">Chapter complete</p>
           <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
-          <code id="access-code">fundamental-sql</code>
+          <code id="access-code">normalization-data</code>
         </div>
       </section>
     </article>
-
     <aside class="chapter-nav" aria-label="Chapter sections">
       <p class="nav-title">In this chapter</p>
-      <a href="#sql-introduction">SQL Fundamentals</a>
-      <a href="#select-statement">The SELECT Statement</a>
-      <a href="#filtering">Filtering with WHERE</a>
-      <a href="#null-values">NULL Values</a>
-      <a href="#sorting-limiting">Sorting and Limiting</a>
-      <a href="#order-of-execution">Order of Execution</a>
-      <a href="#why-this-matters">Why This Matters</a>
+      <a href="#normalization-introduction">Normalization</a>
+      <a href="#functional-dependencies">Functional Dependencies</a>
+      <a href="#first-normal-form">First Normal Form (1NF)</a>
+      <a href="#second-normal-form">Second Normal Form (2NF)</a>
+      <a href="#third-normal-form">Third Normal Form (3NF)</a>
+      <a href="#normalization-summary">Why It Matters</a>
       <div class="progress-block">
         <span id="progress-text">0 of 5 answered</span>
         <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
       </div>
     </aside>
   </main>
-
   <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
-    <a class="nav-link" href="chp3.html">← Previous Chapter</a>
+    <a class="nav-link" href="chp3.html">&larr; Previous Chapter</a>
     <a class="nav-link contents-link" href="index.html">Table of Contents</a>
-    <a class="nav-link" href="chp5.html">Next Chapter →</a>
+    <a class="nav-link" href="chp5.html">Next Chapter &rarr;</a>
   </nav>
-
-  <footer>
-    <p>Chapter 4: SQL Fundamentals</p>
-    <p>Brigham Young University - Idaho</p>
-  </footer>
+  <footer><p>Chapter 4: Normalization</p><p>Brigham Young University - Idaho</p></footer>
 </body>
 </html>

@@ -3,133 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Chapter 8: Reasoning from data, trends, outliers, and diagnostic analysis.">
-  <title>Chapter 8 | Reasoning from Data</title>
+  <meta name="description" content="Chapter 8: Analyzing Data Sets">
+  <title>Chapter 8 | Analyze Data Sets</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
 <body>
   <nav class="book-navigation" aria-label="Book navigation">
-    <a class="nav-link" href="chp7.html">&larr; Previous Chapter</a>
+    <a class="nav-link" href="chp7.html">← Previous Chapter</a>
     <a class="nav-link contents-link" href="index.html">Table of Contents</a>
-    <a class="nav-link" href="chp9.html">Next Chapter &rarr;</a>
+    <a class="nav-link" href="chp9.html">Next Chapter →</a>
   </nav>
 
   <header class="chapter-header" id="chapter-eight">
     <div class="header-inner">
       <p class="eyebrow">Chapter 8</p>
-      <h1>Reasoning from Data</h1>
-      <p class="chapter-summary">Learn how analysts move from observed results to patterns, outliers, and evidence-based explanations.</p>
+      <h1>Analyze Data Sets</h1>
+      <p class="chapter-summary">Learn how analysts define a business problem, prepare data, explore patterns, and describe what happened before moving into deeper diagnosis and decisions.</p>
     </div>
   </header>
 
   <main class="book-layout">
     <article class="chapter-content">
-      <section id="chapter-introduction">
-        <h2>Reasoning from Data</h2>
-        <p>The first part of the data workflow focused on understanding the business problem, preparing the data, exploring the dataset, and describing what happened. The next stage moves beyond description and asks deeper questions: what patterns are present, what unusual values need attention, what explains the result, and what limits the analysis? At this point, the analyst is no longer just organizing evidence; the analyst is interpreting it, testing it, and deciding how much confidence the organization should place in it. AI can support this process, but it also adds new concerns about reliability, bias, transparency, explainability, and decision risk.</p>
-        <p>This chapter continues the workflow with steps 5 through 7. Together, these stages move the work from "what happened" to "why it happened" and help the analyst separate a useful explanation from a tempting guess.</p>
+      <section id="analyze-data-sets">
+        <h2>Analyze Data Sets</h2>
+        <p>Organizations rarely begin data analysis with a ready-made answer. They begin with a business need, a set of available data sources, and a question that must be understood before it can be solved. That is why analysis starts before any chart is built or any conclusion is drawn. An analyst must understand the business problem, the information system that shapes the data, and the structure and quality of the dataset itself. AI can help with this work, but it also introduces concerns about reliability, bias, transparency, explainability, and decision risk.</p>
+        <p>This chapter focuses on the first part of the data-analysis workflow: defining the business problem, acquiring and preparing the data, exploring the data, and describing what happened. Those steps form the foundation for the later stages of diagnosis, interpretation, and decision-making. The workflow continues after this chapter with trends and relationships, outlier investigation, diagnostic analysis, bias and limitations, and finally decision and report.</p>
 
         <figure>
-          <img src="images/fig-8-1.png" alt="Nine-step data analysis workflow with the later reasoning steps emphasized.">
-          <figcaption><strong>Figure 8.1.</strong> Workflow steps 1 through 9, with reasoning emphasized in this chapter.</figcaption>
+          <img src="images/fig-7-1.png" alt="Nine-step data analysis workflow showing the first four steps highlighted for this chapter.">
+          <figcaption><strong>Figure 8.1.</strong> The data analysis workflow begins with the business problem, data preparation, exploration, and descriptive findings.</figcaption>
         </figure>
       </section>
 
-      <section id="trends-relationships">
-        <h2>5. Trends and Relationships</h2>
-        <p>Once the analyst has described the observed results, the next question is whether the data shows meaningful patterns. This stage looks for trends and relationships between variables. A trend might show that sales are increasing over time, while a relationship might show that higher website traffic is associated with higher sales. Tools such as correlation and regression can help measure and model these relationships, but they do not prove that one variable caused the other. A dashboard may show that website traffic and sales both increased, but that alone does not mean traffic caused the increase in sales.</p>
-        <p>This distinction matters because strong analysis depends on careful reasoning. It is easy to confuse association with cause, especially when two measures move together. An analyst must ask whether the pattern is meaningful, whether another factor may be involved, and whether the relationship is stable enough to matter to the business. Trends and relationships are valuable because they point the organization toward likely explanations, but they are only part of the story.</p>
-        <p>
-        At an awareness level, correlation describes the direction and strength of a relationship
-        between two variables, while regression models a relationship to estimate or predict an
-        outcome. Analysts may interpret results produced by these methods, but a correlation
-        value or regression model does not, by itself, establish causation. The quality of the
-        data, the variables included, and other possible explanations must also be considered.
-        </p>
+      <section id="business-problem">
+        <h2>1. The Business Problem</h2>
+        <p>A good analysis begins with a clear business problem, not with a dataset. If the problem is vague, the analysis will be vague too. The first task is to define the organizational issue as precisely as possible so the analyst knows what question needs to be answered and what data is likely to matter.</p>
+        <p>For example, “analyze customer data” is too broad to guide real work. A stronger problem statement would be, “customer sales fell during the last two quarters, and management wants to understand where the decline is occurring and what factors may be associated with it.” That version narrows the scope, points to a time frame, and suggests the kinds of variables that may need to be examined. Other business problems might include a rise in support requests, a drop in website conversions, slower inventory turnover, or uneven sales across regions.</p>
+        <p>This step matters because analysis is meant to support action. A company may need to improve a process, explain a trend, reduce costs, or identify an opportunity. A specific problem statement keeps the analyst focused on the decision the organization is trying to make instead of letting the work drift into unnecessary detail. It also helps determine which data sources should be included and which should be left out.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-1-title">
         <p class="checkpoint-label">Comprehension Check 1 of 5</p>
-        <fieldset data-question="q1" data-answer="measure">
-          <legend id="question-1-title">What do correlation and regression help the analyst do?</legend>
-          <label><input type="radio" name="q1" value="causation"> Prove causation</label>
-          <label><input type="radio" name="q1" value="measure"> Measure and model relationships</label>
-          <label><input type="radio" name="q1" value="replace"> Replace exploratory analysis</label>
+        <fieldset data-question="q1" data-answer="problem">
+          <legend id="question-1-title">What should an analysis begin with?</legend>
+          <label><input type="radio" name="q1" value="dataset"> A dataset</label>
+          <label><input type="radio" name="q1" value="problem"> A clear business problem</label>
+          <label><input type="radio" name="q1" value="chart"> A chart</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="data-acquisition-preparation">
+
+        <h2>2. Data Acquisition and Preparation</h2>
+
+<p>Once the business problem is clear, the analyst must identify the data needed to investigate it. Organizations rarely have one perfect dataset waiting to be analyzed. Analysts may need to select relevant sources, choose appropriate fields, combine approved extracts, or assemble a working dataset from information stored in different systems. This is the practical purpose of data acquisition and preparation.</p>
+
+<p>The last chapter focused on improving data quality through cleaning, standardization, transformation, and validation. In this chapter, the emphasis is different: deciding which data is relevant to the business question and confirming that it is appropriate to use. The analyst should document which sources and fields were selected, which records are included or excluded, and what definitions or assumptions control the analysis. Any additional preparation should be limited to what is necessary to create the working dataset.</p>
+
+<p>Acquisition also requires attention to permissions, privacy, provenance, and accountability. Analysts should know where the data came from, when it was collected, how it has been changed, who owns it, and who is responsible for its reliability. They should also confirm that the data may be used for the intended purpose, especially when it includes personal, financial, health, or other sensitive information. These checks do not replace the detailed governance principles introduced earlier; they apply those principles to a specific analytical task.</p>
+
+<p>Data may be stored in different environments depending on how it is created and used. Relational databases commonly store structured operational data in tables. Data warehouses hold organized data prepared for reporting and analysis across an organization. Data lakes can store large amounts of raw or semi-structured material, such as files, logs, images, and other formats. Understanding where data lives helps the analyst choose an appropriate source and interpret the limits of what that source can support.</p>
+
+<p>The goal of this stage is not to repeat the full data-cleaning process. It is to create a relevant, documented, and appropriately prepared working dataset that can be explored and summarized. The analyst must be able to explain what data was selected, why it was selected, and what the resulting dataset can and cannot show.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-2-title">
         <p class="checkpoint-label">Comprehension Check 2 of 5</p>
-        <fieldset data-question="q2" data-answer="cause">
-          <legend id="question-2-title">Why does correlation not prove causation?</legend>
-          <label><input type="radio" name="q2" value="cause"> Another factor may be involved</label>
-          <label><input type="radio" name="q2" value="same"> The two variables are always the same thing</label>
-          <label><input type="radio" name="q2" value="ignore"> Correlation should be ignored completely</label>
+        <fieldset data-question="q2" data-answer="working">
+          <legend id="question-2-title">What does preparation turn the data into?</legend>
+          <label><input type="radio" name="q2" value="report"> A finished report</label>
+          <label><input type="radio" name="q2" value="working"> A working dataset</label>
+          <label><input type="radio" name="q2" value="summary"> A summary table only</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="outlier-investigation">
-        <h2>6. Outlier Investigation</h2>
-        <p>Not every unusual value is a mistake, but every unusual value deserves attention. Outlier investigation goes beyond simply noticing extreme values and asks what those values represent and how they should be handled. A salary dataset, for example, might contain 49 employees earning around $40,000 and one employee earning $3 million. That one value could distort the average and make the data misleading if it is treated like a typical salary.</p>
-        <p>Outliers can represent errors, fraud, special circumstances, unusual events, system problems, or a new business condition. That is why an outlier is an analytical question, not automatically a data-quality error. The analyst has to determine whether the value should be corrected, excluded, explained, or preserved as a meaningful exception. Sometimes an outlier reveals an important event that deserves attention. Other times it reveals a simple error that should have been fixed during preparation. Either way, the value should not be ignored.</p>
+      <section id="exploratory-analysis">
+        <h2>3. Exploratory Analysis</h2>
+        <p>After the data has been prepared, the analyst begins to explore it. This is not yet the stage for final conclusions. Instead, it is the stage for learning what the data contains and what it might be able to tell us. The analyst looks at structure, quality, patterns, relationships, and unusual cases, using summaries, visualizations, and observations to uncover clues.</p>
+        <p>Exploratory analysis can reveal a great deal. It may show that one region has unusually strong sales, that one product category has many missing values, that traffic spikes on certain days of the week, or that one customer segment behaves differently from the others. It can also reveal problems in the dataset itself, such as outliers, missing values, duplicates, or data that appears to be constrained by the underlying system in a way that affects interpretation. A large transaction amount, for example, may be a legitimate sale or it may be an error worth investigating.</p>
+        <p>This stage is also where new questions often appear. An analyst may begin by studying customer behavior and then notice that the trend differs by age group, marketing channel, or geographic location. That discovery leads to a better question. The process is not just about finding an answer; it is also about learning which follow-up questions matter.</p>
+        <p>Context is essential here. Data does not explain itself. A change in website traffic might reflect increased interest, a marketing campaign, a seasonal event, or a system issue. A decline in orders might mean lower demand, but it might also point to a broken payment process. Exploratory analysis helps reveal where the important questions are hiding.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-3-title">
         <p class="checkpoint-label">Comprehension Check 3 of 5</p>
-        <fieldset data-question="q3" data-answer="analytical">
-          <legend id="question-3-title">How should an outlier be treated?</legend>
-          <label><input type="radio" name="q3" value="error"> As a data-quality error every time</label>
-          <label><input type="radio" name="q3" value="analytical"> As an analytical question</label>
-          <label><input type="radio" name="q3" value="conclusion"> As the final conclusion</label>
+        <fieldset data-question="q3" data-answer="patterns">
+          <legend id="question-3-title">What do analysts look for during exploratory analysis?</legend>
+          <label><input type="radio" name="q3" value="patterns"> Patterns, relationships, and unusual cases</label>
+          <label><input type="radio" name="q3" value="final"> Final conclusions only</label>
+          <label><input type="radio" name="q3" value="format"> File names and folder paths</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="diagnostic-analysis">
-        <h2>7. Diagnostic Analysis</h2>
-        <p>Descriptive analysis tells what happened. Diagnostic analysis examines possible
-        contributing factors and evidence-supported explanations. At this stage, the analyst
-        studies patterns and relationships more closely, develops hypotheses, and tests them
-        against the available data. Ordinary observational data may suggest an explanation, but
-        it usually cannot establish that one factor caused another. The goal is to move from observation to actionable insight. This may reveal an operational bottleneck, an underperforming marketing campaign, or another factor that helps explain the outcome.</p>
-        <p>This step works closely with descriptive findings from the previous chapter. For example, if call center satisfaction dropped by 20 percent, the next question might be which region was affected, which employees were involved, whether staffing changed, whether call volume changed, or whether wait time increased. Diagnostic analysis often begins with a broad result and then drills down into smaller groups, time periods, or variables until the likely explanation becomes clearer.</p>
-        <p>The important point is that diagnosis should be evidence-based. An analyst may have a hypothesis about the cause, but that hypothesis should be tested against the data rather than assumed. Good diagnostic analysis helps the organization understand where to focus attention and which changes are most likely to improve performance.</p>
+      <section id="descriptive-findings">
+        <h2>4. Descriptive Findings</h2>
+
+        <p>Once the data has been explored, the analyst can summarize what happened. This is the descriptive stage of analysis. The goal is to report observed results clearly without assuming why they occurred. Descriptive findings answer the question, “What happened?” rather than, “Why did it happen?”</p>
+
+        <h3>Descriptive Statistics</h3>
+
+        <p>Descriptive statistics summarize the main features of a dataset. Counts and frequencies show how often values occur, while percentages help compare categories. Measures of center include the mean, median, and mode. Measures of spread include the range, quartiles, and standard deviation, which describes how closely values cluster around the mean. The appropriate statistic depends on the type of data and the question being asked.</p>
+
+        <p>Percentages and rates should be reported with their base populations. For example, 20 complaints among 100 customers represents a 20% rate, while 20 complaints among 10,000 customers represents only a 0.2% rate. Including the denominator helps decision-makers interpret the result accurately.</p>
+
+        <p>Examples of descriptive findings might include statements such as: revenue was $2.2 million, the average order total was $53, or the East region generated 29% of sales. The mean can be influenced by unusually large or small values, so the median may better represent a typical result when the data is uneven. These measures provide a clear snapshot of the observed situation.</p>
+
+        <p>Descriptive findings should remain separate from diagnosis. If sales declined, that fact belongs in a descriptive summary. The reason for the decline belongs in a later analysis. Descriptive statistics show what was observed, but they do not by themselves explain why it happened or predict what will happen next.</p>
       </section>
+
 
       <section class="checkpoint" aria-labelledby="question-4-title">
         <p class="checkpoint-label">Comprehension Check 4 of 5</p>
-        <fieldset data-question="q4" data-answer="why">
-          <legend id="question-4-title">What does diagnostic analysis ask?</legend>
-          <label><input type="radio" name="q4" value="what"> What happened?</label>
+        <fieldset data-question="q4" data-answer="what-happened">
+          <legend id="question-4-title">What do descriptive findings answer?</legend>
           <label><input type="radio" name="q4" value="why"> Why it happened</label>
-          <label><input type="radio" name="q4" value="who"> Who entered the data?</label>
-        </fieldset>
-        <p class="feedback" aria-live="polite"></p>
-      </section>
-
-      <section class="checkpoint" aria-labelledby="question-5-title">
-        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
-        <fieldset data-question="q5" data-answer="test">
-          <legend id="question-5-title">What should an analyst do with a hypothesis about the cause?</legend>
-          <label><input type="radio" name="q5" value="guess"> Assume it is correct</label>
-          <label><input type="radio" name="q5" value="test"> Test it against the data</label>
-          <label><input type="radio" name="q5" value="hide"> Leave it out of the analysis</label>
+          <label><input type="radio" name="q4" value="what-happened"> What happened</label>
+          <label><input type="radio" name="q4" value="future"> What will happen next</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
       <section id="why-this-workflow-matters">
         <h2>Why This Workflow Matters</h2>
-        <p>These steps create the logic of sound analysis. They move the work from observed results, to patterns and explanations, to a thoughtful report that the organization can act on. The analyst does not just process data; the analyst interprets it, questions it, and communicates it in a way that supports decision-making. That is why the workflow matters: it keeps analysis grounded in the business problem, careful about the evidence, and honest about the limits.</p>
+        <p>These first four steps create the structure for sound analysis. They move the work from a business problem, to a prepared dataset, to a thoughtful exploration, and finally to a clear summary of the observed results. When each step is handled carefully, the organization is much better prepared for the later stages of interpretation and decision-making.</p>
+        <p>AI may accelerate the process, but it does not replace the need for a well-defined problem, a dependable dataset, and careful human judgment. The analyst still decides what question matters, what data belongs in the analysis, and which findings are strong enough to report.</p>
+      </section>
+
+      <section class="checkpoint" aria-labelledby="question-5-title">
+        <p class="checkpoint-label">Comprehension Check 5 of 5</p>
+        <fieldset data-question="q5" data-answer="structure">
+          <legend id="question-5-title">Why do the first four steps of the workflow matter?</legend>
+          <label><input type="radio" name="q5" value="speed"> They make analysis happen faster only</label>
+          <label><input type="radio" name="q5" value="structure"> They create the structure for sound analysis</label>
+          <label><input type="radio" name="q5" value="report"> They replace the need to report findings</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
       </section>
 
       <section id="ai_aside" aria-labelledby="ai-topic">
-        <h2>AI-Assisted Reporting and Data Storytelling</h2>
-        <p>Data analysis becomes valuable when people can understand and use its results. Reporting and data storytelling connect evidence to a specific audience, purpose, and decision. A strong data story identifies the question, presents the most relevant evidence, explains what the evidence means, and communicates limitations or uncertainty. Charts, tables, written explanations, and recommendations should work together rather than compete for attention. The most appropriate presentation depends on the audience. An executive may need a concise decision summary, while a technical team may need detailed calculations and documentation.</p>
-        <p>AI can help analysts create report outlines, generate alternative explanations, revise language for different audiences, and suggest possible visualizations. It may also create misleading narratives, exaggerate an important trend, omit limitations, or use confident language that the data does not support. Professionals must verify every claim, number, label, and visual before sharing a report. Career-ready analysts are not only people who can produce charts; they are people who can explain what the evidence means, what it does not mean, and what action may reasonably follow from it.</p> 
+        <h2>Critical and Analytical Thinking with AI Outputs</h2>
+        <p>Analytical thinking involves examining evidence, identifying relationships, evaluating alternatives, and drawing conclusions that are supported by data. AI systems can summarize information and produce plausible explanations, but they do not automatically know whether a conclusion is justified. An AI-generated analysis may confuse correlation with causation, overlook an important variable, use an inappropriate comparison, or describe a pattern that is not statistically or practically meaningful. Critical thinking requires asking how the result was produced, what evidence supports it, what assumptions were made, and what information may be missing.</p>
+        <p>In professional data work, students should learn to treat AI output as a proposal rather than a final answer. Useful questions include: Does the analysis answer the original question? Are the calculations correct? Were the right records and variables used? Could another explanation account for the pattern? What additional data would change the conclusion? These questions help counter automation bias, which occurs when people accept an automated recommendation without sufficient review. Critical evaluation is a career skill for analysts, consultants, managers, developers, and any professional who uses AI to support organizational decisions.</p> 
         <!-- <video controls>
           <source src="videos/#.mp4" type="video/mp4">
           Your browser does not support the video tag.
@@ -144,17 +162,18 @@
         <div id="access-code-panel" class="access-code-panel" hidden>
           <p class="success-heading">Chapter complete</p>
           <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
-          <code id="access-code">data-reasoning</code>
+          <code id="access-code">data-analysis</code>
         </div>
       </section>
     </article>
 
     <aside class="chapter-nav" aria-label="Chapter sections">
       <p class="nav-title">In this chapter</p>
-      <a href="#chapter-introduction">Reasoning from Data</a>
-      <a href="#trends-relationships">Trends and Relationships</a>
-      <a href="#outlier-investigation">Outlier Investigation</a>
-      <a href="#diagnostic-analysis">Diagnostic Analysis</a>
+      <a href="#analyze-data-sets">Analyze Data Sets</a>
+      <a href="#business-problem">The Business Problem</a>
+      <a href="#data-acquisition-preparation">Data Acquisition &amp; Preparation</a>
+      <a href="#exploratory-analysis">Exploratory Analysis</a>
+      <a href="#descriptive-findings">Descriptive Findings</a>
       <a href="#why-this-workflow-matters">Why This Workflow Matters</a>
       <div class="progress-block">
         <span id="progress-text">0 of 5 answered</span>
@@ -164,13 +183,13 @@
   </main>
 
   <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
-    <a class="nav-link" href="chp7.html">&larr; Previous Chapter</a>
+    <a class="nav-link" href="chp7.html">← Previous Chapter</a>
     <a class="nav-link contents-link" href="index.html">Table of Contents</a>
-    <a class="nav-link" href="chp9.html">Next Chapter &rarr;</a>
+    <a class="nav-link" href="chp9.html">Next Chapter →</a>
   </nav>
 
   <footer>
-    <p>Chapter 8: Reasoning from Data</p>
+    <p>Chapter 8: Analyzing Data Sets</p>
     <p>Brigham Young University - Idaho</p>
   </footer>
 </body>

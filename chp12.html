@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Chapter 12: Responsible AI, transparency, and explainability.">
-  <title>Chapter 12 | Responsible AI, Transparency, and Explainability</title>
+  <meta name="description" content="Chapter 12: Storytelling with data and audience analysis.">
+  <title>Chapter 12 | Storytelling with Data and Audience Analysis</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
   <style>
-    .figure-wide {
-      margin: 1rem 0 0;
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
     }
-    .figure-wide img {
+    .figure-grid figure {
+      margin: 0;
+    }
+    .figure-grid img {
       width: 100%;
       height: auto;
       display: block;
@@ -22,133 +28,145 @@
   <nav class="book-navigation" aria-label="Book navigation">
     <a class="nav-link" href="chp11.html">← Previous Chapter</a>
     <a class="nav-link contents-link" href="index.html">Table of Contents</a>
-    <a class="nav-link disabled" aria-disabled="true">Next Chapter →</a>
+    <a class="nav-link" href="chp13.html">Next Chapter →</a>
   </nav>
 
   <header class="chapter-header" id="chapter-twelve">
     <div class="header-inner">
       <p class="eyebrow">Chapter 12</p>
-      <h1>Responsible AI, Transparency, and Explainability</h1>
-      <p class="chapter-summary">Learn how to evaluate AI-assisted analysis carefully, disclose how it was created, and explain results in a way that can be trusted.</p>
+      <h1>Storytelling with Data and Audience Analysis</h1>
+      <p class="chapter-summary">Learn how to turn analysis into a clear narrative, tailor the message to the audience, and recommend actions that the organization can actually take.</p>
     </div>
   </header>
 
   <main class="book-layout">
     <article class="chapter-content">
       <section id="chapter-introduction">
-        <h2>Responsible AI in Analysis</h2>
-        <p>AI can make data analysis, visualization, and storytelling faster and more accessible, but speed is not the same as accuracy. An AI-generated analysis may contain incorrect calculations, unsupported conclusions, biased interpretations, fabricated details, or misleading explanations. Because of that, human oversight is essential. AI should be treated as an assistant, while the human analyst remains responsible for checking whether the data, methods, conclusions, visuals, and recommendations are accurate, relevant, ethical, transparent, and appropriate for the audience.</p>
-        <p>Privacy is part of this responsibility as well. Professionals should use only the data needed for the task, protect sensitive information, and consider whether prompts, outputs, or system integrations could expose it.</p>
-        <p>Independent verification and clear accountability are what make the final result trustworthy. A polished output can look convincing even when it is wrong, so the analyst must be ready to evaluate the work critically and defend it with evidence.</p>
+        <h2>Storytelling with Data</h2>
+        <p>Storytelling with data turns analysis into a narrative that supports organizational decisions and change. It bridges the gap between technical discovery and business strategy by connecting evidence to goals, human decisions, and measurable outcomes. In the previous chapter, the emphasis was on what the data shows. Here, the focus shifts to why it matters and what should happen next.</p>
+        <p>Decision-makers do not usually need raw output; they need answers. A good data story helps them understand what is happening, why it matters, who or what is affected, how serious the issue may be, what action is appropriate, and how confident they should be in the conclusion. At the same time, the story must remain honest about context and avoid exaggerating or omitting important details.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-1-title">
         <p class="checkpoint-label">Comprehension Check 1 of 5</p>
-        <fieldset data-question="q1" data-answer="oversight">
-          <legend id="question-1-title">What safeguard is essential when using AI in analysis?</legend>
-          <label><input type="radio" name="q1" value="speed"> Speed alone</label>
-          <label><input type="radio" name="q1" value="oversight"> Human oversight and verification</label>
-          <label><input type="radio" name="q1" value="automation"> Full automation without review</label>
+        <fieldset data-question="q1" data-answer="narrative">
+          <legend id="question-1-title">What does storytelling with data turn analysis into?</legend>
+          <label><input type="radio" name="q1" value="table"> A table of raw values</label>
+          <label><input type="radio" name="q1" value="narrative"> A clear narrative that supports decisions</label>
+          <label><input type="radio" name="q1" value="filter"> A dashboard filter</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="ai-generated-visuals">
-        <h2>AI-Generated Visuals</h2>
-        <p>AI-generated visuals can be useful when they help explain how something works, such as a process diagram, system architecture illustration, flow chart, or conceptual model. These are explanatory visuals, and viewers use them to learn a process or idea. Data-bearing visuals are different. Charts, graphs, maps, and dashboards communicate quantitative evidence, so they require a much higher level of verification.</p>
-        <p>AI does not truly understand whether every detail is true. It generates probable content by recognizing patterns from training data. That means the visual must be supported by reliable data or documentation and checked independently before it is used in a report, dashboard, or presentation.</p>
+      <section id="consider-the-audience">
+        <h2>Consider the Audience</h2>
+        <p>The same evidence may need to be presented differently depending on the audience. The underlying data should remain the same, but the emphasis, language, and level of detail should match the audience’s responsibilities and ability to act. A well-told story does not weaken the evidence to make it easier to read; it makes the evidence accessible without losing accuracy.</p>
+        <p>Consider customer-service response times that increased by 35 percent over six months. To executives, the story might emphasize financial and strategic impact. To customer-service managers, the same data may highlight a bottleneck in a specific time window and suggest a staffing change. To IT analysts, the story may focus on a routing rule in the ticketing system and recommend a technical fix. The facts are the same, but each audience needs a different path from evidence to action.</p>
+
+        <figure>
+          <img src="images/fig-11-1.png" alt="Three audience-specific summaries of the same customer-service response-time data for executives, managers, and IT analysts.">
+          <figcaption><strong>Figure 12.1.</strong> The same data can support different stories when the audience changes.</figcaption>
+        </figure>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-2-title">
         <p class="checkpoint-label">Comprehension Check 2 of 5</p>
-        <fieldset data-question="q2" data-answer="data-bearing">
-          <legend id="question-2-title">Which AI-generated visuals require the highest verification?</legend>
-          <label><input type="radio" name="q2" value="explanatory"> Explanatory visuals</label>
-          <label><input type="radio" name="q2" value="data-bearing"> Data-bearing visuals</label>
-          <label><input type="radio" name="q2" value="decorative"> Decorative visuals only</label>
+        <fieldset data-question="q2" data-answer="different">
+          <legend id="question-2-title">Why may the same data need a different story for different audiences?</legend>
+          <label><input type="radio" name="q2" value="same"> Because the evidence always changes</label>
+          <label><input type="radio" name="q2" value="different"> Because each audience has different responsibilities and ability to act</label>
+          <label><input type="radio" name="q2" value="none"> Because audiences never care about details</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="common-mistakes">
-        <h2>Common AI Mistakes in Analysis and Visualization</h2>
-        <p>AI-generated analysis and visuals should always be reviewed against the original data and the purpose of the analysis. A polished chart can still hide major problems, such as incorrect labels, the wrong columns, misread categories, or a calculation that was applied incorrectly. AI may also omit records, change units, select a misleading scale, invent a trend, or mislabel axes. In some cases it may even present correlation as causation or generate values that were never present in the source.</p>
-        <p>Other mistakes are more subtle. AI may use the wrong time period, handle missing values incorrectly, double-count duplicates, combine incompatible data sources, cherry-pick favorable results, choose an inappropriate chart type, overinterpret a small sample, or provide an explanation that is not actually supported by the evidence. The safest habit is to compare every AI-generated chart, calculation, and conclusion with the source data and documented definitions.</p>
+      <section id="audience-analysis">
+        <h2>Audience Analysis</h2>
+        <p>When planning a story, it helps to ask a few practical questions. What technical concepts does the audience already understand? What decisions does the audience make, and what processes does it control? What goals is the audience trying to accomplish? What concerns or objections might arise? What authority does the audience have to act? How much detail is needed to understand and trust the findings?</p>
+        <p>These questions help the analyst tailor the message without changing the evidence. The goal is not to oversimplify the analysis, but to remove unnecessary barriers so the audience can understand it clearly and act on it appropriately.</p>
+
+        <figure>
+          <img src="images/fig-11-3.png" alt="A matrix showing audience type, concerns, and preferred level of detail for executives, managers, analysts, IT technical staff, and frontline staff.">
+          <figcaption><strong>Figure 12.2.</strong> Audience type, concerns, and detail level help shape the message.</figcaption>
+        </figure>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-3-title">
         <p class="checkpoint-label">Comprehension Check 3 of 5</p>
-        <fieldset data-question="q3" data-answer="verify">
-          <legend id="question-3-title">Why should AI-generated output be checked against the source data?</legend>
-          <label><input type="radio" name="q3" value="design"> To make the design look prettier</label>
-          <label><input type="radio" name="q3" value="verify"> To verify that it matches the original data and definitions</label>
-          <label><input type="radio" name="q3" value="ignore"> To avoid using documentation</label>
+        <fieldset data-question="q3" data-answer="responsibilities">
+          <legend id="question-3-title">Which audience factor asks what decisions the audience makes?</legend>
+          <label><input type="radio" name="q3" value="technical"> Technical knowledge</label>
+          <label><input type="radio" name="q3" value="responsibilities"> Responsibilities</label>
+          <label><input type="radio" name="q3" value="decorative"> Decorative style</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="ownership-accessibility">
-        <h2>Ownership and Accessibility</h2>
-        <p>AI-generated content also raises practical questions about recordkeeping and accessibility. The legal status of AI-generated work varies by jurisdiction, but it is always wise to keep records of the tools used, the human contribution, the source assets, the permissions involved, and the final editing decisions. That record makes it easier to explain how the result was produced and who is accountable for it.</p>
-        <p>Accessibility matters as well. AI-generated visuals can create barriers through low contrast, reliance on color alone, small or distorted text, decorative clutter, unclear visual hierarchy, or missing alternative text. A visual that looks polished but is difficult to read is not truly effective.</p>
-      </section>
-
-      <section id="transparency-disclosure">
-        <h2>Transparency and Disclosure</h2>
-        <p>Transparency helps viewers understand how the content was produced. It should reveal what system, what data, and what human review contributed to the final result. A simple label that says “AI-generated” is not enough, because it does not explain the source, the process, or the level of verification.</p>
-        <p>Better transparency includes source information, context, provenance records, human review, and clear disclosure of AI involvement so viewers can evaluate the content intelligently rather than blindly trusting or automatically rejecting it. The goal is informed evaluation.</p>
-
-        <figure class="figure-wide">
-          <img src="images/fig-12-1.png" alt="A transparency checklist showing source data, human review, provenance, and disclosure.">
-          <figcaption><strong>Figure 12.1.</strong> Transparency depends on source data, human review, provenance, and disclosure.</figcaption>
-        </figure>
+      <section id="storytelling-across-information-systems">
+        <h2>Storytelling Across Information Systems</h2>
+        <p>Storytelling appears throughout information systems because different systems support different decisions. A strong story always begins with the same evidence, but it should end with a recommendation that matches the setting in which that evidence will be used.</p>
+        <ul>
+          <li><strong>Business intelligence:</strong> explain performance trends and whether results are improving or declining.</li>
+          <li><strong>Enterprise systems:</strong> identify process bottlenecks, delays, and handoff problems.</li>
+          <li><strong>Customer relationship management:</strong> describe customer behavior and retention opportunities.</li>
+          <li><strong>Supply-chain systems:</strong> explain delays, shortages, and inventory risks.</li>
+          <li><strong>Human-resource systems:</strong> analyze turnover, scheduling, and staffing patterns.</li>
+          <li><strong>Healthcare systems:</strong> identify care patterns while remaining careful about causation.</li>
+          <li><strong>Decision-support systems:</strong> compare alternatives and recommend the one that best fits the goal.</li>
+          <li><strong>Cybersecurity systems:</strong> communicate threats, suspicious patterns, and response steps.</li>
+        </ul>
+        <p>These examples show that storytelling is not limited to reports or presentations. It is part of how information systems create value by helping the right people understand the right issue at the right time.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-4-title">
         <p class="checkpoint-label">Comprehension Check 4 of 5</p>
-        <fieldset data-question="q4" data-answer="howai">
-          <legend id="question-4-title">What should transparency reveal?</legend>
-          <label><input type="radio" name="q4" value="color"> Only the color palette used</label>
-          <label><input type="radio" name="q4" value="howai"> How AI contributed, plus the source and review process</label>
-          <label><input type="radio" name="q4" value="hide"> Nothing beyond the final image</label>
+        <fieldset data-question="q4" data-answer="evidence">
+          <legend id="question-4-title">What should a strong data story connect?</legend>
+          <label><input type="radio" name="q4" value="charts"> Only charts and numbers</label>
+          <label><input type="radio" name="q4" value="evidence"> Evidence, audience, and action</label>
+          <label><input type="radio" name="q4" value="style"> Style, color, and decoration</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="explainability">
-        <h2>Explainability</h2>
-        <p>Explainability helps someone understand why the output was produced. It answers questions such as why a particular chart was selected, why certain variables were included, how values were calculated, why something was emphasized over another part of the data, and what assumptions affected the result.</p>
-        <p>Some AI-generated images may only need disclosure, but AI-generated dashboards, detailed charts, and recommendations that affect hiring, finance, or operations need much more explanation because people may make consequential decisions from them. The more important the decision, the more important it is to understand the logic behind the output.</p>
+      <section id="building-the-right-narrative">
+        <h2>Building the Right Narrative</h2>
+        <p>A strong data story connects three things: the evidence, the audience, and the action. It explains what happened, why it matters to this audience, and what the audience should do next. That structure keeps the narrative focused and prevents it from becoming either too technical to use or too simplified to trust.</p>
+        <p>The story should also respect the limits of the data. If the evidence shows association rather than causation, the recommendation should be framed carefully. If the result depends on a system issue, workflow problem, or special context, that should be stated. Clear storytelling does not hide uncertainty; it helps the audience understand it.</p>
+
+        <figure>
+          <img src="images/fig-11-2.png" alt="A three-step flow diagram showing evidence, audience needs, and recommendation connected from left to right.">
+          <figcaption><strong>Figure 12.3.</strong> Effective storytelling moves from evidence to audience needs to recommendation.</figcaption>
+        </figure>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-5-title">
         <p class="checkpoint-label">Comprehension Check 5 of 5</p>
-        <fieldset data-question="q5" data-answer="whyproduced">
-          <legend id="question-5-title">What does explainability help someone understand?</legend>
-          <label><input type="radio" name="q5" value="style"> Why the font style changed</label>
-          <label><input type="radio" name="q5" value="whyproduced"> Why the output was produced</label>
-          <label><input type="radio" name="q5" value="hide"> Why the data should be hidden</label>
+        <fieldset data-question="q5" data-answer="respond">
+          <legend id="question-5-title">Why should recommendations go to the people with authority to act?</legend>
+          <label><input type="radio" name="q5" value="respond"> They can realistically respond to the issue</label>
+          <label><input type="radio" name="q5" value="ignore"> They can ignore the evidence</label>
+          <label><input type="radio" name="q5" value="format"> They prefer a different font</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
       <section id="why-this-matters">
         <h2>Why This Matters</h2>
-        <p>AI can be valuable in information systems, but only when it is used with care. The goal is not to reject AI, but to use it responsibly. That means verifying the results, documenting the process, explaining the output clearly, and keeping humans accountable for the final decision. When AI is transparent, explainable, and reviewed, it can strengthen analysis. When it is not, it can make a flawed result look more trustworthy than it really is.</p>
+        <p>Storytelling with data is what makes analysis actionable. It transforms evidence into a message that different audiences can understand and use while still staying grounded in the data. When the narrative is tailored to the audience and tied to a realistic recommendation, data becomes more than a record of what happened; it becomes a guide for what to do next.</p>
       </section>
 
       <section id="ai_aside" aria-labelledby="ai-topic">
-        <h2>Automation, Agents, and Human Oversight</h2>
+        <h2>Predictive Modeling and Evaluation with AI</h2>
 
-<p>Automation uses data, software, and rules to perform repeated tasks. AI can extend automation by helping systems interpret text, classify information, summarize documents, generate responses, or suggest actions. An AI-enabled workflow may produce useful results quickly, but its reliability depends on the quality of the data, the clarity of the task, and the limits placed on the system.</p>
+        <p>Predictive modeling uses historical data to estimate the likelihood or value of a future or unknown outcome. Common examples include predicting demand, identifying customers who may need assistance, estimating delivery times, or classifying transactions. Students do not need to become machine-learning researchers, but they should understand the purpose of a model, the variables it uses, the outcome it estimates, and how its results are evaluated.</p>
 
-<p>Agents are more flexible forms of automation that can complete several related steps, which makes human oversight and clearly defined limits especially important.</p>
+        <h3>Common Intelligent-System Tasks</h3>
 
-<p>Professionals should understand what an automated or AI-assisted process is doing and recognize when human review is necessary. Important questions include: What data does the system use? What action does it produce? Could the output be inaccurate, biased, or harmful? Who is responsible for checking the result? High-impact decisions should not be accepted automatically, and people should remain able to question, correct, or reject the system’s output.</p>
-        <!-- <video controls>
-          <source src="videos/#.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video> -->
+        <p><strong>Classification</strong> assigns a record to one of several predefined categories, such as normal or suspicious. <strong>Clustering</strong> groups records according to similarities without using predefined categories, which can help reveal customer segments or unusual patterns. <strong>Recommendation systems</strong> suggest items, content, or actions based on past behavior, stated preferences, or context.</p>
+
+        <p>These tasks support different kinds of decisions. Classification predicts a category, clustering helps discover groups, and recommendation systems rank possible choices. AI tools can help explain metrics, generate code, or compare approaches, but professionals must still evaluate the results.</p>
+        <p>When an analysis includes a predictive or intelligent-system output, the analyst should ask whether the result is relevant to the business question, understandable to the audience, and appropriate for the people affected. Analysts should also watch for obvious errors, unsupported conclusions, bias, privacy concerns, and situations in which human review is necessary.</p>
       </section>
 
       <section class="completion" aria-labelledby="completion-title">
@@ -159,19 +177,18 @@
         <div id="access-code-panel" class="access-code-panel" hidden>
           <p class="success-heading">Chapter complete</p>
           <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
-          <code id="access-code">responsible-ai</code>
+          <code id="access-code">audience-story</code>
         </div>
       </section>
     </article>
 
     <aside class="chapter-nav" aria-label="Chapter sections">
       <p class="nav-title">In this chapter</p>
-      <a href="#chapter-introduction">Responsible AI in Analysis</a>
-      <a href="#ai-generated-visuals">AI-Generated Visuals</a>
-      <a href="#common-mistakes">Common AI Mistakes</a>
-      <a href="#ownership-accessibility">Ownership and Accessibility</a>
-      <a href="#transparency-disclosure">Transparency and Disclosure</a>
-      <a href="#explainability">Explainability</a>
+      <a href="#chapter-introduction">Storytelling with Data</a>
+      <a href="#consider-the-audience">Consider the Audience</a>
+      <a href="#audience-analysis">Audience Analysis</a>
+      <a href="#storytelling-across-information-systems">Across Information Systems</a>
+      <a href="#building-the-right-narrative">Building the Narrative</a>
       <a href="#why-this-matters">Why This Matters</a>
       <div class="progress-block">
         <span id="progress-text">0 of 5 answered</span>
@@ -183,11 +200,11 @@
   <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
     <a class="nav-link" href="chp11.html">← Previous Chapter</a>
     <a class="nav-link contents-link" href="index.html">Table of Contents</a>
-    <a class="nav-link disabled" aria-disabled="true">Next Chapter →</a>
+    <a class="nav-link" href="chp13.html">Next Chapter →</a>
   </nav>
 
   <footer>
-    <p>Chapter 12: Responsible AI, Transparency, and Explainability</p>
+    <p>Chapter 12: Storytelling with Data and Audience Analysis</p>
     <p>Brigham Young University - Idaho</p>
   </footer>
 </body>

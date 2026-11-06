@@ -3,153 +3,162 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Chapter 3: Data foundations, quality, life cycle, and governance.">
-  <title>Chapter 3 | Data Foundations</title>
+  <meta name="description" content="Chapter 3: Relational modeling, entity relationships, cardinality, and linking tables.">
+  <title>Chapter 3 | Relational Modeling</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
 <body>
   <nav class="book-navigation" aria-label="Book navigation">
-    <a class="nav-link" href="chp2.html">← Previous Chapter</a>
+    <a class="nav-link" href="chp2.html">&larr; Previous Chapter</a>
     <a class="nav-link contents-link" href="index.html">Table of Contents</a>
-    <a class="nav-link" href="chp4.html">Next Chapter →</a>
+    <a class="nav-link" href="chp4.html">Next Chapter &rarr;</a>
   </nav>
-
-  <header class="chapter-header" id="chapter-three">
+  <header class="chapter-header" id="chapter-3">
     <div class="header-inner">
       <p class="eyebrow">Chapter 3</p>
-      <h1>Data Foundations</h1>
-      <p class="chapter-summary">Learn how data quality, the data life cycle, and data governance work together to support trustworthy information.</p>
+      <h1>Relational Modeling</h1>
+      <p class="chapter-summary">Learn how entities, attributes, keys, and relationships are represented in an ERD and how relational designs model real-world business rules.</p>
     </div>
   </header>
-
   <main class="book-layout">
     <article class="chapter-content">
-      <section id="data-foundations">
-        <h2>Data Foundations</h2>
-        <p>In the previous chapter, we focused on database modeling and design. However, a strong design alone is not enough. A database also depends on good-quality data, a reliable system environment, and the people and processes that keep everything working properly. This chapter begins by looking at those foundations.</p>
-      </section>
-
-      <section id="system-environment">
-        <h2>Database System Environment</h2>
-        <p>A database does not operate in isolation. It exists within a database system environment made up of hardware, software, data, people, and procedures. Together, these components provide the foundation for storing, protecting, and delivering information when it is needed.</p>
-        <p><strong>Hardware</strong> includes the physical devices that store and process the data, such as servers, storage systems, and user machines. <strong>Software</strong> includes the database management system (DBMS), which controls how data is stored, retrieved, and updated. <strong>Data</strong> is the information being managed, including the database itself and the metadata that describes its structure. <strong>People</strong> are essential to the system as well. Database administrators manage the system, application developers build the tools that use the data, and end users access the information for daily work and decision-making. <strong>Procedures</strong> are the rules and methods that guide how the system is used. These include access rules, user roles, security controls, transaction control, and concurrency management. </p>
-        <p>When these components work together, the database environment remains organized, secure, and reliable.</p>
-      </section>
-
-      <section class="checkpoint" aria-labelledby="question-1-title">
-        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
-        <fieldset data-question="q1" data-answer="software">
-          <legend id="question-1-title">Which component controls how data is stored, retrieved, and updated?</legend>
-          <label><input type="radio" name="q1" value="hardware"> Hardware</label>
-          <label><input type="radio" name="q1" value="software"> Software</label>
-          <label><input type="radio" name="q1" value="people"> People</label>
-        </fieldset>
-        <p class="feedback" aria-live="polite"></p>
-      </section>
-
-      <section id="access-and-transaction-control">
-        <h2>Access and Transaction Control</h2>
-
-        <p>Authorization determines what a user or application is allowed to do. Access control applies those permissions through accounts, roles, and security rules. A user may be allowed to read certain data but not change or delete it. Good access control follows the principle of least privilege: each person receives only the access needed for their responsibilities.</p>
-
-        <p>A transaction is a group of database operations treated as one unit. It should either complete fully or be rolled back so partial changes do not leave unreliable data. Concurrency occurs when multiple users or processes access data at the same time. Concurrency control helps prevent lost updates, conflicting changes, and inconsistent results.</p>
-      </section>
-
-      <section id="data-quality">
-        <h2>Data Quality Dimensions</h2>
-        <p>Even in a well-managed system, data must still be dependable. Data quality describes how trustworthy, useful, and accurate the data is. High-quality data supports better decisions because it is not only present, but also ready to be used with confidence.</p>
-        <p><strong>Accuracy</strong> means the data reflects reality correctly. <strong>Completeness</strong> means the needed values are present and nothing important is missing. <strong>Consistency</strong> means the same fact appears the same way wherever it is stored. <strong>Validity</strong> means the data follows the correct rules, format, or allowed values. <strong>Uniqueness</strong> means each real-world item appears only once and is not duplicated unnecessarily. <strong>Timeliness</strong> means the data is current enough to be useful. <strong>Integrity</strong> means the data remains reliable through correct relationships and protection from errors.</p>
-        <p>Together, these dimensions help determine whether data can be trusted. When they are strong, the data is ready to support accurate analysis and sound decisions.</p>
-      </section>
-
-      <section class="checkpoint" aria-labelledby="question-2-title">
-        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
-        <fieldset data-question="q2" data-answer="accuracy">
-          <legend id="question-2-title">Which data quality dimension means the data reflects reality correctly?</legend>
-          <label><input type="radio" name="q2" value="consistency"> Consistency</label>
-          <label><input type="radio" name="q2" value="accuracy"> Accuracy</label>
-          <label><input type="radio" name="q2" value="timeliness"> Timeliness</label>
-        </fieldset>
-        <p class="feedback" aria-live="polite"></p>
-      </section>
-
-      <section id="data-life-cycle">
-        <h2>Data Life Cycle</h2>
-        <p>Once data is trusted, it still continues to move through the organization. The data life cycle traces that journey from creation to final disposal. It begins when data is created or collected, whether from a form, a transaction, a sensor, or another source. It is then stored so it can be accessed later.</p>
-        <p>Before data is ready to use, it often goes through processing, where it is cleaned, validated, organized, or transformed into a more useful form. After that, it enters use and analysis, where it supports operations, reports, decision-making, and even machine learning. Data is also shared with employees, systems, customers, or business partners, but always under security and privacy rules. Over time, it requires maintenance so it can be updated, monitored, backed up, and checked for quality. When data is no longer actively needed, it may be archived for long-term reference. Eventually, it is deleted or destroyed according to policy, legal requirements, and organizational needs.</p>
-
+      <section id="chapter-introduction">
+        <h2>Relational Modeling</h2>
+        <p>A relational database organizes information into tables that represent real-world entities and the attributes that describe them. Relational modeling is the process of deciding what those tables should contain and how they should connect. A thoughtful model reduces unnecessary duplication, supports referential integrity, and makes information easier to retrieve.</p>
+        <p>Each table represents an entity or a closely related group of items. Each row, or record, represents one instance of that entity, while each column, or field, represents an attribute. When the design is shown in an entity-relationship diagram (ERD), the focus is on the structure of the database rather than its actual data values. An ERD makes entities, attributes, keys, and relationships visible before the database is built.</p>
         <figure>
-          <img src="images/fig-3-1.png" alt="An eight-stage data life cycle showing collection, storage, processing, use and analysis, sharing, maintenance, archiving, and deletion.">
-          <figcaption><strong>Figure 3.1.</strong> Data moves through a life cycle from creation to deletion.</figcaption>
+          <img src="images/fig-2-1.png" alt="An ERD example showing database entities, attributes, and relationships without actual data values">
+          <figcaption><strong>Figure 3.1.</strong> An ERD describes the structure and relationships of a database.</figcaption>
         </figure>
       </section>
-
+      <section id="database-model-options">
+        <h2>Relational and Nonrelational Models</h2>
+        <p>Relational modeling is one way to organize data, but it is not the only one. Document databases store related information in flexible, JSON-like documents. Key-value databases pair a unique key with a value for fast retrieval. Graph databases represent entities as nodes and their connections as edges.</p>
+        <p>Relational models emphasize defined structure, keys, and relationships. Nonrelational models may emphasize flexible records, direct lookup, or connected networks. No model is best for every situation; the choice depends on the data, how it will be accessed, and the questions the system must answer.</p>
+      </section>
+      
+      <section id="relationship-types">
+        <h2>Relationships and Cardinality</h2>
+        <p>In an ERD, lines connect entities to indicate the type of relationship. Our example uses crow's foot notation to show how many records can participate in a relationship. The term 'Cardinality' also describes the relationship between entities. Together, these symbols help describe business rules precisely.</p> 
+        <figure>
+          <img src="images/fig-2-2.png" alt="Crow’s-foot notation examples showing symbols for one, many, and optional relationships">
+          <figcaption><strong>Figure 3.2.</strong> Crow's foot notation shows how entities are related.</figcaption>
+        </figure>
+      </section>
+      <section class="checkpoint" aria-labelledby="question-1-title">
+        <p class="checkpoint-label">Comprehension Check 1 of 5</p>
+        <fieldset data-question="q1" data-answer="cardinality">
+          <legend id="question-1-title">What is the relationship between entities in an ERD also called?</legend>
+          <label><input type="radio" name="q1" value="cardinality"> Cardinality</label>
+          <label><input type="radio" name="q1" value="attributes"> Attributes</label>
+          <label><input type="radio" name="q1" value="rows"> Rows</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+      <section id="customer-order-example">
+        <h2>Reading an ERD</h2>
+        <p>Consider a customer who may place multiple orders. One customer can have zero or many orders, but each order belongs to one and only one customer. An order can contain multiple order items, while each order item belongs to one order. Each order item refers to one product, and a product can appear in many order items.</p>
+        <p>These relationships reflect the way the business operates. The ERD helps designers check whether the model accurately represents those rules before creating tables or entering data.</p>
+        <figure>
+          <img src="images/fig-2-3.png" alt="Customers, Orders, OrderItems, and Products entities connected with crow’s-foot relationships">
+          <figcaption><strong>Figure 3.3.</strong> The customer-order example shows how related entities form a relational design.</figcaption>
+        </figure>
+      </section>
+      
+      <section class="checkpoint" aria-labelledby="question-2-title">
+        <p class="checkpoint-label">Comprehension Check 2 of 5</p>
+        <fieldset data-question="q2" data-answer="one-to-many">
+          <legend id="question-2-title">A customer can place many orders, but each order belongs to one customer. What type of relationship is this?</legend>
+          <label><input type="radio" name="q2" value="one-to-one"> One-to-one</label>
+          <label><input type="radio" name="q2" value="one-to-many"> One-to-many</label>
+          <label><input type="radio" name="q2" value="many-to-many"> Many-to-many</label>
+        </fieldset>
+        <p class="feedback" aria-live="polite"></p>
+      </section>
+      <section id="one-to-one">
+        <h2>One-to-One Relationships</h2>
+        <p>A one-to-one relationship means each record in one entity is associated with no more than one record in the other entity, and vice versa. This relationship is less common than one-to-many relationships. One example is separating private customer information into a second table so access can be restricted. Another example is an employee assigned one company car, when each car is assigned to only one employee.</p>
+        <figure>
+          <img src="images/fig-2-4.png" alt="One-to-one relationship between Customers and CustomerPrivate tables">
+          <figcaption><strong>Figure 3.4.</strong> A one-to-one relationship can separate sensitive customer information.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/fig-2-5.png" alt="One-to-one relationship between Employee and CompanyCar tables">
+          <figcaption><strong>Figure 3.5.</strong> An employee and company car can be modeled with a one-to-one relationship.</figcaption>
+        </figure>
+      </section>
+      <section id="one-to-many">
+        <h2>One-to-Many Relationships</h2>
+        <p>A one-to-many relationship is one of the most common patterns in relational databases. One record in the first table can be related to many records in the second table, but each record in the second table belongs to one record in the first. A customer can place many orders, and each order belongs to one customer. Likewise, one department can have many employees, while each employee belongs to one department.</p>
+        <figure>
+          <img src="images/fig-2-6.png" alt="One-to-many relationship between Department and Employee tables">
+          <figcaption><strong>Figure 3.6.</strong> One department can be related to many employees.</figcaption>
+        </figure>
+      </section>
       <section class="checkpoint" aria-labelledby="question-3-title">
         <p class="checkpoint-label">Comprehension Check 3 of 5</p>
-        <fieldset data-question="q3" data-answer="processing">
-          <legend id="question-3-title">What stage of the data life cycle cleans, validates, organizes, or transforms data?</legend>
-          <label><input type="radio" name="q3" value="storage"> Storage</label>
-          <label><input type="radio" name="q3" value="processing"> Processing</label>
-          <label><input type="radio" name="q3" value="archiving"> Archiving</label>
+        <fieldset data-question="q3" data-answer="one">
+          <legend id="question-3-title">Which relationship allows each record in one table to be associated with no more than one record in the other table, and vice versa?</legend>
+          <label><input type="radio" name="q3" value="one"> One-to-one</label>
+          <label><input type="radio" name="q3" value="many"> One-to-many</label>
+          <label><input type="radio" name="q3" value="none"> No relationship</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
-
-      <section id="data-governance">
-        <h2>Data Governance</h2>
-        <p>Because data moves through so many stages, organizations need clear oversight. Data governance is the framework that guides how data is managed responsibly from creation through archiving and deletion. It establishes expectations for data quality, access, authorization, security, privacy, retention, and accountability. Good governance helps ensure that data is secure, compliant, high quality, and used effectively throughout its life cycle. It also makes data easier to discover, understand, trust, and use.</p>
+      <section id="many-to-many">
+        <h2>Many-to-Many Relationships and Linking Tables</h2>
+        <p>A many-to-many relationship occurs when records in each of two tables can relate to many records in the other. For example, one order can contain many products, and the same product can appear in many different orders. Relational databases resolve this relationship by introducing a third table, often called a linking or associative table.</p>
+        <p>In this example, the OrderItems table connects Orders and Products. It turns the many-to-many relationship into two one-to-many relationships: one order can have many order items, and one product can appear in many order items. The linking table can also store facts that belong to the relationship itself, such as quantity. Quantity does not belong in Orders because an order can contain several products, and it does not belong in Products because the quantity can vary from one order to another.</p>
+        <figure>
+          <img src="images/fig-2-7.png" alt="Orders, OrderItems, and Products showing a many-to-many relationship resolved through a linking table">
+          <figcaption><strong>Figure 3.7.</strong> A linking table resolves the many-to-many relationship between orders and products.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/fig-2-8.png" alt="OrderItems table showing a composite primary key made from OrderID and ProductID">
+          <figcaption><strong>Figure 3.8.</strong> The linking table identifies each order-product combination and stores relationship details.</figcaption>
+        </figure>
       </section>
-
-      <section id="data-ownership">
-        <h2>Data Ownership</h2>
-        <p>Within that governance framework, someone must be accountable for the data. Data ownership defines who is responsible for a set of data and who makes the policy decisions about it. A data owner is often a senior business leader or department responsible for the data’s use and protection. Owners decide who may access the data, how it may be used, what quality standards it must meet, how long it should be kept, and which privacy and security rules apply. For example, Human Resources is often the owner of employee data.</p>
-      </section>
-
       <section class="checkpoint" aria-labelledby="question-4-title">
         <p class="checkpoint-label">Comprehension Check 4 of 5</p>
-        <fieldset data-question="q4" data-answer="owner">
-          <legend id="question-4-title">Who is accountable for a set of data and makes the policy decisions about it?</legend>
-          <label><input type="radio" name="q4" value="steward"> Data steward</label>
-          <label><input type="radio" name="q4" value="owner"> Data owner</label>
-          <label><input type="radio" name="q4" value="enduser"> End user</label>
+        <fieldset data-question="q4" data-answer="linking">
+          <legend id="question-4-title">What does a relational database use to resolve a many-to-many relationship?</legend>
+          <label><input type="radio" name="q4" value="linking"> A linking table</label>
+          <label><input type="radio" name="q4" value="single"> A single table</label>
+          <label><input type="radio" name="q4" value="report"> A report table</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
-
-      <section id="data-stewardship">
-        <h2>Data Stewardship</h2>
-        <p>If data ownership sets the direction, data stewardship carries it out in practice. Data stewardship focuses on the day-to-day handling of data quality and protection. A data steward helps ensure that the data remains accurate, complete, consistent, and well documented. Stewards may monitor quality, define data terms and standards, correct or coordinate corrections, resolve duplicates or inconsistencies, maintain metadata, and help enforce policy. They are the practical caretakers of trustworthy data.</p>
+      <section id="keys-in-linking-tables">
+        <h2>Keys in Linking Tables</h2>
+        <p>A linking table commonly uses the primary keys of the two related tables as foreign keys. Together, those values can form a composite primary key. A composite primary key uses two or more columns to uniquely identify a row. In OrderItems, the combination of OrderID and ProductID identifies a product’s occurrence within a particular order. The two values work together because neither one alone identifies the order-product combination.</p>
       </section>
-
-      <section id="latter-day-saint-stewardship">
-        <h2>Quality Data and Latter-day Saint Stewardship</h2>
-        <p>Quality data is more than a technical goal; it is part of responsible stewardship. President Dallin H. Oaks taught that “available information wisely used is far more valuable than multiplied information allowed to lie fallow” (Oaks, 2001). He also reminded us that we are accountable for how we use what we receive.</p>
-        <p>That counsel fits well with data work. In a world where information is abundant but not always reliable, President Oaks warned that not all information is true and that we must choose our sources carefully (Oaks, 2018). He taught that we should use qualified, honest sources and not confuse popularity or visibility with truth.</p>
-        <p>Applied to data, this means that accurate, complete, and well-managed information helps people make wise decisions in wisdom and order. Data that is careless, inconsistent, or misleading can weaken trust, but data that is faithful to reality can support good judgment, sound administration, and service to others.</p>
-      </section>
-
       <section class="checkpoint" aria-labelledby="question-5-title">
         <p class="checkpoint-label">Comprehension Check 5 of 5</p>
-        <fieldset data-question="q5" data-answer="stewardship">
-          <legend id="question-5-title">From a Latter-day Saint perspective, quality data is part of what?</legend>
-          <label><input type="radio" name="q5" value="stewardship"> Responsible stewardship</label>
-          <label><input type="radio" name="q5" value="marketing"> Marketing strategy</label>
-          <label><input type="radio" name="q5" value="automation"> Automation</label>
+        <fieldset data-question="q5" data-answer="composite">
+          <legend id="question-5-title">What is a primary key called when two or more columns work together to uniquely identify a row?</legend>
+          <label><input type="radio" name="q5" value="composite"> A composite primary key</label>
+          <label><input type="radio" name="q5" value="single"> A single primary key</label>
+          <label><input type="radio" name="q5" value="derived"> A derived key</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
-
+      <section id="relational-modeling-summary">
+        <h2>Why Relational Modeling Matters</h2>
+        <p>A well-designed relational model provides a blueprint for the database. It identifies the entities the organization needs to track, the attributes that describe them, and the relationships that connect them. Clear models make it easier to build tables, establish keys, enforce business rules, and maintain reliable information. Once the relationships are understood, the next step is to organize the attributes within those tables so that facts are stored in the right places. That process is called normalization.</p>
+      </section>
       <section id="ai_aside" aria-labelledby="ai-topic">
-        <h2>Data Sources, Formats, and Provenance and AI</h2>
-        <p>Data is collected and stored in many forms, including spreadsheets, databases, application programming interfaces, text documents, images, audio, and system logs. Before analyzing data, an Information Systems professional must understand where it came from, how it was created, what each field represents, and what limitations may affect its use. A file name or column heading does not provide enough information by itself. Analysts need to examine definitions, units of measurement, dates, categories, record-level meaning, and the process used to collect the data. These details help determine whether the data is appropriate for a particular question.</p>
-        <p>AI can help professionals summarize documentation, identify possible fields, generate a preliminary data dictionary, or suggest relationships among data sources. However, AI may misunderstand a field, invent a definition, or confuse an example with an official rule. Data provenance provides a record of the origin and movement of data from its source to the final analysis. Maintaining provenance helps analysts reproduce results, explain decisions, detect errors, and respond to questions from managers or auditors. In an AI-enabled workplace, professionals who understand data origins and limitations can prevent incorrect information from being incorporated into automated reports, dashboards, models, or business decisions.</p> 
+        <h2>Human–AI Collaboration and Prompt Design</h2>
+        <p>A prompt is an instruction or set of instructions provided to an AI system. Effective prompts describe the task, provide relevant context, identify the desired format, and establish limitations or evaluation criteria. Prompt design is not simply a matter of asking an AI tool a question. It is a process of defining a problem clearly enough that another person, computer program, or AI system can act on it. Strong prompts often include the role of the AI, the purpose of the task, the available data, the expected output, and examples of what a successful response should contain.</p>
+        <p>In professional settings, prompt design is most useful when it supports a repeatable workflow. An analyst might ask an AI system to explain a dataset, suggest possible data-quality checks, generate a formula, or propose alternative interpretations. The analyst must then test the response against the data and the business question, making sure the response is accurate and relevant. AI may produce several reasonable-looking answers, but the professional must decide which answer is appropriate and how it should be improved before it is used.</p> 
+        <p>These practices reflect the growing importance of hybrid work in Information Systems. Prompt design and AI tool fluency are increasingly valuable, but most IS professionals will use AI alongside their own knowledge rather than work with AI independently. AI may handle routine portions of a task while humans provide judgment, context, communication, and accountability. Overseeing AI-generated analysis, verifying AI work, and coordinating multiple AI tools within a larger workflow are examples of these hybrid skills. Developing these abilities prepares students for careers in data analysis, business analysis, automation, consulting, and systems development, where directing, evaluating, correcting, and improving AI output will be more valuable than simply knowing how to generate it.</p>  
         <!-- <video controls>
-          <source src="videos/#.mp4" type="video/mp4">
+          <source src="videos/chp2_ai_database_design.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video> -->
       </section>
-
+      
+      
       <section class="completion" aria-labelledby="completion-title">
         <h2 id="completion-title">Chapter Completion</h2>
         <p>Answer all five comprehension questions, then check your work.</p>
@@ -158,41 +167,32 @@
         <div id="access-code-panel" class="access-code-panel" hidden>
           <p class="success-heading">Chapter complete</p>
           <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
-          <code id="access-code">quality-data</code>
+          <code id="access-code">entity-relationships</code>
         </div>
       </section>
-
-      <section id="references">
-        <h2>References</h2>
-        <p>Oaks, D. H. (2001, April). <em>Focus and priorities</em>. In <em>General Conference (April 2001)</em>. The Church of Jesus Christ of Latter-day Saints.</p>
-        <p>Oaks, D. H. (2018, November). <em>Truth and the plan</em>. In <em>General Conference (November 2018)</em>. The Church of Jesus Christ of Latter-day Saints.</p>
-      </section>
     </article>
-
     <aside class="chapter-nav" aria-label="Chapter sections">
       <p class="nav-title">In this chapter</p>
-      <a href="#data-foundations">Data Foundations</a>
-      <a href="#system-environment">System Environment</a>
-      <a href="#data-quality">Data Quality</a>
-      <a href="#data-life-cycle">Data Life Cycle</a>
-      <a href="#data-governance">Governance</a>
-      <a href="#latter-day-saint-stewardship">LDS Stewardship</a>
+      <a href="#chapter-introduction">Relational Modeling</a>
+      <a href="#database-model-options">Database Models</a>
+      <a href="#relationship-types">Relationships and Cardinality</a>
+      <a href="#one-to-one">One-to-One</a>
+      <a href="#one-to-many">One-to-Many</a>
+      <a href="#many-to-many">Many-to-Many</a>
+      <a href="#keys-in-linking-tables">Composite Keys</a>
+      <a href="#ai-aside">Human-AI Collaboration and Prompt Design</a>
+      <a href="#relational-modeling-summary">Why It Matters</a>
       <div class="progress-block">
         <span id="progress-text">0 of 5 answered</span>
         <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
       </div>
     </aside>
   </main>
-
   <nav class="book-navigation bottom-navigation" aria-label="Book navigation">
-    <a class="nav-link" href="chp2.html">← Previous Chapter</a>
+    <a class="nav-link" href="chp2.html">&larr; Previous Chapter</a>
     <a class="nav-link contents-link" href="index.html">Table of Contents</a>
-    <a class="nav-link" href="chp4.html">Next Chapter →</a>
+    <a class="nav-link" href="chp4.html">Next Chapter &rarr;</a>
   </nav>
-
-  <footer>
-    <p>Chapter 3: Data Foundations</p>
-    <p>Brigham Young University - Idaho</p>
-  </footer>
+  <footer><p>Chapter 3: Relational Modeling</p><p>Brigham Young University - Idaho</p></footer>
 </body>
 </html>

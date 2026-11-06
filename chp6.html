@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Chapter 6: Data quality, cleaning, standardization, transformation, and validation.">
-  <title>Chapter 6 | Data Quality</title>
+  <meta name="description" content="Chapter 6: SQL functions, joins, and summary queries.">
+  <title>Chapter 6 | SQL Querying Tools</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
@@ -18,138 +18,302 @@
   <header class="chapter-header" id="chapter-six">
     <div class="header-inner">
       <p class="eyebrow">Chapter 6</p>
-      <h1>Data Quality</h1>
-      <p class="chapter-summary">Learn how cleaning, standardization, transformation, and validation help data remain trustworthy for reports, decisions, and AI.</p>
+      <h1>SQL Querying Tools</h1>
+      <p class="chapter-summary">Learn how SQL functions, joins, and summary queries help turn stored data into clear, useful information for analysis and decision-making.</p>
     </div>
   </header>
 
   <main class="book-layout">
     <article class="chapter-content">
-      <section id="data-quality-intro">
-        <h2>Data Quality</h2>
-        <p>Good decisions depend on good data. A database may be well designed and carefully organized yet still produce weak reports or misleading results if the data itself is incomplete, inconsistent, outdated, or incorrect. Poor data can lead to faulty analysis, wasted time, customer frustration, and lost trust. For that reason, data quality is one of the foundations of useful information.</p>
-        <p>Quality data is <strong>complete</strong>, <strong>valid</strong>, <strong>unique</strong>, <strong>consistent</strong>, and <strong>timely</strong>. Complete data has no important missing values; for example, an order record should include a customer, a date, and a total. Valid data fits what is expected in the field, such as a quantity that is numeric or a state code that matches the approved list. Unique data avoids duplicates, such as the same customer appearing twice in the system. Consistent data uses the same format throughout the database, like storing dates in one standard style or using the same abbreviation for each state. Timely data is current enough to be useful, such as an inventory count that still reflects what is actually on the shelf. Together, these qualities help determine whether data can be trusted for analysis and decision-making.</p>
-        <p>A helpful way to think about data quality is to ask whether the data is trustworthy enough for its purpose. A sales report, for example, may look polished on the surface, but if duplicate customers, missing prices, or inconsistent product codes are buried inside, the results will be unreliable. The same is true for AI: a model can only produce dependable output when the data it receives is dependable.</p>
+      <section id="sql-tools-intro">
+        <h2>Why SQL Becomes More Powerful</h2>
+        <p>In the last chapter, we focused on the core syntax of single-table queries. Those basics remain important, but SQL becomes far more useful when we can reshape values, combine related tables, and summarize large sets of rows. For information systems work, these tools are essential because they help turn raw database content into information that people can actually use.</p>
+      </section>
+
+      <section id="functions">
+        <h2>Functions That Shape Data</h2>
+        <p>SQL functions let you work with values before they are displayed or stored. <strong>Scalar functions</strong> operate on one row at a time, which makes them useful for cleaning text, adjusting numbers, and extracting parts of dates. This is especially helpful when data needs to be standardized for reports or analysis.</p>
+
+        <h3>Text Functions</h3>
+        <p>Text functions combine or transform strings. They can build readable labels, change letter case, or pull part of a word from a column value.</p>
+
+        <div class="scroll-x">
+
+
+          <pre><code>SELECT CONCAT('The primary key of ', keyword, ' is ', keyword_id) AS new_string
+FROM keyword
+WHERE keyword_id = 1;</code></pre>
+
+
+        </div>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>new_string</th></tr></thead>
+  <tbody>
+    <tr><td>The primary key of sky is 1</td></tr>
+  </tbody>
+</table>
+
+        <div class="scroll-x">
+
+
+          <pre><code>SELECT LEFT(keyword, 4) AS left_part, LENGTH(keyword) AS char_count, UPPER(keyword) AS upper_keyword
+FROM keyword
+WHERE keyword_id = 2;</code></pre>
+
+
+        </div>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>left_part</th><th>char_count</th><th>upper_keyword</th></tr></thead>
+  <tbody>
+    <tr><td>land</td><td>9</td><td>LANDSCAPE</td></tr>
+  </tbody>
+</table>
+
+        <h3>Numeric and Date Functions</h3>
+        <p>Numeric functions are useful when values need to be rounded, compared, or formatted for display. Date and time functions help pull out parts of a date, calculate time differences, or present dates in a friendlier format.</p>
+
+        <div class="scroll-x">
+
+
+          <pre><code>SELECT ROUND(magPrice) AS rounded_price, FLOOR(magPrice) AS lower_whole, CEILING(magPrice) AS upper_whole
+FROM magazine;</code></pre>
+
+
+        </div>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th class="num">rounded_price</th><th class="num">lower_whole</th><th class="num">upper_whole</th></tr></thead>
+  <tbody>
+    <tr><td class="num">14</td><td class="num">13</td><td class="num">14</td></tr><tr><td class="num">15</td><td class="num">15</td><td class="num">16</td></tr><tr><td class="num">18</td><td class="num">17</td><td class="num">18</td></tr><tr><td class="num">18</td><td class="num">18</td><td class="num">18</td></tr><tr><td class="num">25</td><td class="num">25</td><td class="num">25</td></tr>
+  </tbody>
+</table>
+
+        <div class="scroll-x">
+
+
+          <pre><code>SELECT hire_date, YEAR(hire_date) AS hire_year, MONTH(hire_date) AS hire_month
+FROM employee;</code></pre>
+
+
+        </div>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>hire_date</th><th>hire_year</th><th>hire_month</th></tr></thead>
+  <tbody>
+    <tr><td>2013-06-15</td><td>2013</td><td>6</td></tr><tr><td>2013-08-23</td><td>2013</td><td>8</td></tr><tr><td>2014-01-03</td><td>2014</td><td>1</td></tr><tr><td>2015-07-12</td><td>2015</td><td>7</td></tr><tr><td>2015-10-20</td><td>2015</td><td>10</td></tr>
+  </tbody>
+</table>
+
+        <p>Functions such as <code>NOW()</code>, <code>DATE_ADD()</code>, and <code>DATE_FORMAT()</code> are also valuable when dates must be compared, extended, or presented in a clean business format.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-1-title">
         <p class="checkpoint-label">Comprehension Check 1 of 5</p>
-        <fieldset data-question="q1" data-answer="timely">
-          <legend id="question-1-title">What quality means data is current enough to be useful?</legend>
-          <label><input type="radio" name="q1" value="unique"> Unique</label>
-          <label><input type="radio" name="q1" value="consistent"> Consistent</label>
-          <label><input type="radio" name="q1" value="timely"> Timely</label>
+        <fieldset data-question="q1" data-answer="one-row">
+          <legend id="question-1-title">What do scalar functions do?</legend>
+          <label><input type="radio" name="q1" value="group"> Work on groups of rows</label>
+          <label><input type="radio" name="q1" value="one-row"> Work on one row or value at a time</label>
+          <label><input type="radio" name="q1" value="join"> Combine two tables</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="data-cleaning">
-        <h2>Data Cleaning</h2>
-        <p>Data cleaning is the process of finding and correcting problems in the data. Real-world data rarely arrives in perfect condition. It may contain duplicate records, spelling differences, inconsistent capitalization, extra spaces, invalid values, or entries that simply do not match the rest of the table. Cleaning is the work of turning that messy input into something dependable enough to store, analyze, and share.</p>
-        <p>For example, a customer table might contain Jon Smith, John Smith, and J. Smith even though all three refer to the same person. A product list might include 12, 12.0, and $12.00 for the same price. An address field might hold 123 Main St., 123 Main Street, and 123 Main Str. in different rows. Cleaning helps identify these issues and bring the data into a usable form.</p>
+      <section id="joins">
+        <h2>Joining Related Tables</h2>
+        <p>Relational databases are split into related tables during normalization, so the information often has to be joined back together for reporting. A <code>JOIN</code> combines rows from tables that share a related key. In most cases, that means matching a primary key in one table to a foreign key in another. Using explicit join syntax keeps the relationship clear and readable.</p>
 
-        <figure>
-          <img src="images/fig-6-1.png" alt="A before-and-after data cleaning diagram showing messy customer data being standardized into a clean table.">
-          <figcaption><strong>Figure 6.1.</strong> Cleaning turns messy records into dependable data.</figcaption>
-        </figure>
+        <p><strong>INNER JOIN</strong> is the most common join. It returns only rows that have matching values in both tables.</p>
 
-        <p>AI can help by scanning large datasets quickly, flagging suspicious values, and suggesting corrections. It is especially useful when the data is too large for manual review. Even so, important changes should not be applied silently. In business settings, AI should recommend fixes, not make unreviewed edits to the data. Sometimes the person working with the data can make the correction directly. Other times, the issue must be returned to the source system or to a data steward so the underlying problem can be fixed.</p>
+        <div class="scroll-x">
+
+
+          <pre><code>SELECT lastName, firstName, subStartDate
+FROM subscriber
+    INNER JOIN subscription
+        ON subscriber.subKey = subscription.subKey
+ORDER BY lastName;</code></pre>
+
+
+        </div>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>lastName</th><th>firstName</th><th>subStartDate</th></tr></thead>
+  <tbody>
+    <tr><td>Anderson</td><td>Albert</td><td>2011-03-01</td></tr><tr><td>Jimenez</td><td>Jose</td><td>2012-08-01</td></tr><tr><td>Jimenez</td><td>Jose</td><td>2011-09-01</td></tr><tr><td>Johnston</td><td>Julie</td><td>2011-03-01</td></tr><tr><td>Lamont</td><td>Lucy</td><td>2012-07-01</td></tr><tr><td>Lamont</td><td>Lucy</td><td>2012-02-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-05-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-12-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2012-02-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-05-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-09-01</td></tr>
+  </tbody>
+</table>
+
+        <p>When a query needs data from three related tables, aliases keep the SQL manageable. The example below finds subscribers to a specific magazine by joining the subscriber, subscription, and magazine tables.</p>
+
+        <div class="scroll-x">
+
+
+          <pre><code>SELECT lastName AS Last_Name, firstName AS First_Name
+FROM subscriber sr
+    JOIN subscription sn
+        ON sr.subKey = sn.subKey
+    JOIN magazine m
+        ON sn.magKey = m.magKey
+WHERE magName = 'Beautiful Birds'
+ORDER BY Last_Name;</code></pre>
+
+
+        </div>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>Last_Name</th><th>First_Name</th></tr></thead>
+  <tbody>
+    <tr><td>Lamont</td><td>Lucy</td></tr><tr><td>Sanders</td><td>Samantha</td></tr>
+  </tbody>
+</table>
+
+        <p>An <strong>OUTER JOIN</strong> matters when completeness is more important than matching rows alone. A <code>LEFT JOIN</code> keeps every row from the left table even when there is no match on the right, which is useful when missing related data should still be visible.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-2-title">
         <p class="checkpoint-label">Comprehension Check 2 of 5</p>
-        <fieldset data-question="q2" data-answer="scan">
-          <legend id="question-2-title">How can AI help with data cleaning?</legend>
-          <label><input type="radio" name="q2" value="scan"> Scan large datasets and flag suspicious values</label>
-          <label><input type="radio" name="q2" value="replace"> Replace business rules</label>
-          <label><input type="radio" name="q2" value="ignore"> Ignore duplicates automatically</label>
+        <fieldset data-question="q2" data-answer="matching-keys">
+          <legend id="question-2-title">What do joins usually match?</legend>
+          <label><input type="radio" name="q2" value="matching-keys"> Related key columns such as a primary key and foreign key</label>
+          <label><input type="radio" name="q2" value="prices"> Product prices</label>
+          <label><input type="radio" name="q2" value="dates"> Two date columns only</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
-      </section>
-
-      <section id="missing-values">
-        <h2>Missing Values</h2>
-        <p>Missing data is not automatically bad data. A blank value may mean the information was not collected yet, was not applicable, or is still unknown. The important question is not simply whether a value is missing, but whether the missing value affects the decision being made. A middle name may be harmless if absent. A missing salary, product category, or shipping address may be much more serious.</p>
-        <p>Sometimes the best choice is to leave the value missing and document it clearly. That is often better than guessing. In other situations, missing data can be estimated from similar records. For example, if a salary value is missing, an AI tool may compare employees with similar titles, departments, duties, and experience levels and suggest a likely estimate. That may help with analysis when the missing value is only one part of a larger pattern.</p>
-        <p>Still, estimation must be used carefully. In some situations, such as budgeting, forecasting, or broad reporting, filling gaps may improve the usefulness of the data. In other situations, such as legal, medical, or financial records, the safer choice is to preserve the missing value and treat it as unknown. Information systems work often requires choosing between completeness and honesty. A full table is not always a trustworthy table.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-3-title">
         <p class="checkpoint-label">Comprehension Check 3 of 5</p>
-        <fieldset data-question="q3" data-answer="estimate">
-          <legend id="question-3-title">When may AI be helpful with missing values?</legend>
-          <label><input type="radio" name="q3" value="hide"> To hide the missing values</label>
-          <label><input type="radio" name="q3" value="estimate"> To estimate likely values from similar records</label>
-          <label><input type="radio" name="q3" value="delete"> To delete the entire row immediately</label>
+        <fieldset data-question="q3" data-answer="matching-rows">
+          <legend id="question-3-title">What does an INNER JOIN return?</legend>
+          <label><input type="radio" name="q3" value="matching-rows"> Only rows that match in both tables</label>
+          <label><input type="radio" name="q3" value="all-left"> All rows from the left table only</label>
+          <label><input type="radio" name="q3" value="summary"> One summary row for each table</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="standardization">
-        <h2>Standardization</h2>
-        <p>Standardization makes data consistent so it can be compared, combined, and interpreted more easily. When the same kind of information appears in different formats, it becomes harder to sort, search, and match records. A system may hold dates as 03/15/2025, 2025-03-15, and March 15, 2025, or store state names as UT, Utah, and utah. Those differences may seem small, but they create friction when data from different sources must be merged.</p>
-        <p>A standardized format removes that friction. Dates can be stored one way across the system. Names can follow one capitalization pattern. Codes and categories can use one approved spelling. This improves matching between tables and makes reporting more dependable. Standardization also makes the data easier to read and less likely to be misinterpreted by users or software.</p>
-        <p>AI can help identify inconsistent formats and suggest common standards. It may detect that one data source uses full state names while another uses abbreviations, or that one system records product categories with mixed case while another uses uppercase codes. It can even help map records from different systems into one common structure. However, the final standard should come from the business rules of the organization, not from the tool itself.</p>
+      <section id="summary-queries">
+        <h2>Summary Queries</h2>
+        <p>When a business question asks for a total, an average, a highest value, or a count, SQL uses aggregate functions. These functions operate on a set of rows and return a single result, which makes them ideal for dashboards, reports, and decision support.</p>
+
+        <div class="scroll-x">
+
+
+          <pre><code>SELECT AVG(salary) AS Average_Salary
+FROM salaries;</code></pre>
+
+
+        </div>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>Average_Salary</th></tr></thead>
+  <tbody>
+    <tr><td>64238.8072</td></tr>
+  </tbody>
+</table>
+
+        <div class="scroll-x">
+
+
+          <pre><code>SELECT COUNT(*) AS Number_of_Employees
+FROM employees;</code></pre>
+
+
+        </div>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>Number_of_Employees</th></tr></thead>
+  <tbody>
+    <tr><td>9488</td></tr>
+  </tbody>
+</table>
+
+        <p>The <code>DISTINCT</code> keyword can reduce duplicate values before an aggregate is calculated. The <code>GROUP BY</code> clause then creates groups so each subset can be summarized separately.</p>
+
+        <div class="scroll-x">
+
+
+          <pre><code>SELECT vendor_id, COUNT(*) AS Number_of_Products
+FROM products
+GROUP BY vendor_id;</code></pre>
+
+
+        </div>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>vendor_id</th><th>Number_of_Products</th></tr></thead>
+  <tbody>
+    <tr><td>021</td><td>15</td></tr><tr><td>044</td><td>23</td></tr><tr><td>121</td><td>31</td></tr>
+  </tbody>
+</table>
+    <p>The <code>HAVING</code> clause filters groups after the data has been summarized with <code>GROUP BY</code>. This is different from <code>WHERE</code>, which filters individual rows before grouping takes place. In this example, <code>HAVING COUNT(*) &gt; 20</code> keeps only the vendor groups that have more than 20 products.</p>
+        <div class="scroll-x">
+
+
+          <pre><code>SELECT vendor_id, COUNT(*) AS Number_of_Products
+FROM products
+GROUP BY vendor_id
+HAVING COUNT(*) > 20;</code></pre>
+
+
+        </div>
+        <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>vendor_id</th><th>Number_of_Products</th></tr></thead>
+  <tbody>
+    <tr><td>044</td><td>23</td></tr><tr><td>121</td><td>31</td></tr>
+  </tbody>
+</table>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-4-title">
         <p class="checkpoint-label">Comprehension Check 4 of 5</p>
-        <fieldset data-question="q4" data-answer="compare">
-          <legend id="question-4-title">Why is standardization important?</legend>
-          <label><input type="radio" name="q4" value="compare"> It makes data easier to compare, combine, and interpret</label>
-          <label><input type="radio" name="q4" value="hide"> It hides data quality problems</label>
-          <label><input type="radio" name="q4" value="duplicate"> It creates duplicate records</label>
+        <fieldset data-question="q4" data-answer="single-value">
+          <legend id="question-4-title">What do aggregate functions return?</legend>
+          <label><input type="radio" name="q4" value="single-value"> A single value for a set of rows</label>
+          <label><input type="radio" name="q4" value="text"> Only text values</label>
+          <label><input type="radio" name="q4" value="multiple"> One result per column name</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
-      </section>
-
-      <section id="data-transformation">
-        <h2>Data Transformation</h2>
-        <p>Data transformation changes data into a form that is more useful for a specific task. Sometimes the raw data is present, but it is not arranged in the way the analysis needs. Transformation may split fields, combine fields, convert data types, summarize rows, reshape tables, or enrich records with external information. This is often the step that turns raw operational data into analysis-ready data. When data comes from multiple sources, preparation may also require matching field names, aligning formats, combining related records, and checking that important records were not lost during the process.</p>
-        <p>One common example is splitting a single name field into first, middle, and last name columns. That makes the data easier to sort alphabetically, address personally in messages, or search more precisely. Another example is combining quantity and unit price to calculate total sales. A student or analyst might also transform dates into month, quarter, or year fields so trends are easier to see. A table of individual orders can be summarized into monthly sales totals, which is far more useful for some reports than a list of every transaction.</p>
-
-        <figure>
-          <img src="images/fig-6-2.png" alt="A data transformation diagram showing a single field being split into multiple columns and summarized into reporting fields.">
-          <figcaption><strong>Figure 6.2.</strong> Transformation reshapes data for analysis and reporting.</figcaption>
-        </figure>
-
-        <p>Transformation is also used when external data is added. A company may compare its own sales to an industry average, or merge customer records with geographic data to study regional patterns. AI is especially useful here when data must be extracted from text, categorized, or mapped from one format into another. It can pull structured details from emails, forms, or documents and help convert them into a clean table structure.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-5-title">
         <p class="checkpoint-label">Comprehension Check 5 of 5</p>
-        <fieldset data-question="q5" data-answer="before">
-          <legend id="question-5-title">What should happen before data is stored or used?</legend>
-          <label><input type="radio" name="q5" value="before"> It should be validated first</label>
-          <label><input type="radio" name="q5" value="after"> It should be validated only after reports are built</label>
-          <label><input type="radio" name="q5" value="never"> It should never be checked</label>
+        <fieldset data-question="q5" data-answer="groups">
+          <legend id="question-5-title">What does GROUP BY do?</legend>
+          <label><input type="radio" name="q5" value="rows"> Filters individual rows only</label>
+          <label><input type="radio" name="q5" value="groups"> Creates groups for aggregate functions</label>
+          <label><input type="radio" name="q5" value="sort"> Sorts results without grouping them</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="data-validation">
-        <h2>Data Validation</h2>
-        <p>Data validation checks whether data follows the rules before it is stored or used. It protects the database by catching problems at the point of entry or import instead of allowing them to spread through the system. Validation can check for required fields, acceptable ranges, correct formats, and valid relationships between records.</p>
-        <p>For example, a quantity field should not accept negative numbers unless the business rule allows returns or adjustments. A date field should be entered in the proper format. A foreign key should point to an existing record in the related table. An email address should follow the expected pattern. These checks help keep the database dependable before reporting or analysis begins.</p>
-        <p>Validation is more than a technical filter; it is a business safeguard. A payroll system may reject an hourly rate that is far outside the allowed range. A registration form may require that a student ID is present before submission. A sales system may prevent an order from being entered for a customer that does not exist. These are examples of rules that help maintain accuracy and referential integrity.</p>
-        <p>AI can support validation by spotting unusual entries, comparing values against expected patterns, and flagging records that look suspicious. It can notice that a transaction amount is far larger than similar transactions or that a date falls outside the expected timeline. Even so, AI should not replace business rules. It can help identify likely errors, but the organization still needs clear rules that define what valid data is.</p>
+      <section id="database-objects">
+        <h2>Views</h2>
+
+        <p>A <strong>view</strong> is a saved query that acts like a virtual table. Views can simplify repeated queries, hide unnecessary columns, and provide a consistent way to access information.</p>
+
+        <div class="scroll-x">
+          <pre><code>
+CREATE VIEW expensive_products AS
+SELECT prod_name, prod_price
+FROM products
+WHERE prod_price &gt; 10;
+        </code></pre>
+        </div>
       </section>
 
-      <section id="ai-data-quality">
-        <h2>AI and Data Quality</h2>
-        <p>AI is most useful in data quality work when it acts as an assistant. It can process large volumes of records quickly, identify duplicates, suggest corrections, detect outliers, classify records, and extract structure from unstructured text. These strengths make it valuable for large databases, messy source systems, and repetitive quality checks.</p>
-        <p>But AI should be used with caution. It can make mistakes, overgeneralize patterns, or reflect the flaws in its training data. If the source data is biased or incomplete, the recommendations may also be weak. That is why AI should support human judgment rather than replace it. The best results come when AI speeds up the work and people provide the business context, review the exceptions, and approve the final changes.</p>
-      </section>
-
-      <section id="why-data-quality-matters">
-        <h2>Why Data Quality Matters</h2>
-        <p>Data quality is really about trust. Reports, dashboards, transactions, and AI outputs all depend on the reliability of the data behind them. When data is cleaned, standardized, validated, and transformed carefully, it becomes far more useful and far less risky. When it is neglected, even a powerful system can produce confusion instead of insight. High-quality data is what allows an organization to act with confidence.</p>
+      <section id="why-this-matters">
+        <h2>Why This Matters</h2>
+        <p>Functions, joins, and summary queries are some of the most practical tools in SQL. Functions clean and format values, joins reconnect related tables, and aggregates convert rows of data into information that is easier to interpret. For information systems students, these are the skills that make database data useful in real applications.</p>
       </section>
 
       <section id="ai_aside" aria-labelledby="ai-topic">
-        <h2>AI-Assisted Data Cleaning and Transformation</h2>
-        <p>Data cleaning and transformation prepare data for analysis by correcting errors, standardizing formats, combining sources, filtering records, and creating useful fields. These steps may include converting dates, handling missing values, correcting inconsistent spelling, removing duplicate records, joining tables, reshaping data, or creating calculated variables. Cleaning decisions should be based on documented rules rather than hidden changes. Professionals should preserve the original data whenever possible and create a separate processed version so that transformations can be reviewed or repeated.</p>
-        <p>AI can help generate formulas, queries, scripts, or transformation recommendations. It can also explain unfamiliar code and suggest tests for common problems. Nevertheless, AI-generated transformations may use the wrong column, remove records unexpectedly, change units, or apply a rule inconsistently. A professional must compare the result with an expected outcome and test edge cases before using the transformed data. The goal is not merely to clean data faster, but to create a process that is accurate, reproducible, explainable, and appropriate for organizational use.</p> 
+        <h2>Data Quality and Exploratory Inspection with AI</h2>
+        <p>Data quality refers to the degree to which data is accurate, complete, consistent, timely, valid, and appropriate for its intended use. Common data-quality problems include missing values, duplicate records, inconsistent categories, incorrect data types, impossible values, possible outliers, and mismatched units. Exploratory inspection is the process of examining data before making formal conclusions. It may include reviewing summary statistics, counting records, examining distributions, comparing categories, and looking for relationships among variables. This early inspection helps analysts understand what the data can and cannot support.</p>
+        <p>AI can assist with data profiling by suggesting possible errors, identifying unusual patterns, or recommending questions for further investigation. However, an unusual value is not automatically a mistake. It may represent a rare but important event. Similarly, a consistent pattern may reflect a data-collection problem rather than a real-world relationship. Professionals must combine automated suggestions with knowledge of the business process and the meaning of the data. In an IS career, the ability to recognize and explain data-quality problems is essential because poor-quality data can affect reports, customer experiences, predictive models, and organizational decisions.</p> 
         <!-- <video controls>
           <source src="videos/#.mp4" type="video/mp4">
           Your browser does not support the video tag.
@@ -164,21 +328,19 @@
         <div id="access-code-panel" class="access-code-panel" hidden>
           <p class="success-heading">Chapter complete</p>
           <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
-          <code id="access-code">valid-data</code>
+          <code id="access-code">query-data</code>
         </div>
       </section>
     </article>
 
     <aside class="chapter-nav" aria-label="Chapter sections">
       <p class="nav-title">In this chapter</p>
-      <a href="#data-quality-intro">Data Quality</a>
-      <a href="#data-cleaning">Data Cleaning</a>
-      <a href="#missing-values">Missing Values</a>
-      <a href="#standardization">Standardization</a>
-      <a href="#data-transformation">Data Transformation</a>
-      <a href="#data-validation">Data Validation</a>
-      <a href="#ai-data-quality">AI and Data Quality</a>
-      <a href="#why-data-quality-matters">Why Data Quality Matters</a>
+      <a href="#sql-tools-intro">SQL Tools</a>
+      <a href="#functions">Functions</a>
+      <a href="#joins">Joining Tables</a>
+      <a href="#summary-queries">Summary Queries</a>
+      <a href="#database-objects">Reusable Database Objects</a>
+      <a href="#why-this-matters">Why This Matters</a>
       <div class="progress-block">
         <span id="progress-text">0 of 5 answered</span>
         <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
@@ -193,7 +355,7 @@
   </nav>
 
   <footer>
-    <p>Chapter 6: Data Quality</p>
+    <p>Chapter 6: SQL Querying Tools</p>
     <p>Brigham Young University - Idaho</p>
   </footer>
 </body>

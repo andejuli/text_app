@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Chapter 5: SQL functions, joins, and summary queries.">
-  <title>Chapter 5 | SQL Querying Tools</title>
+  <meta name="description" content="Chapter 5: SQL fundamentals and single-table queries.">
+  <title>Chapter 5 | SQL Fundamentals</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
@@ -18,302 +18,428 @@
   <header class="chapter-header" id="chapter-five">
     <div class="header-inner">
       <p class="eyebrow">Chapter 5</p>
-      <h1>SQL Querying Tools</h1>
-      <p class="chapter-summary">Learn how SQL functions, joins, and summary queries help turn stored data into clear, useful information for analysis and decision-making.</p>
+      <h1>SQL Fundamentals</h1>
+      <p class="chapter-summary">Learn how single-table SQL queries retrieve, filter, sort, and present data clearly so it can support analysis and decision-making.</p>
     </div>
   </header>
 
   <main class="book-layout">
     <article class="chapter-content">
-      <section id="sql-tools-intro">
-        <h2>Why SQL Becomes More Powerful</h2>
-        <p>In the last chapter, we focused on the core syntax of single-table queries. Those basics remain important, but SQL becomes far more useful when we can reshape values, combine related tables, and summarize large sets of rows. For information systems work, these tools are essential because they help turn raw database content into information that people can actually use.</p>
+      <section id="sql-introduction">
+        <h2>SQL Fundamentals</h2>
+        <p>SQL is the language used to ask a database for information. In single-table queries, the goal is to retrieve only the rows and columns you need, then present them clearly and efficiently. For information systems work, this is the starting point for turning stored data into useful results.</p>
       </section>
 
-      <section id="functions">
-        <h2>Functions That Shape Data</h2>
-        <p>SQL functions let you work with values before they are displayed or stored. <strong>Scalar functions</strong> operate on one row at a time, which makes them useful for cleaning text, adjusting numbers, and extracting parts of dates. This is especially helpful when data needs to be standardized for reports or analysis.</p>
+      <section>
+        <h3>Creating Tables with SQL</h3>
+        <p>
+        SQL is used not only to retrieve data but also to define the structure of a database. The
+        <code>CREATE TABLE</code> statement creates a table and specifies its columns, data types,
+        and rules. These rules, called constraints, help protect the accuracy and consistency of
+        the data.
+        </p>
 
-        <h3>Text Functions</h3>
-        <p>Text functions combine or transform strings. They can build readable labels, change letter case, or pull part of a word from a column value.</p>
+        <p>
+        A primary key uniquely identifies each row. The <code>NOT NULL</code> constraint requires a
+        value, <code>UNIQUE</code> prevents duplicate values, <code>CHECK</code> limits acceptable
+        values, and <code>DEFAULT</code> supplies a value when one is not provided.
+        </p>
 
-        <div class="scroll-x">
+        <pre><code>
+CREATE TABLE Suppliers (
+    supplier_id INT AUTO_INCREMENT PRIMARY KEY,
+    supplier_name VARCHAR(100) NOT NULL,
+    supplier_email VARCHAR(255) UNIQUE
+);
 
+CREATE TABLE Products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    prod_price DECIMAL(10, 2) NOT NULL
+        CHECK (prod_price &gt;= 0),
+    supplier_id INT,
 
-          <pre><code>SELECT CONCAT('The primary key of ', keyword, ' is ', keyword_id) AS new_string
-FROM keyword
-WHERE keyword_id = 1;</code></pre>
+    CONSTRAINT fk_products_supplier
+        FOREIGN KEY (supplier_id)
+        REFERENCES Suppliers(supplier_id)
+);
+        </code></pre>
 
+        <p>
+        The <code>Suppliers</code> table must be created first because the
+        <code>Products</code> table refers to it through a foreign key. The foreign key requires
+        each supplier ID stored in <code>Products</code> to correspond to an existing supplier.
+        This helps preserve referential integrity between the two tables.
+        </p>
 
-        </div>
-        <p class="sql-result-label">Result</p>
-<table class="result-table">
-  <thead><tr><th>new_string</th></tr></thead>
-  <tbody>
-    <tr><td>The primary key of sky is 1</td></tr>
-  </tbody>
-</table>
+        <p>Database designers use table definitions and constraints to express the rules of a
+        business system directly in the database. These definitions provide the foundation for
+        inserting, updating, and querying reliable data.
+        </p>
+      </section>
+      
 
-        <div class="scroll-x">
-
-
-          <pre><code>SELECT LEFT(keyword, 4) AS left_part, LENGTH(keyword) AS char_count, UPPER(keyword) AS upper_keyword
-FROM keyword
-WHERE keyword_id = 2;</code></pre>
-
-
-        </div>
-        <p class="sql-result-label">Result</p>
-<table class="result-table">
-  <thead><tr><th>left_part</th><th>char_count</th><th>upper_keyword</th></tr></thead>
-  <tbody>
-    <tr><td>land</td><td>9</td><td>LANDSCAPE</td></tr>
-  </tbody>
-</table>
-
-        <h3>Numeric and Date Functions</h3>
-        <p>Numeric functions are useful when values need to be rounded, compared, or formatted for display. Date and time functions help pull out parts of a date, calculate time differences, or present dates in a friendlier format.</p>
-
-        <div class="scroll-x">
-
-
-          <pre><code>SELECT ROUND(magPrice) AS rounded_price, FLOOR(magPrice) AS lower_whole, CEILING(magPrice) AS upper_whole
-FROM magazine;</code></pre>
-
-
-        </div>
-        <p class="sql-result-label">Result</p>
-<table class="result-table">
-  <thead><tr><th class="num">rounded_price</th><th class="num">lower_whole</th><th class="num">upper_whole</th></tr></thead>
-  <tbody>
-    <tr><td class="num">14</td><td class="num">13</td><td class="num">14</td></tr><tr><td class="num">15</td><td class="num">15</td><td class="num">16</td></tr><tr><td class="num">18</td><td class="num">17</td><td class="num">18</td></tr><tr><td class="num">18</td><td class="num">18</td><td class="num">18</td></tr><tr><td class="num">25</td><td class="num">25</td><td class="num">25</td></tr>
-  </tbody>
-</table>
+      <section id="select-statement">
+        <h2>The SELECT Statement</h2>
+        <p>A basic query begins with <code>SELECT</code> and <code>FROM</code>. <code>SELECT</code> chooses the columns that will appear in the result set, while <code>FROM</code> identifies the table that holds the data. During development, <code>SELECT *</code> can be a quick way to view every column, but in production it is better to list only the fields you need so the query is easier to read and more efficient.</p>
 
         <div class="scroll-x">
-
-
-          <pre><code>SELECT hire_date, YEAR(hire_date) AS hire_year, MONTH(hire_date) AS hire_month
-FROM employee;</code></pre>
-
-
+          <pre><code>SELECT prod_name, prod_price
+FROM products;</code></pre>
         </div>
         <p class="sql-result-label">Result</p>
+        <div class="scroll-x">
 <table class="result-table">
-  <thead><tr><th>hire_date</th><th>hire_year</th><th>hire_month</th></tr></thead>
-  <tbody>
-    <tr><td>2013-06-15</td><td>2013</td><td>6</td></tr><tr><td>2013-08-23</td><td>2013</td><td>8</td></tr><tr><td>2014-01-03</td><td>2014</td><td>1</td></tr><tr><td>2015-07-12</td><td>2015</td><td>7</td></tr><tr><td>2015-10-20</td><td>2015</td><td>10</td></tr>
-  </tbody>
-</table>
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
+            <tr><td>notebook</td><td class="num">2.49</td></tr>
+            <tr><td>desk lamp</td><td class="num">18.00</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+          </tbody>
+        </table>
+        </div>
 
-        <p>Functions such as <code>NOW()</code>, <code>DATE_ADD()</code>, and <code>DATE_FORMAT()</code> are also valuable when dates must be compared, extended, or presented in a clean business format.</p>
+        <p>SQL also allows calculated columns. You can add a markup directly in the query, and you can rename the result with <code>AS</code> to make the output easier to understand.</p>
+
+        <div class="scroll-x">
+          <pre><code>SELECT prod_name, prod_price + 2.00 AS markup_price
+FROM products;</code></pre>
+        </div>
+        <p class="sql-result-label">Result</p>
+        <div class="scroll-x">
+<table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">markup_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>coffee mug</td><td class="num">10.99</td></tr>
+            <tr><td>notebook</td><td class="num">4.49</td></tr>
+            <tr><td>desk lamp</td><td class="num">20.00</td></tr>
+            <tr><td>water bottle</td><td class="num">14.50</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>The <code>DISTINCT</code> keyword removes duplicate values from a result set. This is useful when you want unique values instead of repeated ones.</p>
+
+        <div class="scroll-x">
+          <pre><code>SELECT DISTINCT prod_price
+FROM products;</code></pre>
+        </div>
+        <p class="sql-result-label">Result</p>
+        <div class="scroll-x">
+<table class="result-table">
+          <thead>
+            <tr>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="num">2.49</td></tr>
+            <tr><td class="num">8.99</td></tr>
+            <tr><td class="num">12.50</td></tr>
+            <tr><td class="num">18.00</td></tr>
+          </tbody>
+        </table>
+        </div>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-1-title">
         <p class="checkpoint-label">Comprehension Check 1 of 5</p>
-        <fieldset data-question="q1" data-answer="one-row">
-          <legend id="question-1-title">What do scalar functions do?</legend>
-          <label><input type="radio" name="q1" value="group"> Work on groups of rows</label>
-          <label><input type="radio" name="q1" value="one-row"> Work on one row or value at a time</label>
-          <label><input type="radio" name="q1" value="join"> Combine two tables</label>
+        <fieldset data-question="q1" data-answer="columns">
+          <legend id="question-1-title">What does the SELECT clause choose?</legend>
+          <label><input type="radio" name="q1" value="table"> The table to use</label>
+          <label><input type="radio" name="q1" value="columns"> The columns to display</label>
+          <label><input type="radio" name="q1" value="sort"> The sort order</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="joins">
-        <h2>Joining Related Tables</h2>
-        <p>Relational databases are split into related tables during normalization, so the information often has to be joined back together for reporting. A <code>JOIN</code> combines rows from tables that share a related key. In most cases, that means matching a primary key in one table to a foreign key in another. Using explicit join syntax keeps the relationship clear and readable.</p>
-
-        <p><strong>INNER JOIN</strong> is the most common join. It returns only rows that have matching values in both tables.</p>
+      <section id="filtering">
+        <h2>Filtering with WHERE</h2>
+        <p>The <code>WHERE</code> clause narrows a query to only the rows that meet a condition. SQL supports comparison operators such as <code>=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, and <code>&lt;&gt;</code> or <code>!=</code>. This lets you ask focused questions such as which products cost more than a certain amount or which products fall within a specific range.</p>
 
         <div class="scroll-x">
-
-
-          <pre><code>SELECT lastName, firstName, subStartDate
-FROM subscriber
-    INNER JOIN subscription
-        ON subscriber.subKey = subscription.subKey
-ORDER BY lastName;</code></pre>
-
-
+          <pre><code>SELECT prod_name, prod_price
+FROM products
+WHERE prod_price &gt; 5.00;</code></pre>
         </div>
         <p class="sql-result-label">Result</p>
+        <div class="scroll-x">
 <table class="result-table">
-  <thead><tr><th>lastName</th><th>firstName</th><th>subStartDate</th></tr></thead>
-  <tbody>
-    <tr><td>Anderson</td><td>Albert</td><td>2011-03-01</td></tr><tr><td>Jimenez</td><td>Jose</td><td>2012-08-01</td></tr><tr><td>Jimenez</td><td>Jose</td><td>2011-09-01</td></tr><tr><td>Johnston</td><td>Julie</td><td>2011-03-01</td></tr><tr><td>Lamont</td><td>Lucy</td><td>2012-07-01</td></tr><tr><td>Lamont</td><td>Lucy</td><td>2012-02-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-05-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-12-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2012-02-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-05-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-09-01</td></tr>
-  </tbody>
-</table>
-
-        <p>When a query needs data from three related tables, aliases keep the SQL manageable. The example below finds subscribers to a specific magazine by joining the subscriber, subscription, and magazine tables.</p>
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
+            <tr><td>desk lamp</td><td class="num">18.00</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+          </tbody>
+        </table>
+        </div>
 
         <div class="scroll-x">
-
-
-          <pre><code>SELECT lastName AS Last_Name, firstName AS First_Name
-FROM subscriber sr
-    JOIN subscription sn
-        ON sr.subKey = sn.subKey
-    JOIN magazine m
-        ON sn.magKey = m.magKey
-WHERE magName = 'Beautiful Birds'
-ORDER BY Last_Name;</code></pre>
-
-
+          <pre><code>SELECT prod_name, prod_price
+FROM products
+WHERE prod_price BETWEEN 1.99 AND 3.99;</code></pre>
         </div>
         <p class="sql-result-label">Result</p>
+        <div class="scroll-x">
 <table class="result-table">
-  <thead><tr><th>Last_Name</th><th>First_Name</th></tr></thead>
-  <tbody>
-    <tr><td>Lamont</td><td>Lucy</td></tr><tr><td>Sanders</td><td>Samantha</td></tr>
-  </tbody>
-</table>
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>notebook</td><td class="num">2.49</td></tr>
+          </tbody>
+        </table>
+        </div>
 
-        <p>An <strong>OUTER JOIN</strong> matters when completeness is more important than matching rows alone. A <code>LEFT JOIN</code> keeps every row from the left table even when there is no match on the right, which is useful when missing related data should still be visible.</p>
+        <p>You can combine conditions with <code>AND</code>, <code>OR</code>, and <code>NOT</code>. <code>AND</code> requires both conditions to be true, <code>OR</code> allows either condition to be true, and <code>NOT</code> reverses the condition. Parentheses help control how compound conditions are evaluated.</p>
+
+        <div class="scroll-x">
+          <pre><code>SELECT prod_name, prod_price
+FROM products
+WHERE prod_price = 5.99 AND prod_name = 'doll';</code></pre>
+        </div>
+        <p class="sql-result-label">Result</p>
+        <div class="scroll-x">
+<table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>doll</td><td class="num">5.99</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>SQL also supports <code>IN</code>, <code>LIKE</code>, and <code>REGEXP</code> for common search patterns. <code>IN</code> checks a list of values. <code>LIKE</code> matches string patterns with wildcards such as <code>%</code> and <code>_</code>. <code>REGEXP</code> allows more advanced pattern matching when a simple wildcard is not enough.</p>
+
+        <div class="scroll-x">
+          <pre><code>SELECT prod_name, prod_price
+FROM products
+WHERE prod_price IN (2.49, 8.99, 12.50);</code></pre>
+        </div>
+        <p class="sql-result-label">Result</p>
+        <div class="scroll-x">
+<table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>notebook</td><td class="num">2.49</td></tr>
+            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <div class="scroll-x">
+          <pre><code>SELECT prod_name, prod_price
+FROM products
+WHERE prod_name LIKE 'b%';</code></pre>
+        </div>
+        <p class="sql-result-label">Result</p>
+        <div class="scroll-x">
+<table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>book bag</td><td class="num">24.95</td></tr>
+          </tbody>
+        </table>
+        </div>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-2-title">
         <p class="checkpoint-label">Comprehension Check 2 of 5</p>
-        <fieldset data-question="q2" data-answer="matching-keys">
-          <legend id="question-2-title">What do joins usually match?</legend>
-          <label><input type="radio" name="q2" value="matching-keys"> Related key columns such as a primary key and foreign key</label>
-          <label><input type="radio" name="q2" value="prices"> Product prices</label>
-          <label><input type="radio" name="q2" value="dates"> Two date columns only</label>
+        <fieldset data-question="q2" data-answer="rows">
+          <legend id="question-2-title">What does the WHERE clause do?</legend>
+          <label><input type="radio" name="q2" value="rows"> Filters the rows that qualify</label>
+          <label><input type="radio" name="q2" value="columns"> Chooses the output columns</label>
+          <label><input type="radio" name="q2" value="alias"> Creates a table alias</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="null-values">
+        <h2>NULL Values</h2>
+        <p>A <code>NULL</code> value means the data was left blank or was not provided. It is not the same as zero, empty text, or a space. Because <code>NULL</code> is not a normal value, it must be tested with <code>IS NULL</code> or <code>IS NOT NULL</code> rather than with comparison operators. This matters because missing values can change the meaning of a query and affect analysis.</p>
+
+        <div class="scroll-x">
+          <pre><code>SELECT prod_name, prod_price
+FROM products
+WHERE prod_category IS NULL;</code></pre>
+        </div>
+        <p class="sql-result-label">Result</p>
+        <div class="scroll-x">
+<table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>notebook</td><td class="num">2.49</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+          </tbody>
+        </table>
+        </div>
+        
       </section>
 
       <section class="checkpoint" aria-labelledby="question-3-title">
         <p class="checkpoint-label">Comprehension Check 3 of 5</p>
-        <fieldset data-question="q3" data-answer="matching-rows">
-          <legend id="question-3-title">What does an INNER JOIN return?</legend>
-          <label><input type="radio" name="q3" value="matching-rows"> Only rows that match in both tables</label>
-          <label><input type="radio" name="q3" value="all-left"> All rows from the left table only</label>
-          <label><input type="radio" name="q3" value="summary"> One summary row for each table</label>
+        <fieldset data-question="q3" data-answer="isnull">
+          <legend id="question-3-title">How do you test for a missing value in SQL?</legend>
+          <label><input type="radio" name="q3" value="equals"> = NULL</label>
+          <label><input type="radio" name="q3" value="blank"> BLANK()</label>
+          <label><input type="radio" name="q3" value="isnull"> IS NULL</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="summary-queries">
-        <h2>Summary Queries</h2>
-        <p>When a business question asks for a total, an average, a highest value, or a count, SQL uses aggregate functions. These functions operate on a set of rows and return a single result, which makes them ideal for dashboards, reports, and decision support.</p>
+      <section id="sorting-limiting">
+        <h2>Sorting and Limiting Results</h2>
+        <p>The <code>ORDER BY</code> clause sorts the result set by one or more columns. By default, sorting is ascending, but <code>DESC</code> reverses the order. This is useful when you want results in alphabetical order, numerical order, or a more specific sequence.</p>
 
         <div class="scroll-x">
-
-
-          <pre><code>SELECT AVG(salary) AS Average_Salary
-FROM salaries;</code></pre>
-
-
-        </div>
-        <p class="sql-result-label">Result</p>
-<table class="result-table">
-  <thead><tr><th>Average_Salary</th></tr></thead>
-  <tbody>
-    <tr><td>64238.8072</td></tr>
-  </tbody>
-</table>
-
-        <div class="scroll-x">
-
-
-          <pre><code>SELECT COUNT(*) AS Number_of_Employees
-FROM employees;</code></pre>
-
-
-        </div>
-        <p class="sql-result-label">Result</p>
-<table class="result-table">
-  <thead><tr><th>Number_of_Employees</th></tr></thead>
-  <tbody>
-    <tr><td>9488</td></tr>
-  </tbody>
-</table>
-
-        <p>The <code>DISTINCT</code> keyword can reduce duplicate values before an aggregate is calculated. The <code>GROUP BY</code> clause then creates groups so each subset can be summarized separately.</p>
-
-        <div class="scroll-x">
-
-
-          <pre><code>SELECT vendor_id, COUNT(*) AS Number_of_Products
+          <pre><code>SELECT prod_name, prod_price
 FROM products
-GROUP BY vendor_id;</code></pre>
-
-
+ORDER BY prod_price DESC;</code></pre>
         </div>
         <p class="sql-result-label">Result</p>
-<table class="result-table">
-  <thead><tr><th>vendor_id</th><th>Number_of_Products</th></tr></thead>
-  <tbody>
-    <tr><td>021</td><td>15</td></tr><tr><td>044</td><td>23</td></tr><tr><td>121</td><td>31</td></tr>
-  </tbody>
-</table>
-    <p>The <code>HAVING</code> clause filters groups after the data has been summarized with <code>GROUP BY</code>. This is different from <code>WHERE</code>, which filters individual rows before grouping takes place. In this example, <code>HAVING COUNT(*) &gt; 20</code> keeps only the vendor groups that have more than 20 products.</p>
         <div class="scroll-x">
+<table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>desk lamp</td><td class="num">18.00</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
+            <tr><td>notebook</td><td class="num">2.49</td></tr>
+          </tbody>
+        </table>
+        </div>
 
+        <p>The <code>LIMIT</code> clause controls how many rows are returned. It is helpful when you only need a sample, a top set of results, or a short list for review. (Note that LIMIT is a MySQL-specific extension and may not be available in all database systems.)</p>
 
-          <pre><code>SELECT vendor_id, COUNT(*) AS Number_of_Products
+        <div class="scroll-x">
+          <pre><code>SELECT prod_name, prod_price
 FROM products
-GROUP BY vendor_id
-HAVING COUNT(*) > 20;</code></pre>
-
-
+LIMIT 4;</code></pre>
         </div>
         <p class="sql-result-label">Result</p>
+        <div class="scroll-x">
 <table class="result-table">
-  <thead><tr><th>vendor_id</th><th>Number_of_Products</th></tr></thead>
-  <tbody>
-    <tr><td>044</td><td>23</td></tr><tr><td>121</td><td>31</td></tr>
-  </tbody>
-</table>
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
+            <tr><td>notebook</td><td class="num">2.49</td></tr>
+            <tr><td>desk lamp</td><td class="num">18.00</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+          </tbody>
+        </table>
+        </div>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-4-title">
         <p class="checkpoint-label">Comprehension Check 4 of 5</p>
-        <fieldset data-question="q4" data-answer="single-value">
-          <legend id="question-4-title">What do aggregate functions return?</legend>
-          <label><input type="radio" name="q4" value="single-value"> A single value for a set of rows</label>
-          <label><input type="radio" name="q4" value="text"> Only text values</label>
-          <label><input type="radio" name="q4" value="multiple"> One result per column name</label>
+        <fieldset data-question="q4" data-answer="sort">
+          <legend id="question-4-title">What does ORDER BY do?</legend>
+          <label><input type="radio" name="q4" value="sort"> Sorts the results</label>
+          <label><input type="radio" name="q4" value="limit"> Limits the number of columns</label>
+          <label><input type="radio" name="q4" value="join"> Combines tables</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="order-of-execution">
+        <h2>Order of Writing and Order of Execution</h2>
+        <p>SQL clauses are written in one order, but the database processes them in another. The usual writing order is <code>SELECT</code>, <code>FROM</code>, <code>WHERE</code>, <code>ORDER BY</code>, then <code>LIMIT</code>. The execution order is <code>FROM</code>, <code>WHERE</code>, <code>SELECT</code>, <code>ORDER BY</code>, then <code>LIMIT</code>. Understanding that difference helps explain why an alias created in <code>SELECT</code> can be used in <code>ORDER BY</code> but not in <code>WHERE</code>.</p>
+
+        <div class="scroll-x">
+          <pre><code>SELECT prod_name, prod_price + 2.00 AS mark_up
+FROM products
+WHERE prod_price &gt; 1.99
+ORDER BY mark_up;</code></pre>
+        </div>
+        <p class="sql-result-label">Result</p>
+        <div class="scroll-x">
+<table class="result-table">
+          <thead>
+            <tr>
+              <th>prod_name</th>
+              <th class="num">prod_price</th>
+              <th class="num">mark_up</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>notebook</td><td class="num">2.49</td><td class="num">4.49</td></tr>
+            <tr><td>coffee mug</td><td class="num">8.99</td><td class="num">10.99</td></tr>
+            <tr><td>water bottle</td><td class="num">12.50</td><td class="num">14.50</td></tr>
+            <tr><td>desk lamp</td><td class="num">18.00</td><td class="num">20.00</td></tr>
+          </tbody>
+        </table>
+        </div>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-5-title">
         <p class="checkpoint-label">Comprehension Check 5 of 5</p>
-        <fieldset data-question="q5" data-answer="groups">
-          <legend id="question-5-title">What does GROUP BY do?</legend>
-          <label><input type="radio" name="q5" value="rows"> Filters individual rows only</label>
-          <label><input type="radio" name="q5" value="groups"> Creates groups for aggregate functions</label>
-          <label><input type="radio" name="q5" value="sort"> Sorts results without grouping them</label>
+        <fieldset data-question="q5" data-answer="after-select">
+          <legend id="question-5-title">Why can an alias created in SELECT be used in ORDER BY but not WHERE?</legend>
+          <label><input type="radio" name="q5" value="same-time"> Both clauses are processed at the same time</label>
+          <label><input type="radio" name="q5" value="after-select"> ORDER BY is processed after SELECT</label>
+          <label><input type="radio" name="q5" value="never"> Aliases can never be used in SQL</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="database-objects">
-        <h2>Views</h2>
-
-        <p>A <strong>view</strong> is a saved query that acts like a virtual table. Views can simplify repeated queries, hide unnecessary columns, and provide a consistent way to access information.</p>
-
-        <div class="scroll-x">
-          <pre><code>
-CREATE VIEW expensive_products AS
-SELECT prod_name, prod_price
-FROM products
-WHERE prod_price &gt; 10;
-        </code></pre>
-        </div>
-      </section>
-
       <section id="why-this-matters">
         <h2>Why This Matters</h2>
-        <p>Functions, joins, and summary queries are some of the most practical tools in SQL. Functions clean and format values, joins reconnect related tables, and aggregates convert rows of data into information that is easier to interpret. For information systems students, these are the skills that make database data useful in real applications.</p>
+        <p>Single-table SQL is one of the most important skills in database work. It teaches you how to retrieve data accurately, filter it carefully, sort it meaningfully, and return results that support real decisions. Once these basics are clear, more advanced topics such as joins, grouping, and analysis become much easier to understand.</p>
       </section>
 
       <section id="ai_aside" aria-labelledby="ai-topic">
-        <h2>Data Quality and Exploratory Inspection with AI</h2>
-        <p>Data quality refers to the degree to which data is accurate, complete, consistent, timely, valid, and appropriate for its intended use. Common data-quality problems include missing values, duplicate records, inconsistent categories, incorrect data types, impossible values, possible outliers, and mismatched units. Exploratory inspection is the process of examining data before making formal conclusions. It may include reviewing summary statistics, counting records, examining distributions, comparing categories, and looking for relationships among variables. This early inspection helps analysts understand what the data can and cannot support.</p>
-        <p>AI can assist with data profiling by suggesting possible errors, identifying unusual patterns, or recommending questions for further investigation. However, an unusual value is not automatically a mistake. It may represent a rare but important event. Similarly, a consistent pattern may reflect a data-collection problem rather than a real-world relationship. Professionals must combine automated suggestions with knowledge of the business process and the meaning of the data. In an IS career, the ability to recognize and explain data-quality problems is essential because poor-quality data can affect reports, customer experiences, predictive models, and organizational decisions.</p> 
+        <h2>AI and Privacy, Security, and Responsible Data Use</h2>
+        <p>Data often contains information about individuals, organizations, transactions, locations, or behavior. Some data may be public, while other data may be internal, confidential, personally identifiable, or legally protected. Responsible data use begins with identifying the sensitivity of the information and determining who is authorized to access it. Professionals should collect only the data needed for a legitimate purpose, protect it during storage and transmission, and avoid exposing it to systems that have not been approved by the organization. Good data practices are not separate from technical work; they are part of designing trustworthy information systems.</p>
+        <p>AI introduces additional privacy and security considerations because users may be tempted to paste data directly into an external AI service. Sensitive information may be stored, processed, or unintentionally revealed through prompts, files, or generated responses. AI systems can also be manipulated through malicious instructions, unauthorized access, or prompt injection. IS professionals should understand organizational policies, access controls, data-minimization practices, and approved AI environments. They should be able to recognize when a task requires anonymized, synthetic, or restricted data. </p> 
         <!-- <video controls>
           <source src="videos/#.mp4" type="video/mp4">
           Your browser does not support the video tag.
@@ -328,18 +454,19 @@ WHERE prod_price &gt; 10;
         <div id="access-code-panel" class="access-code-panel" hidden>
           <p class="success-heading">Chapter complete</p>
           <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
-          <code id="access-code">query-data</code>
+          <code id="access-code">fundamental-sql</code>
         </div>
       </section>
     </article>
 
     <aside class="chapter-nav" aria-label="Chapter sections">
       <p class="nav-title">In this chapter</p>
-      <a href="#sql-tools-intro">SQL Tools</a>
-      <a href="#functions">Functions</a>
-      <a href="#joins">Joining Tables</a>
-      <a href="#summary-queries">Summary Queries</a>
-      <a href="#database-objects">Reusable Database Objects</a>
+      <a href="#sql-introduction">SQL Fundamentals</a>
+      <a href="#select-statement">The SELECT Statement</a>
+      <a href="#filtering">Filtering with WHERE</a>
+      <a href="#null-values">NULL Values</a>
+      <a href="#sorting-limiting">Sorting and Limiting</a>
+      <a href="#order-of-execution">Order of Execution</a>
       <a href="#why-this-matters">Why This Matters</a>
       <div class="progress-block">
         <span id="progress-text">0 of 5 answered</span>
@@ -355,7 +482,7 @@ WHERE prod_price &gt; 10;
   </nav>
 
   <footer>
-    <p>Chapter 5: SQL Querying Tools</p>
+    <p>Chapter 5: SQL Fundamentals</p>
     <p>Brigham Young University - Idaho</p>
   </footer>
 </body>

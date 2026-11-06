@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Chapter 11: Storytelling with data and audience analysis.">
-  <title>Chapter 11 | Storytelling with Data and Audience Analysis</title>
+  <meta name="description" content="Chapter 11: Effective data visualizations, dashboard design, and misleading visuals.">
+  <title>Chapter 11 | Effective Data Visualizations</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
   <style>
@@ -34,139 +34,155 @@
   <header class="chapter-header" id="chapter-eleven">
     <div class="header-inner">
       <p class="eyebrow">Chapter 11</p>
-      <h1>Storytelling with Data and Audience Analysis</h1>
-      <p class="chapter-summary">Learn how to turn analysis into a clear narrative, tailor the message to the audience, and recommend actions that the organization can actually take.</p>
+      <h1>Effective Data Visualizations</h1>
+      <p class="chapter-summary">Learn how to choose the right visual, design clear dashboards, and recognize chart choices that distort evidence instead of revealing it.</p>
     </div>
   </header>
 
   <main class="book-layout">
     <article class="chapter-content">
       <section id="chapter-introduction">
-        <h2>Storytelling with Data</h2>
-        <p>Storytelling with data turns analysis into a narrative that supports organizational decisions and change. It bridges the gap between technical discovery and business strategy by connecting evidence to goals, human decisions, and measurable outcomes. In the previous chapter, the emphasis was on what the data shows. Here, the focus shifts to why it matters and what should happen next.</p>
-        <p>Decision-makers do not usually need raw output; they need answers. A good data story helps them understand what is happening, why it matters, who or what is affected, how serious the issue may be, what action is appropriate, and how confident they should be in the conclusion. At the same time, the story must remain honest about context and avoid exaggerating or omitting important details.</p>
+        <h2>Effective Data Visualizations</h2>
+        <p>Visual displays turn data into information people can understand and use. Patterns that are difficult to spot in a table often become obvious in a chart: trends, differences, relationships, outliers, bottlenecks, and risks that need attention. In an information systems setting, visuals also help connect technical data to organizational goals, translating system conditions into meaning that decision-makers can act on.</p>
+        <p>A good visual should do more than look polished. It should serve a clear purpose, whether decorative, explanatory, evidentiary, or analytical. The analyst should be able to explain what information shaped the visual, who verified it, what the audience should believe or do after seeing it, and how the organization can defend the way it was produced.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-1-title">
         <p class="checkpoint-label">Comprehension Check 1 of 5</p>
-        <fieldset data-question="q1" data-answer="narrative">
-          <legend id="question-1-title">What does storytelling with data turn analysis into?</legend>
-          <label><input type="radio" name="q1" value="table"> A table of raw values</label>
-          <label><input type="radio" name="q1" value="narrative"> A clear narrative that supports decisions</label>
-          <label><input type="radio" name="q1" value="filter"> A dashboard filter</label>
+        <fieldset data-question="q1" data-answer="information">
+          <legend id="question-1-title">What do effective visuals help turn data into?</legend>
+          <label><input type="radio" name="q1" value="decoration"> Decoration</label>
+          <label><input type="radio" name="q1" value="information"> Information people can understand and use</label>
+          <label><input type="radio" name="q1" value="storage"> Storage space</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="consider-the-audience">
-        <h2>Consider the Audience</h2>
-        <p>The same evidence may need to be presented differently depending on the audience. The underlying data should remain the same, but the emphasis, language, and level of detail should match the audience’s responsibilities and ability to act. A well-told story does not weaken the evidence to make it easier to read; it makes the evidence accessible without losing accuracy.</p>
-        <p>Consider customer-service response times that increased by 35 percent over six months. To executives, the story might emphasize financial and strategic impact. To customer-service managers, the same data may highlight a bottleneck in a specific time window and suggest a staffing change. To IT analysts, the story may focus on a routing rule in the ticketing system and recommend a technical fix. The facts are the same, but each audience needs a different path from evidence to action.</p>
-
-        <figure>
-          <img src="images/fig-11-1.png" alt="Three audience-specific summaries of the same customer-service response-time data for executives, managers, and IT analysts.">
-          <figcaption><strong>Figure 11.1.</strong> The same data can support different stories when the audience changes.</figcaption>
-        </figure>
+      <section id="visualization-principles">
+        <h2>Visualization Principles</h2>
+        <p>Strong visualizations begin with a few basic principles. Clarity keeps communication straightforward. Simplicity removes clutter and nonessential detail. Purposeful intent makes every element support a specific message or insight. Consistency keeps colors, fonts, and layout rules uniform across screens and reports.</p>
+        <p>When these principles are followed, the audience can focus on the data rather than on the design. The goal is not to make the visual the most elaborate part of the page, but the most useful.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-2-title">
         <p class="checkpoint-label">Comprehension Check 2 of 5</p>
-        <fieldset data-question="q2" data-answer="different">
-          <legend id="question-2-title">Why may the same data need a different story for different audiences?</legend>
-          <label><input type="radio" name="q2" value="same"> Because the evidence always changes</label>
-          <label><input type="radio" name="q2" value="different"> Because each audience has different responsibilities and ability to act</label>
-          <label><input type="radio" name="q2" value="none"> Because audiences never care about details</label>
+        <fieldset data-question="q2" data-answer="simplicity">
+          <legend id="question-2-title">Which principle removes unnecessary clutter?</legend>
+          <label><input type="radio" name="q2" value="simplicity"> Simplicity</label>
+          <label><input type="radio" name="q2" value="consistency"> Consistency</label>
+          <label><input type="radio" name="q2" value="decoration"> Decoration</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="audience-analysis">
-        <h2>Audience Analysis</h2>
-        <p>When planning a story, it helps to ask a few practical questions. What technical concepts does the audience already understand? What decisions does the audience make, and what processes does it control? What goals is the audience trying to accomplish? What concerns or objections might arise? What authority does the audience have to act? How much detail is needed to understand and trust the findings?</p>
-        <p>These questions help the analyst tailor the message without changing the evidence. The goal is not to oversimplify the analysis, but to remove unnecessary barriers so the audience can understand it clearly and act on it appropriately.</p>
+      <section id="visual-perception">
+        <h2>Foundations of Visual Perception and Design</h2>
+        <p>Effective visuals also reflect how people naturally see and organize information. Visual hierarchy directs attention so the most important data stands out first. Gestalt principles help explain why people group nearby or similar elements together, which is why related items should be placed close to one another and enclosed together when they belong to the same data set.</p>
+        <p>Preattentive features such as position, size, and color can communicate meaning almost instantly, before the viewer consciously analyzes the chart. When these ideas are used well, the visual feels clear and intuitive because it matches the way people actually perceive information.</p>
+      </section>
 
-        <figure>
-          <img src="images/fig-11-3.png" alt="A matrix showing audience type, concerns, and preferred level of detail for executives, managers, analysts, IT technical staff, and frontline staff.">
-          <figcaption><strong>Figure 11.2.</strong> Audience type, concerns, and detail level help shape the message.</figcaption>
-        </figure>
+      <section id="choosing-visuals">
+        <h2>Choosing and Designing Effective Visuals</h2>
+        <p>The best chart is the one that fits the data and the purpose. Be aware that the chart choice depends on the analytical question, not simply on the type of chart. Line charts are useful for trends over time. Bar charts compare categories. Stacked bar charts show how a total is divided. Scatterplots reveal relationships between two variables. Maps show geographic patterns. Tables are best when exact values matter. Heat maps work well for concentration, intensity, or risk. Funnel charts show stages in a process, and process diagrams illustrate how information or work moves through a system.</p>
+        <p>Color should support the message rather than distract from it. It is most effective when it highlights key metrics, categories, or exceptions. Color meanings should remain consistent across visuals, and unnecessary borders, gridlines, decorative icons, and 3D effects should be removed when they do not help the reader. Accessibility matters as well: text should be readable, contrast should be high, palettes should work for colorblind viewers, and meaning should never depend on color alone.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-3-title">
         <p class="checkpoint-label">Comprehension Check 3 of 5</p>
-        <fieldset data-question="q3" data-answer="responsibilities">
-          <legend id="question-3-title">Which audience factor asks what decisions the audience makes?</legend>
-          <label><input type="radio" name="q3" value="technical"> Technical knowledge</label>
-          <label><input type="radio" name="q3" value="responsibilities"> Responsibilities</label>
-          <label><input type="radio" name="q3" value="decorative"> Decorative style</label>
+        <fieldset data-question="q3" data-answer="line">
+          <legend id="question-3-title">Which chart is best for trends over time?</legend>
+          <label><input type="radio" name="q3" value="table"> Table</label>
+          <label><input type="radio" name="q3" value="line"> Line chart</label>
+          <label><input type="radio" name="q3" value="map"> Map</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="storytelling-across-information-systems">
-        <h2>Storytelling Across Information Systems</h2>
-        <p>Storytelling appears throughout information systems because different systems support different decisions. A strong story always begins with the same evidence, but it should end with a recommendation that matches the setting in which that evidence will be used.</p>
-        <ul>
-          <li><strong>Business intelligence:</strong> explain performance trends and whether results are improving or declining.</li>
-          <li><strong>Enterprise systems:</strong> identify process bottlenecks, delays, and handoff problems.</li>
-          <li><strong>Customer relationship management:</strong> describe customer behavior and retention opportunities.</li>
-          <li><strong>Supply-chain systems:</strong> explain delays, shortages, and inventory risks.</li>
-          <li><strong>Human-resource systems:</strong> analyze turnover, scheduling, and staffing patterns.</li>
-          <li><strong>Healthcare systems:</strong> identify care patterns while remaining careful about causation.</li>
-          <li><strong>Decision-support systems:</strong> compare alternatives and recommend the one that best fits the goal.</li>
-          <li><strong>Cybersecurity systems:</strong> communicate threats, suspicious patterns, and response steps.</li>
-        </ul>
-        <p>These examples show that storytelling is not limited to reports or presentations. It is part of how information systems create value by helping the right people understand the right issue at the right time.</p>
+      <section id="dashboard-design">
+        <h2>Dashboard Design</h2>
+        <p>A dashboard is a visual summary of the organization’s most important data. It brings charts and other visual tools together so leaders can see performance, compare results with targets, and notice deviations before they become larger problems. Well-designed dashboards provide current, reliable, clearly defined data, and they often allow the user to drill down into supporting details when more context is needed.</p>
+        <p>Dashboards usually serve one of three purposes. Operational dashboards monitor live environments and highlight immediate exceptions, alerts, and risks. Analytical dashboards focus on historical data to reveal trends, progress, and changes over weeks, months, or years. Strategic or executive dashboards summarize key performance indicators so leaders can assess organizational health and progress toward major goals.</p>
+
+        <figure>
+          <img src="images/fig-10-1.png" alt="An information systems dashboard showing key performance indicators, a line chart, a donut chart, and summary tables in a clean layout.">
+          <figcaption><strong>Figure 11.1.</strong> A dashboard should emphasize the measures that matter most and avoid unnecessary clutter.</figcaption>
+        </figure>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-4-title">
         <p class="checkpoint-label">Comprehension Check 4 of 5</p>
-        <fieldset data-question="q4" data-answer="evidence">
-          <legend id="question-4-title">What should a strong data story connect?</legend>
-          <label><input type="radio" name="q4" value="charts"> Only charts and numbers</label>
-          <label><input type="radio" name="q4" value="evidence"> Evidence, audience, and action</label>
-          <label><input type="radio" name="q4" value="style"> Style, color, and decoration</label>
+        <fieldset data-question="q4" data-answer="operational">
+          <legend id="question-4-title">Which dashboard type monitors live environments?</legend>
+          <label><input type="radio" name="q4" value="analytical"> Analytical dashboard</label>
+          <label><input type="radio" name="q4" value="operational"> Operational dashboard</label>
+          <label><input type="radio" name="q4" value="strategic"> Strategic dashboard</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
-      <section id="building-the-right-narrative">
-        <h2>Building the Right Narrative</h2>
-        <p>A strong data story connects three things: the evidence, the audience, and the action. It explains what happened, why it matters to this audience, and what the audience should do next. That structure keeps the narrative focused and prevents it from becoming either too technical to use or too simplified to trust.</p>
-        <p>The story should also respect the limits of the data. If the evidence shows association rather than causation, the recommendation should be framed carefully. If the result depends on a system issue, workflow problem, or special context, that should be stated. Clear storytelling does not hide uncertainty; it helps the audience understand it.</p>
+      <section id="misleading-visuals">
+        <h2>Misleading Visuals</h2>
+        <p>A visual is part of a decision-support system, not just a picture on a screen. If the chart distorts the evidence, it can lead to poor decisions even when the underlying data is accurate. Good design cannot rescue bad data, and a polished chart can give unreliable data an appearance of authority. For that reason, visual quality must always be paired with data quality.</p>
+        <p>Common misleading visuals include truncated axes, unequal or distorted intervals, inappropriate chart types, misleading colors, selective time periods, misleading averages and totals, percentages without a baseline, correlation presented as causation, and cherry-picked data. Each of these can make ordinary differences look dramatic, hide variation inside a summary measure, or support a conclusion that the evidence does not truly justify.</p>
 
-        <figure>
-          <img src="images/fig-11-2.png" alt="A three-step flow diagram showing evidence, audience needs, and recommendation connected from left to right.">
-          <figcaption><strong>Figure 11.3.</strong> Effective storytelling moves from evidence to audience needs to recommendation.</figcaption>
-        </figure>
+        <div class="figure-grid" aria-label="Examples of misleading visuals">
+          <figure>
+            <img src="images/fig-10-2.png" alt="Side-by-side chart showing a proper axis starting at zero and a truncated axis starting above zero.">
+            <figcaption><strong>Truncated axes.</strong> Starting the baseline above zero can make a small difference look dramatic.</figcaption>
+          </figure>
+
+          <figure>
+            <img src="images/fig-10-3.png" alt="A bar chart showing unevenly spaced months that create a misleading trend.">
+            <figcaption><strong>Unequal or distorted intervals.</strong> Inconsistent spacing can suggest a trend the data does not support.</figcaption>
+          </figure>
+
+          <figure>
+            <img src="images/fig-10-4.png" alt="A comparison of dual axes and properly separated axes for unrelated trends.">
+            <figcaption><strong>Dual axes.</strong> Unrelated measures can appear connected when two scales are combined.</figcaption>
+          </figure>
+
+          <figure>
+            <img src="images/fig-10-5.png" alt="A selective time period chart that shows only recent growth compared with a chart that shows the complete time period.">
+            <figcaption><strong>Selective time periods.</strong> Showing only a favorable slice of time can hide the larger pattern.</figcaption>
+          </figure>
+
+          <figure>
+            <img src="images/fig-10-6.png" alt="A chart showing a percentage increase without the baseline values beside a proper chart with the values included.">
+            <figcaption><strong>Percentages without a baseline.</strong> Include the actual values so the audience can judge the scale of change.</figcaption>
+          </figure>
+        </div>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-5-title">
         <p class="checkpoint-label">Comprehension Check 5 of 5</p>
-        <fieldset data-question="q5" data-answer="respond">
-          <legend id="question-5-title">Why should recommendations go to the people with authority to act?</legend>
-          <label><input type="radio" name="q5" value="respond"> They can realistically respond to the issue</label>
-          <label><input type="radio" name="q5" value="ignore"> They can ignore the evidence</label>
-          <label><input type="radio" name="q5" value="format"> They prefer a different font</label>
+        <fieldset data-question="q5" data-answer="distort">
+          <legend id="question-5-title">Why are misleading visuals dangerous?</legend>
+          <label><input type="radio" name="q5" value="decorative"> They look too decorative</label>
+          <label><input type="radio" name="q5" value="distort"> They distort the evidence and can lead to poor decisions</label>
+          <label><input type="radio" name="q5" value="faster"> They always load faster</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
       </section>
 
+      <section id="misleading-dashboards">
+        <h2>Misleading Dashboards</h2>
+        <p>Dashboards can also mislead when they give too much attention to low-priority measures or hide important ones. A weak dashboard may include too many metrics, give equal emphasis to items of very different importance, rely on outdated data without labeling it, bury unfavorable results behind filters, or make critical information difficult to reach. Dashboards should also avoid combining measures that use different definitions, because users may assume they are comparing like with like when they are not.</p>
+        <p>A strong dashboard makes priorities visible at a glance and supports quick, informed action.</p>
+      </section>
+
       <section id="why-this-matters">
         <h2>Why This Matters</h2>
-        <p>Storytelling with data is what makes analysis actionable. It transforms evidence into a message that different audiences can understand and use while still staying grounded in the data. When the narrative is tailored to the audience and tied to a realistic recommendation, data becomes more than a record of what happened; it becomes a guide for what to do next.</p>
+        <p>Effective visualization helps people see what matters quickly and clearly. When charts and dashboards are designed with purpose, clarity, and honesty, they turn technical data into organizational insight. When they are not, they can mislead the audience even if the numbers themselves are correct. The skill is not simply making visuals; it is making visuals that the organization can trust.</p>
       </section>
 
       <section id="ai_aside" aria-labelledby="ai-topic">
-        <h2>Predictive Modeling and Evaluation with AI</h2>
-
-        <p>Predictive modeling uses historical data to estimate the likelihood or value of a future or unknown outcome. Common examples include predicting demand, identifying customers who may need assistance, estimating delivery times, or classifying transactions. Students do not need to become machine-learning researchers, but they should understand the purpose of a model, the variables it uses, the outcome it estimates, and how its results are evaluated.</p>
-
-        <h3>Common Intelligent-System Tasks</h3>
-
-        <p><strong>Classification</strong> assigns a record to one of several predefined categories, such as normal or suspicious. <strong>Clustering</strong> groups records according to similarities without using predefined categories, which can help reveal customer segments or unusual patterns. <strong>Recommendation systems</strong> suggest items, content, or actions based on past behavior, stated preferences, or context.</p>
-
-        <p>These tasks support different kinds of decisions. Classification predicts a category, clustering helps discover groups, and recommendation systems rank possible choices. AI tools can help explain metrics, generate code, or compare approaches, but professionals must still evaluate the results.</p>
-        <p>When an analysis includes a predictive or intelligent-system output, the analyst should ask whether the result is relevant to the business question, understandable to the audience, and appropriate for the people affected. Analysts should also watch for obvious errors, unsupported conclusions, bias, privacy concerns, and situations in which human review is necessary.</p>
+        <h2>AI-Augmented Business Intelligence</h2>
+        <p>Business intelligence systems organize data into reports, dashboards, metrics, and visualizations that support organizational decision-making. AI-augmented BI tools may recommend charts, generate summaries, identify trends, create calculated measures, or allow users to ask questions in natural language. These features can reduce the time required to explore data and build an initial report. They do not eliminate the need to understand aggregation, filtering, grouping, denominators, visual encoding, and the meaning of the measures being displayed.</p>
+        <p>Before an AI-generated dashboard or report is published, it should be reviewed like any other analytical product. Professionals should check whether the correct data source was used, whether calculations are accurate, whether filters are visible, whether scales are misleading, and whether the wording implies causation without evidence. They should also consider accessibility and whether the audience can interpret the display correctly. A polished dashboard is not necessarily a trustworthy dashboard; trust depends on accurate data, transparent logic, and appropriate human review.</p> 
+        <!-- <video controls>
+          <source src="videos/#.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video> -->
       </section>
 
       <section class="completion" aria-labelledby="completion-title">
@@ -177,18 +193,20 @@
         <div id="access-code-panel" class="access-code-panel" hidden>
           <p class="success-heading">Chapter complete</p>
           <p>Copy or write down this access code. You will need it later in class to receive your points.</p>
-          <code id="access-code">audience-story</code>
+          <code id="access-code">visual-trust</code>
         </div>
       </section>
     </article>
 
     <aside class="chapter-nav" aria-label="Chapter sections">
       <p class="nav-title">In this chapter</p>
-      <a href="#chapter-introduction">Storytelling with Data</a>
-      <a href="#consider-the-audience">Consider the Audience</a>
-      <a href="#audience-analysis">Audience Analysis</a>
-      <a href="#storytelling-across-information-systems">Across Information Systems</a>
-      <a href="#building-the-right-narrative">Building the Narrative</a>
+      <a href="#chapter-introduction">Effective Data Visualizations</a>
+      <a href="#visualization-principles">Visualization Principles</a>
+      <a href="#visual-perception">Visual Perception</a>
+      <a href="#choosing-visuals">Choosing Visuals</a>
+      <a href="#dashboard-design">Dashboard Design</a>
+      <a href="#misleading-visuals">Misleading Visuals</a>
+      <a href="#misleading-dashboards">Misleading Dashboards</a>
       <a href="#why-this-matters">Why This Matters</a>
       <div class="progress-block">
         <span id="progress-text">0 of 5 answered</span>
@@ -204,7 +222,7 @@
   </nav>
 
   <footer>
-    <p>Chapter 11: Storytelling with Data and Audience Analysis</p>
+    <p>Chapter 11: Effective Data Visualizations</p>
     <p>Brigham Young University - Idaho</p>
   </footer>
 </body>
