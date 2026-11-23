@@ -41,35 +41,33 @@
         <div class="scroll-x">
 
 
-          <pre><code>SELECT CONCAT('The primary key of ', keyword, ' is ', keyword_id) AS new_string
-FROM keyword
-WHERE keyword_id = 1;</code></pre>
+          <pre><code>SELECT CONCAT('The primary key of ', prod_name, ' is ', product_id) AS new_string
+FROM products
+WHERE product_id = 1;</code></pre>
 
 
         </div>
         <p class="sql-result-label">Result</p>
 <table class="result-table">
   <thead><tr><th>new_string</th></tr></thead>
-  <tbody>
-    <tr><td>The primary key of sky is 1</td></tr>
-  </tbody>
+  <tbody><tr><td>The primary key of cocoa mug is 1</td></tr></tbody>
 </table>
 
         <div class="scroll-x">
 
 
-          <pre><code>SELECT LEFT(keyword, 4) AS left_part, LENGTH(keyword) AS char_count, UPPER(keyword) AS upper_keyword
-FROM keyword
-WHERE keyword_id = 2;</code></pre>
+          <pre><code>SELECT LEFT(category_name, 4) AS left_part,
+       LENGTH(category_name) AS char_count,
+       UPPER(category_name) AS upper_category
+FROM categories
+WHERE category_id = 2;</code></pre>
 
 
         </div>
         <p class="sql-result-label">Result</p>
 <table class="result-table">
-  <thead><tr><th>left_part</th><th>char_count</th><th>upper_keyword</th></tr></thead>
-  <tbody>
-    <tr><td>land</td><td>9</td><td>LANDSCAPE</td></tr>
-  </tbody>
+  <thead><tr><th>left_part</th><th>char_count</th><th>upper_category</th></tr></thead>
+  <tbody><tr><td>Offi</td><td>6</td><td>OFFICE</td></tr></tbody>
 </table>
 
         <h3>Numeric and Date Functions</h3>
@@ -78,36 +76,52 @@ WHERE keyword_id = 2;</code></pre>
         <div class="scroll-x">
 
 
-          <pre><code>SELECT ROUND(magPrice) AS rounded_price, FLOOR(magPrice) AS lower_whole, CEILING(magPrice) AS upper_whole
-FROM magazine;</code></pre>
+          <pre><code>SELECT ROUND(prod_price) AS rounded_price,
+       FLOOR(prod_price) AS lower_whole,
+       CEILING(prod_price) AS upper_whole
+FROM products
+ORDER BY product_id;</code></pre>
 
 
         </div>
         <p class="sql-result-label">Result</p>
 <table class="result-table">
-  <thead><tr><th class="num">rounded_price</th><th class="num">lower_whole</th><th class="num">upper_whole</th></tr></thead>
+  <thead><tr><th>rounded_price</th><th>lower_whole</th><th>upper_whole</th></tr></thead>
   <tbody>
-    <tr><td class="num">14</td><td class="num">13</td><td class="num">14</td></tr><tr><td class="num">15</td><td class="num">15</td><td class="num">16</td></tr><tr><td class="num">18</td><td class="num">17</td><td class="num">18</td></tr><tr><td class="num">18</td><td class="num">18</td><td class="num">18</td></tr><tr><td class="num">25</td><td class="num">25</td><td class="num">25</td></tr>
+    <tr><td>9</td><td>8</td><td>9</td></tr>
+    <tr><td>2</td><td>2</td><td>3</td></tr>
+    <tr><td>18</td><td>18</td><td>18</td></tr>
+    <tr><td>9</td><td>8</td><td>9</td></tr>
+    <tr><td>6</td><td>5</td><td>6</td></tr>
+    <tr><td>25</td><td>24</td><td>25</td></tr>
   </tbody>
 </table>
 
+        
+        <p>The product, supplier, and category tables do not contain dates, so this example uses the <code>hire_date</code> column from an employee table. <code>EXTRACT</code> retrieves the year and month from each date.</p>
+        
         <div class="scroll-x">
-
-
-          <pre><code>SELECT hire_date, YEAR(hire_date) AS hire_year, MONTH(hire_date) AS hire_month
-FROM employee;</code></pre>
-
-
+<pre><code>SELECT hire_date,
+       EXTRACT(YEAR FROM hire_date) AS hire_year,
+       EXTRACT(MONTH FROM hire_date) AS hire_month
+FROM employee
+ORDER BY hire_date;</code></pre>
         </div>
         <p class="sql-result-label">Result</p>
-<table class="result-table">
-  <thead><tr><th>hire_date</th><th>hire_year</th><th>hire_month</th></tr></thead>
-  <tbody>
-    <tr><td>2013-06-15</td><td>2013</td><td>6</td></tr><tr><td>2013-08-23</td><td>2013</td><td>8</td></tr><tr><td>2014-01-03</td><td>2014</td><td>1</td></tr><tr><td>2015-07-12</td><td>2015</td><td>7</td></tr><tr><td>2015-10-20</td><td>2015</td><td>10</td></tr>
-  </tbody>
-</table>
+        <table class="result-table">
+          <thead>
+            <tr><th>hire_date</th><th>hire_year</th><th>hire_month</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2013-06-15</td><td>2013</td><td>6</td></tr>
+            <tr><td>2013-08-23</td><td>2013</td><td>8</td></tr>
+            <tr><td>2014-01-03</td><td>2014</td><td>1</td></tr>
+            <tr><td>2015-07-12</td><td>2015</td><td>7</td></tr>
+            <tr><td>2015-10-20</td><td>2015</td><td>10</td></tr>
+          </tbody>
+        </table>
 
-        <p>Functions such as <code>NOW()</code>, <code>DATE_ADD()</code>, and <code>DATE_FORMAT()</code> are also valuable when dates must be compared, extended, or presented in a clean business format.</p>
+        <p>SQL also provides operations for working with current dates and times, adding or subtracting time intervals, and formatting dates. The syntax for these operations can vary between database systems, so check the documentation for the system you are using.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-1-title">
@@ -130,47 +144,53 @@ FROM employee;</code></pre>
         <div class="scroll-x">
 
 
-          <pre><code>SELECT lastName, firstName, subStartDate
-FROM subscriber
-    INNER JOIN subscription
-        ON subscriber.subKey = subscription.subKey
-ORDER BY lastName;</code></pre>
+          <pre><code>SELECT prod_name, supplier_name
+FROM products
+INNER JOIN suppliers
+    ON products.supplier_id = suppliers.supplier_id
+ORDER BY prod_name;</code></pre>
 
 
         </div>
         <p class="sql-result-label">Result</p>
 <table class="result-table">
-  <thead><tr><th>lastName</th><th>firstName</th><th>subStartDate</th></tr></thead>
+  <thead><tr><th>prod_name</th><th>supplier_name</th></tr></thead>
   <tbody>
-    <tr><td>Anderson</td><td>Albert</td><td>2011-03-01</td></tr><tr><td>Jimenez</td><td>Jose</td><td>2012-08-01</td></tr><tr><td>Jimenez</td><td>Jose</td><td>2011-09-01</td></tr><tr><td>Johnston</td><td>Julie</td><td>2011-03-01</td></tr><tr><td>Lamont</td><td>Lucy</td><td>2012-07-01</td></tr><tr><td>Lamont</td><td>Lucy</td><td>2012-02-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-05-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-12-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2012-02-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-05-01</td></tr><tr><td>Sanders</td><td>Samantha</td><td>2011-09-01</td></tr>
+    <tr><td>book bag</td><td>Bag Emporium</td></tr>
+    <tr><td>cocoa mug</td><td>General Supply</td></tr>
+    <tr><td>desk lamp</td><td>Office Supply Co</td></tr>
+    <tr><td>doll</td><td>Goods Wholesalers</td></tr>
+    <tr><td>notebook</td><td>Office Supply Co</td></tr>
+    <tr><td>water bottle</td><td>General Supply</td></tr>
   </tbody>
 </table>
 
-        <p>When a query needs data from three related tables, aliases keep the SQL manageable. The example below finds subscribers to a specific magazine by joining the subscriber, subscription, and magazine tables.</p>
+        <p>When a query needs data from three related tables, it can use a series of JOIN clauses. The example finds products in the Office category and displays each product’s category and supplier.</p>
 
         <div class="scroll-x">
 
 
-          <pre><code>SELECT lastName AS Last_Name, firstName AS First_Name
-FROM subscriber sr
-    JOIN subscription sn
-        ON sr.subKey = sn.subKey
-    JOIN magazine m
-        ON sn.magKey = m.magKey
-WHERE magName = 'Beautiful Birds'
-ORDER BY Last_Name;</code></pre>
+          <pre><code>SELECT prod_name, category_name, supplier_name
+FROM products
+    JOIN categories
+        ON products.prod_category = categories.category_id
+    JOIN suppliers
+        ON products.supplier_id = suppliers.supplier_id
+WHERE category_name = 'Office'
+ORDER BY prod_name;</code></pre>
 
 
         </div>
         <p class="sql-result-label">Result</p>
 <table class="result-table">
-  <thead><tr><th>Last_Name</th><th>First_Name</th></tr></thead>
+  <thead><tr><th>prod_name</th><th>category_name</th><th>supplier_name</th></tr></thead>
   <tbody>
-    <tr><td>Lamont</td><td>Lucy</td></tr><tr><td>Sanders</td><td>Samantha</td></tr>
+    <tr><td>desk lamp</td><td>Office</td><td>Office Supply Co</td></tr>
+    <tr><td>notebook</td><td>Office</td><td>Office Supply Co</td></tr>
   </tbody>
 </table>
 
-        <p>An <strong>OUTER JOIN</strong> matters when completeness is more important than matching rows alone. A <code>LEFT JOIN</code> keeps every row from the left table even when there is no match on the right, which is useful when missing related data should still be visible.</p>
+        <p>An <code>OUTER JOIN</code> matters when completeness is more important than matching rows alone. A <code>LEFT JOIN</code> keeps every row from the left table even when there is no match on the right, which is useful when missing related data should still be visible.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-2-title">
@@ -202,69 +222,71 @@ ORDER BY Last_Name;</code></pre>
         <div class="scroll-x">
 
 
-          <pre><code>SELECT AVG(salary) AS Average_Salary
-FROM salaries;</code></pre>
+          <pre><code>SELECT AVG(prod_price) AS average_price
+FROM products;</code></pre>
 
 
         </div>
         <p class="sql-result-label">Result</p>
 <table class="result-table">
-  <thead><tr><th>Average_Salary</th></tr></thead>
-  <tbody>
-    <tr><td>64238.8072</td></tr>
-  </tbody>
+  <thead><tr><th>average_price</th></tr></thead>
+  <tbody><tr><td>11.568333</td></tr></tbody>
 </table>
 
         <div class="scroll-x">
 
 
-          <pre><code>SELECT COUNT(*) AS Number_of_Employees
-FROM employees;</code></pre>
+          <pre><code>SELECT COUNT(*) AS number_of_products
+FROM products;</code></pre>
 
 
         </div>
         <p class="sql-result-label">Result</p>
 <table class="result-table">
-  <thead><tr><th>Number_of_Employees</th></tr></thead>
-  <tbody>
-    <tr><td>9488</td></tr>
-  </tbody>
+  <thead><tr><th>number_of_products</th></tr></thead>
+  <tbody><tr><td>6</td></tr></tbody>
 </table>
 
-        <p>The <code>DISTINCT</code> keyword can reduce duplicate values before an aggregate is calculated. The <code>GROUP BY</code> clause then creates groups so each subset can be summarized separately.</p>
+        <p>The <code>GROUP BY</code> clause organizes rows that share the same value into groups. An aggregate function can then summarize each group. In this example, products are grouped by supplier, and <code>COUNT(*)</code> counts the products in each group.</p>
 
         <div class="scroll-x">
 
 
-          <pre><code>SELECT vendor_id, COUNT(*) AS Number_of_Products
+          <pre><code>SELECT supplier_id, COUNT(*) AS Number_of_Products
 FROM products
-GROUP BY vendor_id;</code></pre>
+GROUP BY supplier_id
+ORDER BY supplier_id;</code></pre>
 
 
         </div>
         <p class="sql-result-label">Result</p>
 <table class="result-table">
-  <thead><tr><th>vendor_id</th><th>Number_of_Products</th></tr></thead>
+  <thead><tr><th>supplier_id</th><th>Number_of_Products</th></tr></thead>
   <tbody>
-    <tr><td>021</td><td>15</td></tr><tr><td>044</td><td>23</td></tr><tr><td>121</td><td>31</td></tr>
+    <tr><td>1</td><td>2</td></tr>
+    <tr><td>2</td><td>2</td></tr>
+    <tr><td>3</td><td>1</td></tr>
+    <tr><td>4</td><td>1</td></tr>
   </tbody>
 </table>
-    <p>The <code>HAVING</code> clause filters groups after the data has been summarized with <code>GROUP BY</code>. This is different from <code>WHERE</code>, which filters individual rows before grouping takes place. In this example, <code>HAVING COUNT(*) &gt; 20</code> keeps only the vendor groups that have more than 20 products.</p>
+    <p>The <code>HAVING</code> clause filters groups after the data has been summarized with <code>GROUP BY</code>. Unlike <code>WHERE</code>, which filters individual rows before grouping, <code>HAVING</code> filters the completed groups. This example keeps suppliers with more than one product.</p>
         <div class="scroll-x">
 
 
-          <pre><code>SELECT vendor_id, COUNT(*) AS Number_of_Products
+          <pre><code>SELECT supplier_id, COUNT(*) AS Number_of_Products
 FROM products
-GROUP BY vendor_id
-HAVING COUNT(*) > 20;</code></pre>
+GROUP BY supplier_id
+HAVING COUNT(*) > 1
+ORDER BY supplier_id;</code></pre>
 
 
         </div>
         <p class="sql-result-label">Result</p>
 <table class="result-table">
-  <thead><tr><th>vendor_id</th><th>Number_of_Products</th></tr></thead>
+  <thead><tr><th>supplier_id</th><th>Number_of_Products</th></tr></thead>
   <tbody>
-    <tr><td>044</td><td>23</td></tr><tr><td>121</td><td>31</td></tr>
+    <tr><td>1</td><td>2</td></tr>
+    <tr><td>2</td><td>2</td></tr>
   </tbody>
 </table>
       </section>
@@ -301,10 +323,30 @@ HAVING COUNT(*) > 20;</code></pre>
 CREATE VIEW expensive_products AS
 SELECT prod_name, prod_price
 FROM products
-WHERE prod_price &gt; 10;
+WHERE prod_price > 10;
         </code></pre>
         </div>
+        <p>The CREATE VIEW statement saves the query. To display its rows, run:</p>
+
+        <div class="scroll-x">
+          <pre><code>
+SELECT prod_name, prod_price
+FROM expensive_products
+ORDER BY prod_price DESC;
+        </code></pre>
+        </div>
+  <p class="sql-result-label">Result</p>
+<table class="result-table">
+  <thead><tr><th>prod_name</th><th>prod_price</th></tr></thead>
+  <tbody>
+    <tr><td>book bag</td><td>24.95</td></tr>
+    <tr><td>desk lamp</td><td>18.00</td></tr>
+  </tbody>
+</table>
+        
       </section>
+
+
 
       <section id="why-this-matters">
         <h2>Why This Matters</h2>
@@ -312,14 +354,13 @@ WHERE prod_price &gt; 10;
       </section>
 
       <section id="ai_aside" aria-labelledby="ai-topic">
-        <h2>Data Quality and Exploratory Inspection with AI</h2>
-        <p>Data quality refers to the degree to which data is accurate, complete, consistent, timely, valid, and appropriate for its intended use. Common data-quality problems include missing values, duplicate records, inconsistent categories, incorrect data types, impossible values, possible outliers, and mismatched units. Exploratory inspection is the process of examining data before making formal conclusions. It may include reviewing summary statistics, counting records, examining distributions, comparing categories, and looking for relationships among variables. This early inspection helps analysts understand what the data can and cannot support.</p>
-        <p>AI can assist with data profiling by suggesting possible errors, identifying unusual patterns, or recommending questions for further investigation. However, an unusual value is not automatically a mistake. It may represent a rare but important event. Similarly, a consistent pattern may reflect a data-collection problem rather than a real-world relationship. Professionals must combine automated suggestions with knowledge of the business process and the meaning of the data. In an IS career, the ability to recognize and explain data-quality problems is essential because poor-quality data can affect reports, customer experiences, predictive models, and organizational decisions.</p> 
-        <!-- <video controls>
-          <source src="videos/#.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video> -->
-      </section>
+  <h2 id="ai-topic">Using AI to Draft SQL Queries</h2>
+  <p>AI tools can help draft SQL queries from a question written in plain language. To get a useful query, identify the database system, provide the relevant table and column names, and describe the results you want.</p>
+
+  <p>For example, a prompt might say: “Using PostgreSQL, write a query that lists product names, category names, and supplier names for products in the Office category. Use the products, categories, and suppliers tables. Explain how the tables are joined.”</p>
+
+  <p>AI-generated SQL can contain incorrect table or column names, use syntax for a different database system, or answer the question incorrectly. Compare the query with the database structure, run it on sample data, and check that the results make sense before relying on them. The analyst remains responsible for understanding and verifying the query.</p>
+</section>
 
       <section class="completion" aria-labelledby="completion-title">
         <h2 id="completion-title">Chapter Completion</h2>
@@ -332,6 +373,7 @@ WHERE prod_price &gt; 10;
           <code id="access-code">query-data</code>
         </div>
       </section>
+      
     </article>
 
     <aside class="chapter-nav" aria-label="Chapter sections">

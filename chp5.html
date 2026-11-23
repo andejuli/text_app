@@ -47,30 +47,36 @@
         </p>
 
         <pre><code>
-CREATE TABLE Suppliers (
-    supplier_id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE suppliers (
+    supplier_id INT PRIMARY KEY,
     supplier_name VARCHAR(100) NOT NULL,
     supplier_email VARCHAR(255) UNIQUE
 );
 
-CREATE TABLE Products (
-    product_id INT AUTO_INCREMENT PRIMARY KEY,
-    product_name VARCHAR(100) NOT NULL,
+CREATE TABLE categories (
+    category_id INT PRIMARY KEY,
+    category_name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE products (
+    product_id INT PRIMARY KEY,
+    prod_name VARCHAR(100) NOT NULL,
     prod_price DECIMAL(10, 2) NOT NULL
-        CHECK (prod_price &gt;= 0),
-    supplier_id INT,
+        CHECK (prod_price >= 0),
+    prod_category INT NOT NULL,
+    supplier_id INT NOT NULL,
+
+    CONSTRAINT fk_products_category
+        FOREIGN KEY (prod_category)
+        REFERENCES categories(category_id),
 
     CONSTRAINT fk_products_supplier
         FOREIGN KEY (supplier_id)
-        REFERENCES Suppliers(supplier_id)
+        REFERENCES suppliers(supplier_id)
 );
-        </code></pre>
-
+     </code></pre>   
         <p>
-        The <code>Suppliers</code> table must be created first because the
-        <code>Products</code> table refers to it through a foreign key. The foreign key requires
-        each supplier ID stored in <code>Products</code> to correspond to an existing supplier.
-        This helps preserve referential integrity between the two tables.
+        The <code>suppliers</code> and <code>categories</code> tables must be created first because the <code>products</code> table contains foreign keys that refer to them. These constraints require each foreign-key value to match an existing supplier or category. This helps preserve referential integrity between the two tables.
         </p>
 
         <p>Database designers use table definitions and constraints to express the rules of a
@@ -78,11 +84,37 @@ CREATE TABLE Products (
         inserting, updating, and querying reliable data.
         </p>
       </section>
-      
 
+      <section id="sql-insert">
+        <h2>Inserting Data with SQL</h2>
+        <p>Once a table is created, the <code>INSERT INTO</code> statement adds rows of data. Each value must match the column’s data type and satisfy any constraints. If a column has a default value, it can be omitted from the insert statement.</p>
+
+        <pre><code>INSERT INTO suppliers (supplier_id, supplier_name, supplier_email)
+VALUES (1, 'General Supply', 'orders@example.com'),
+       (2, 'Office Supply Co', 'sales@office-supply.com'),
+       (3, 'Goods Wholesalers', NULL),
+       (4, 'Bag Emporium', 'orders@bagemporium.com');
+
+INSERT INTO categories (category_id, category_name) VALUES
+    (1, 'Kitchen'),
+    (2, 'Office'),
+    (3, 'Toys'),
+    (4, 'Bags');
+
+INSERT INTO products
+    (product_id, prod_name, prod_price, prod_category, supplier_id)
+VALUES
+    (1, 'cocoa mug', 8.99, 1, 1),
+    (2, 'notebook', 2.49, 2, 2),
+    (3, 'desk lamp', 18.00, 2, 2),
+    (4, 'water bottle', 8.99, 1, 1),
+    (5, 'doll', 5.99, 3, 3),
+    (6, 'book bag', 24.95, 4, 4);
+        </code></pre>
+</section>
       <section id="select-statement">
         <h2>The SELECT Statement</h2>
-        <p>A basic query begins with <code>SELECT</code> and <code>FROM</code>. <code>SELECT</code> chooses the columns that will appear in the result set, while <code>FROM</code> identifies the table that holds the data. During development, <code>SELECT *</code> can be a quick way to view every column, but in production it is better to list only the fields you need so the query is easier to read and more efficient.</p>
+        <p>With the tables created and populated, we can use queries to ask questions of the data. A basic query begins with <code>SELECT</code> and <code>FROM</code>. <code>SELECT</code> chooses the columns that will appear in the result set, while <code>FROM</code> identifies the table that holds the data. During development, <code>SELECT *</code> can be a quick way to view every column, but in production it is better to list only the fields you need so the query is easier to read and more efficient.</p>
 
         <div class="scroll-x">
           <pre><code>SELECT prod_name, prod_price
@@ -98,10 +130,12 @@ FROM products;</code></pre>
             </tr>
           </thead>
           <tbody>
-            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
+            <tr><td>cocoa mug</td><td class="num">8.99</td></tr>
             <tr><td>notebook</td><td class="num">2.49</td></tr>
             <tr><td>desk lamp</td><td class="num">18.00</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+            <tr><td>water bottle</td><td class="num">8.99</td></tr>
+            <tr><td>doll</td><td class="num">5.99</td></tr>
+            <tr><td>book bag</td><td class="num">24.95</td></tr>
           </tbody>
         </table>
         </div>
@@ -122,10 +156,12 @@ FROM products;</code></pre>
             </tr>
           </thead>
           <tbody>
-            <tr><td>coffee mug</td><td class="num">10.99</td></tr>
+            <tr><td>cocoa mug</td><td class="num">10.99</td></tr>
             <tr><td>notebook</td><td class="num">4.49</td></tr>
             <tr><td>desk lamp</td><td class="num">20.00</td></tr>
-            <tr><td>water bottle</td><td class="num">14.50</td></tr>
+            <tr><td>water bottle</td><td class="num">10.99</td></tr>
+            <tr><td>doll</td><td class="num">7.99</td></tr>
+            <tr><td>book bag</td><td class="num">26.95</td></tr>
           </tbody>
         </table>
         </div>
@@ -146,9 +182,10 @@ FROM products;</code></pre>
           </thead>
           <tbody>
             <tr><td class="num">2.49</td></tr>
+            <tr><td class="num">5.99</td></tr>
             <tr><td class="num">8.99</td></tr>
-            <tr><td class="num">12.50</td></tr>
             <tr><td class="num">18.00</td></tr>
+            <tr><td class="num">24.95</td></tr>
           </tbody>
         </table>
         </div>
@@ -172,7 +209,7 @@ FROM products;</code></pre>
         <div class="scroll-x">
           <pre><code>SELECT prod_name, prod_price
 FROM products
-WHERE prod_price &gt; 5.00;</code></pre>
+WHERE prod_price &gt; 6.00;</code></pre>
         </div>
         <p class="sql-result-label">Result</p>
         <div class="scroll-x">
@@ -184,9 +221,10 @@ WHERE prod_price &gt; 5.00;</code></pre>
             </tr>
           </thead>
           <tbody>
-            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
+            <tr><td>cocoa mug</td><td class="num">8.99</td></tr>
             <tr><td>desk lamp</td><td class="num">18.00</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+            <tr><td>water bottle</td><td class="num">8.99</td></tr>
+            <tr><td>book bag</td><td class="num">24.95</td></tr>
           </tbody>
         </table>
         </div>
@@ -233,12 +271,12 @@ WHERE prod_price = 5.99 AND prod_name = 'doll';</code></pre>
         </table>
         </div>
 
-        <p>SQL also supports <code>IN</code>, <code>LIKE</code>, and <code>REGEXP</code> for common search patterns. <code>IN</code> checks a list of values. <code>LIKE</code> matches string patterns with wildcards such as <code>%</code> and <code>_</code>. <code>REGEXP</code> allows more advanced pattern matching when a simple wildcard is not enough.</p>
+        <p>SQL also supports <code>IN</code> and <code>LIKE</code> for common search patterns. <code>IN</code> checks a list of values. <code>LIKE</code> matches string patterns with wildcards such as <code>%</code> and <code>_</code>. Regular expresion searches allows more advanced pattern matching when a simple wildcard is not enough, but regular expression syntax differs between database systems.</p>
 
         <div class="scroll-x">
           <pre><code>SELECT prod_name, prod_price
 FROM products
-WHERE prod_price IN (2.49, 8.99, 12.50);</code></pre>
+WHERE prod_price IN (2.49, 8.99, 24.95);</code></pre>
         </div>
         <p class="sql-result-label">Result</p>
         <div class="scroll-x">
@@ -251,8 +289,9 @@ WHERE prod_price IN (2.49, 8.99, 12.50);</code></pre>
           </thead>
           <tbody>
             <tr><td>notebook</td><td class="num">2.49</td></tr>
-            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+            <tr><td>cocoa mug</td><td class="num">8.99</td></tr>
+            <tr><td>water bottle</td><td class="num">8.99</td></tr>
+            <tr><td>book bag</td><td class="num">24.95</td></tr>
           </tbody>
         </table>
         </div>
@@ -291,25 +330,24 @@ WHERE prod_name LIKE 'b%';</code></pre>
 
       <section id="null-values">
         <h2>NULL Values</h2>
-        <p>A <code>NULL</code> value means the data was left blank or was not provided. It is not the same as zero, empty text, or a space. Because <code>NULL</code> is not a normal value, it must be tested with <code>IS NULL</code> or <code>IS NOT NULL</code> rather than with comparison operators. This matters because missing values can change the meaning of a query and affect analysis.</p>
+        <p>A <code>NULL</code> value indicates that no value is recorded. It may mean the information is unknown, was not collected, or is not applicable. It is different from zero, empty text, or a space. Because <code>NULL</code> is not a normal value, it must be tested with <code>IS NULL</code> or <code>IS NOT NULL</code> rather than with comparison operators. This matters because missing values can change the meaning of a query and affect analysis.</p>
 
         <div class="scroll-x">
-          <pre><code>SELECT prod_name, prod_price
-FROM products
-WHERE prod_category IS NULL;</code></pre>
+          <pre><code>SELECT supplier_name, supplier_email
+FROM suppliers
+WHERE supplier_email IS NULL;</code></pre>
         </div>
         <p class="sql-result-label">Result</p>
         <div class="scroll-x">
 <table class="result-table">
           <thead>
             <tr>
-              <th>prod_name</th>
-              <th class="num">prod_price</th>
+              <th>supplier_name</th>
+              <th class="num">supplier_email</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>notebook</td><td class="num">2.49</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+            <tr><td>Goods Wholesalers</td><td class="num">NULL</td></tr>
           </tbody>
         </table>
         </div>
@@ -346,19 +384,22 @@ ORDER BY prod_price DESC;</code></pre>
             </tr>
           </thead>
           <tbody>
+            <tr><td>book bag</td><td class="num">24.95</td></tr>
             <tr><td>desk lamp</td><td class="num">18.00</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td></tr>
-            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
+            <tr><td>water bottle</td><td class="num">8.99</td></tr>
+            <tr><td>cocoa mug</td><td class="num">8.99</td></tr>
+            <tr><td>doll</td><td class="num">5.99</td></tr>
             <tr><td>notebook</td><td class="num">2.49</td></tr>
           </tbody>
         </table>
         </div>
 
-        <p>The <code>LIMIT</code> clause controls how many rows are returned. It is helpful when you only need a sample, a top set of results, or a short list for review. (Note that LIMIT is a MySQL-specific extension and may not be available in all database systems.)</p>
+        <p>The <code>LIMIT</code> clause controls how many rows are returned. It is helpful when you only need a sample, a top set of results, or a short list for review.</p>
 
         <div class="scroll-x">
           <pre><code>SELECT prod_name, prod_price
 FROM products
+ORDER BY prod_price
 LIMIT 4;</code></pre>
         </div>
         <p class="sql-result-label">Result</p>
@@ -371,10 +412,11 @@ LIMIT 4;</code></pre>
             </tr>
           </thead>
           <tbody>
-            <tr><td>coffee mug</td><td class="num">8.99</td></tr>
             <tr><td>notebook</td><td class="num">2.49</td></tr>
-            <tr><td>desk lamp</td><td class="num">18.00</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td></tr>
+            <tr><td>doll</td><td class="num">5.99</td></tr>
+            <tr><td>cocoa mug</td><td class="num">8.99</td></tr>
+            <tr><td>water bottle</td><td class="num">8.99</td></tr>
+            
           </tbody>
         </table>
         </div>
@@ -398,7 +440,7 @@ LIMIT 4;</code></pre>
         <div class="scroll-x">
           <pre><code>SELECT prod_name, prod_price + 2.00 AS mark_up
 FROM products
-WHERE prod_price &gt; 1.99
+WHERE prod_price &gt; 2.99
 ORDER BY mark_up;</code></pre>
         </div>
         <p class="sql-result-label">Result</p>
@@ -412,10 +454,11 @@ ORDER BY mark_up;</code></pre>
             </tr>
           </thead>
           <tbody>
-            <tr><td>notebook</td><td class="num">2.49</td><td class="num">4.49</td></tr>
-            <tr><td>coffee mug</td><td class="num">8.99</td><td class="num">10.99</td></tr>
-            <tr><td>water bottle</td><td class="num">12.50</td><td class="num">14.50</td></tr>
+            <tr><td>doll</td><td class="num">5.99</td><td class="num">7.99</td></tr>
+            <tr><td>cocoa mug</td><td class="num">8.99</td><td class="num">10.99</td></tr>
+            <tr><td>water bottle</td><td class="num">8.99</td><td class="num">10.99</td></tr>
             <tr><td>desk lamp</td><td class="num">18.00</td><td class="num">20.00</td></tr>
+            <tr><td>book bag</td><td class="num">24.95</td><td class="num">26.95</td></tr>
           </tbody>
         </table>
         </div>

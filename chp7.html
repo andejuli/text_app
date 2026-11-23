@@ -28,15 +28,26 @@
     <article class="chapter-content">
       <section id="data-quality-intro">
         <h2>Data Quality</h2>
-        <p>Good decisions depend on good data. A database may be well designed and carefully organized yet still produce weak reports or misleading results if the data itself is incomplete, inconsistent, outdated, or incorrect. Poor data can lead to faulty analysis, wasted time, customer frustration, and lost trust. For that reason, data quality is one of the foundations of useful information.</p>
-        <p>Quality data is <strong>complete</strong>, <strong>valid</strong>, <strong>unique</strong>, <strong>consistent</strong>, and <strong>timely</strong>. Complete data has no important missing values; for example, an order record should include a customer, a date, and a total. Valid data fits what is expected in the field, such as a quantity that is numeric or a state code that matches the approved list. Unique data avoids duplicates, such as the same customer appearing twice in the system. Consistent data uses the same format throughout the database, like storing dates in one standard style or using the same abbreviation for each state. Timely data is current enough to be useful, such as an inventory count that still reflects what is actually on the shelf. Together, these qualities help determine whether data can be trusted for analysis and decision-making.</p>
-        <p>A helpful way to think about data quality is to ask whether the data is trustworthy enough for its purpose. A sales report, for example, may look polished on the surface, but if duplicate customers, missing prices, or inconsistent product codes are buried inside, the results will be unreliable. The same is true for AI: a model can only produce dependable output when the data it receives is dependable.</p>
+        <p>Good decisions depend on good data. A database may be well designed and carefully organized yet still produce weak reports or misleading results if the data is incomplete, inconsistent, outdated, or incorrect. Poor data can lead to faulty analysis, wasted time, customer frustration, and lost trust. For that reason, data quality is one of the foundations of useful information.</p>
+
+        <p>This course focuses on five core dimensions of data quality:</p>
+        <ul>
+          <li><strong>Accuracy:</strong> Values reflect the real-world facts they represent.</li>
+          <li><strong>Completeness:</strong> Required information is present.</li>
+          <li><strong>Consistency:</strong> Data uses compatible definitions and formats across records and systems.</li>
+          <li><strong>Validity:</strong> Values follow defined rules, formats, or ranges.</li>
+          <li><strong>Timeliness:</strong> Data is current enough for its intended use.</li>
+        </ul>
+
+        <p>Analysts also check for unintended duplicate records. Data integrity is a broader concern: keeping data reliable as it is stored, changed, and used. Database rules, such as foreign key constraints, help preserve valid relationships between tables.</p>
+
+        <p>A helpful way to think about data quality is to ask whether the data is trustworthy enough for its purpose. A sales report, for example, may look polished, but duplicate customers, missing prices, or inconsistent product codes can make its results unreliable. AI-assisted analysis also depends on reliable input data and careful review of the results.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-1-title">
         <p class="checkpoint-label">Comprehension Check 1 of 5</p>
         <fieldset data-question="q1" data-answer="timely">
-          <legend id="question-1-title">What quality means data is current enough to be useful?</legend>
+          <legend id="question-1-title">What quality means data is current enough for its intended use?</legend>
           <label><input type="radio" name="q1" value="unique"> Unique</label>
           <label><input type="radio" name="q1" value="consistent"> Consistent</label>
           <label><input type="radio" name="q1" value="timely"> Timely</label>
@@ -70,9 +81,11 @@
 
       <section id="missing-values">
         <h2>Missing Values</h2>
-        <p>Missing data is not automatically bad data. A blank value may mean the information was not collected yet, was not applicable, or is still unknown. The important question is not simply whether a value is missing, but whether the missing value affects the decision being made. A middle name may be harmless if absent. A missing salary, product category, or shipping address may be much more serious.</p>
-        <p>Sometimes the best choice is to leave the value missing and document it clearly. That is often better than guessing. In other situations, missing data can be estimated from similar records. For example, if a salary value is missing, an AI tool may compare employees with similar titles, departments, duties, and experience levels and suggest a likely estimate. That may help with analysis when the missing value is only one part of a larger pattern.</p>
-        <p>Still, estimation must be used carefully. In some situations, such as budgeting, forecasting, or broad reporting, filling gaps may improve the usefulness of the data. In other situations, such as legal, medical, or financial records, the safer choice is to preserve the missing value and treat it as unknown. Information systems work often requires choosing between completeness and honesty. A full table is not always a trustworthy table.</p>
+        <p>Missing data is not automatically bad data. A blank value may mean the information was not collected, was not applicable, or is still unknown. The important question is whether the missing value affects the decision being made. A missing middle name may be harmless, while a missing salary, product category, or shipping address may be much more serious.</p>
+
+        <p>Sometimes the best choice is to leave a value missing and document it clearly. In other situations, an analyst may use an estimate for a specific analysis. For example, if a shipment’s delivery time is missing, an AI tool might estimate it based on similar shipments. That value is an estimate, not an observed delivery time, so it should be labeled as estimated and kept separate from the original record. That estimate is an inference, not an observed value.</p>
+
+        <p>Estimates may be useful for budgeting, forecasting, or broad reporting when the method is appropriate and its limitations are explained. For official records or decisions involving legal, medical, financial, or employment matters, retain unknown values as unknown. If an approved process uses estimates, record them separately and label them clearly. A full table is not always a trustworthy table.</p>
       </section>
 
       <section class="checkpoint" aria-labelledby="question-3-title">
@@ -117,6 +130,14 @@
         <p>Transformation is also used when external data is added. A company may compare its own sales to an industry average, or merge customer records with geographic data to study regional patterns. AI is especially useful here when data must be extracted from text, categorized, or mapped from one format into another. It can pull structured details from emails, forms, or documents and help convert them into a clean table structure.</p>
       </section>
 
+      <section id="data-validation">
+        <h2>Data Validation</h2>
+        <p>Data validation checks whether data follows the rules before it is stored or used. It protects the database by catching problems at the point of entry or import instead of allowing them to spread through the system. Validation can check for required fields, acceptable ranges, correct formats, and valid relationships between records.</p>
+        <p>For example, a quantity field should not accept negative numbers unless the business rule allows returns or adjustments. A date field should be entered in the proper format. A foreign key should point to an existing record in the related table. An email address should follow the expected pattern. These checks help keep the database dependable before reporting or analysis begins.</p>
+        <p>Validation is more than a technical filter; it is a business safeguard. A payroll system may reject an hourly rate that is far outside the allowed range. A registration form may require that a student ID is present before submission. A sales system may prevent an order from being entered for a customer that does not exist. These are examples of rules that help maintain accuracy and referential integrity.</p>
+        <p>AI can support validation by spotting unusual entries, comparing values against expected patterns, and flagging records that look suspicious. It can notice that a transaction amount is far larger than similar transactions or that a date falls outside the expected timeline. Even so, AI should not replace business rules. It can help identify likely errors, but the organization still needs clear rules that define what valid data is.</p>
+      </section>
+
       <section class="checkpoint" aria-labelledby="question-5-title">
         <p class="checkpoint-label">Comprehension Check 5 of 5</p>
         <fieldset data-question="q5" data-answer="before">
@@ -126,14 +147,6 @@
           <label><input type="radio" name="q5" value="never"> It should never be checked</label>
         </fieldset>
         <p class="feedback" aria-live="polite"></p>
-      </section>
-
-      <section id="data-validation">
-        <h2>Data Validation</h2>
-        <p>Data validation checks whether data follows the rules before it is stored or used. It protects the database by catching problems at the point of entry or import instead of allowing them to spread through the system. Validation can check for required fields, acceptable ranges, correct formats, and valid relationships between records.</p>
-        <p>For example, a quantity field should not accept negative numbers unless the business rule allows returns or adjustments. A date field should be entered in the proper format. A foreign key should point to an existing record in the related table. An email address should follow the expected pattern. These checks help keep the database dependable before reporting or analysis begins.</p>
-        <p>Validation is more than a technical filter; it is a business safeguard. A payroll system may reject an hourly rate that is far outside the allowed range. A registration form may require that a student ID is present before submission. A sales system may prevent an order from being entered for a customer that does not exist. These are examples of rules that help maintain accuracy and referential integrity.</p>
-        <p>AI can support validation by spotting unusual entries, comparing values against expected patterns, and flagging records that look suspicious. It can notice that a transaction amount is far larger than similar transactions or that a date falls outside the expected timeline. Even so, AI should not replace business rules. It can help identify likely errors, but the organization still needs clear rules that define what valid data is.</p>
       </section>
 
       <section id="ai-data-quality">

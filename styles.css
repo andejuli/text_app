@@ -576,6 +576,16 @@ table, th, td {
 th, td {
   padding: 10px;
 }
+.podcast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.podcast_title {
+  margin: 0;
+}
 
 #ai_aside {
   padding: 26px;
